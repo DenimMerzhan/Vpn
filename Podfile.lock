@@ -1,18 +1,22 @@
 PODS:
+  - AVVPNService (0.1.4)
   - ChameleonFramework/Default (2.1.0)
   - ChameleonFramework/Swift (2.1.0):
     - ChameleonFramework/Default
 
 DEPENDENCIES:
+  - AVVPNService (~> 0.1)
   - ChameleonFramework/Swift
 
 SPEC REPOS:
   trunk:
+    - AVVPNService
     - ChameleonFramework
 
 SPEC CHECKSUMS:
+  AVVPNService: 13158abf0f522a59c847da07194bdc50eac93906
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
 
-PODFILE CHECKSUM: 217337f5417fdd53918f0a1dea6237b87dc3e54b
+PODFILE CHECKSUM: 52370b4db054c00a007746eadaf955efb057fbca
 
 COCOAPODS: 1.12.0
