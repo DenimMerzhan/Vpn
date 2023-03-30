@@ -11,9 +11,20 @@ class PresentViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Yeah")
+        
+        
     }
     
 
-
+    @IBAction func registerClick(_ sender: UIButton) {
+        
+        
+    }
+    
+    
+    @IBAction func subscriptionClick(_ sender: UIButton) {
+        performSegue(withIdentifier: "goToVPN", sender: self)
+        
+    }
+    
 }

@@ -21,6 +21,7 @@
 		7A0DBFEDAD926140A075FAF3 /* Pods_Vpn.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Vpn.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A4F6340DB19557E1D90E93B /* Pods-Vpn.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vpn.release.xcconfig"; path = "Target Support Files/Pods-Vpn/Pods-Vpn.release.xcconfig"; sourceTree = "<group>"; };
 		AF94F8E1614E69D09A920D35 /* Pods-Vpn.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vpn.debug.xcconfig"; path = "Target Support Files/Pods-Vpn/Pods-Vpn.debug.xcconfig"; sourceTree = "<group>"; };
+		CF3C1A6F29D5A10F007BD706 /* Vpn.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Vpn.entitlements; sourceTree = "<group>"; };
 		CF5A97B629D3164D00D4F2F5 /* Vpn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vpn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF5A97B929D3164D00D4F2F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CF5A97BB29D3164D00D4F2F5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -82,8 +83,10 @@
 		CF5A97B829D3164D00D4F2F5 /* Vpn */ = {
 			isa = PBXGroup;
 			children = (
+				CF3C1A6F29D5A10F007BD706 /* Vpn.entitlements */,
 				CF5A97B929D3164D00D4F2F5 /* AppDelegate.swift */,
 				CF5A97BB29D3164D00D4F2F5 /* SceneDelegate.swift */,
+				CF5A97D329D3518A00D4F2F5 /* Model */,
 				CF5A97CD29D31F7800D4F2F5 /* Controller */,
 				CF5A97CE29D31F8400D4F2F5 /* View */,
 				CF5A97C229D3164E00D4F2F5 /* Assets.xcassets */,
@@ -96,8 +99,8 @@
 		CF5A97CD29D31F7800D4F2F5 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				CF5A97BD29D3164D00D4F2F5 /* ViewController.swift */,
 				CF5A97CF29D31FD300D4F2F5 /* PresentViewController.swift */,
+				CF5A97BD29D3164D00D4F2F5 /* ViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -108,6 +111,13 @@
 				CF5A97BF29D3164D00D4F2F5 /* Main.storyboard */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		CF5A97D329D3518A00D4F2F5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -374,6 +384,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Vpn/Vpn.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = F54VLCC48K;
@@ -404,6 +415,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Vpn/Vpn.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = F54VLCC48K;

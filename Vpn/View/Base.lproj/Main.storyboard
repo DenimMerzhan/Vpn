@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DbE-8n-9BO">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -32,6 +33,10 @@
                                     <color key="baseForegroundColor" systemColor="labelColor"/>
                                     <color key="baseBackgroundColor" red="1" green="0.88446849279999995" blue="0.33426339290000001" alpha="1" colorSpace="calibratedRGB"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="subscriptionClick:" destination="DbE-8n-9BO" eventType="touchUpInside" id="FNq-wP-Hxc"/>
+                                    <segue destination="BYZ-38-t0r" kind="presentation" identifier="goToVPN" id="Vgs-nB-OJS"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IFG-hn-pwO">
                                 <rect key="frame" x="62" y="654" width="268" height="65"/>
@@ -41,6 +46,9 @@
                                     <color key="baseForegroundColor" systemColor="labelColor"/>
                                     <color key="baseBackgroundColor" red="1" green="0.88446849279999995" blue="0.33426339290000001" alpha="1" colorSpace="calibratedRGB"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="registerClick:" destination="DbE-8n-9BO" eventType="touchUpInside" id="gOc-0Q-dQc"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Восстановить покупки" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lab-Tn-IzA">
                                 <rect key="frame" x="119" y="737" width="153" height="17"/>
@@ -70,7 +78,7 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bMp-cl-aqJ">
@@ -78,6 +86,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" name="ColorBackgound"/>
                                 <buttonConfiguration key="configuration" style="filled" image="OnButton"/>
+                                <connections>
+                                    <action selector="vpnConnectPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Zha-e8-6jl"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -92,7 +103,7 @@
     <resources>
         <image name="OnButton" width="120" height="120"/>
         <namedColor name="ColorBackgound">
-            <color red="0.21960783" green="0.2823529541" blue="0.36078432199999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.2199999988079071" green="0.28200000524520874" blue="0.36100000143051147" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
