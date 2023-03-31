@@ -13,15 +13,16 @@ import NetworkExtension
 class ViewController: UIViewController, AVVPNServiceDelegate {
 
     
-    @IBOutlet weak var buttonVPN: UIButton!
     @IBOutlet weak var currentStatusVpn: UILabel!
-    @IBOutlet weak var settingsLabel: UIButton!
-    @IBOutlet weak var changeCountryLabel: UIButton!
+    @IBOutlet weak var buttonVPN: UIButton!
+    
     
     var pressedVPNButton: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationController?.navigationBar.isHidden = true
         
         AVVPNService.shared.delegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeStatus), name: NSNotification.Name.NEVPNStatusDidChange, object: nil) /// Добавляем наблюдателя, в данном случае наш класс VC
@@ -54,7 +55,11 @@ class ViewController: UIViewController, AVVPNServiceDelegate {
     }
     
     
-
+    @IBAction func changeCountryPressed(_ sender: UIButton) {
+        
+        performSegue(withIdentifier: "goToChangeCountry", sender: self)
+    }
+    
     }
 
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DbE-8n-9BO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="lzz-Kr-v1g">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -35,7 +35,7 @@
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="subscriptionClick:" destination="DbE-8n-9BO" eventType="touchUpInside" id="FNq-wP-Hxc"/>
-                                    <segue destination="BYZ-38-t0r" kind="presentation" identifier="goToVPN" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="Vgs-nB-OJS"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="goToVPN" id="Vgs-nB-OJS"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IFG-hn-pwO">
@@ -68,10 +68,11 @@
                         <viewLayoutGuide key="safeArea" id="bU1-wd-YNy"/>
                         <color key="backgroundColor" name="ColorBackgound"/>
                     </view>
+                    <navigationItem key="navigationItem" id="pqF-KH-yVw"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zRm-bI-0no" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-684.73282442748086" y="-2.1126760563380285"/>
+            <point key="canvasLocation" x="241.98473282442748" y="-2.1126760563380285"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -101,6 +102,9 @@
                                     <fontDescription key="titleFontDescription" type="system" pointSize="0.0"/>
                                     <color key="baseBackgroundColor" name="ColorBackgound"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="changeCountryPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dmJ-pS-bv4"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jXK-wZ-tWY">
                                 <rect key="frame" x="16" y="59" width="51" height="35"/>
@@ -123,17 +127,74 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="ColorBackgound"/>
                     </view>
-                    <navigationItem key="navigationItem" id="GCh-oo-T65"/>
+                    <navigationItem key="navigationItem" style="editor" id="GCh-oo-T65"/>
                     <connections>
-                        <outlet property="buttonVPN" destination="bMp-cl-aqJ" id="Ya6-AC-YyQ"/>
-                        <outlet property="changeCountryLabel" destination="YBj-Nm-2Wy" id="GDp-if-2ss"/>
+                        <outlet property="buttonVPN" destination="bMp-cl-aqJ" id="5ln-GQ-vEE"/>
                         <outlet property="currentStatusVpn" destination="Z3t-7P-vuX" id="YSV-XJ-geM"/>
-                        <outlet property="settingsLabel" destination="jXK-wZ-tWY" id="Rxw-VO-iEc"/>
+                        <segue destination="SHi-gu-MMT" kind="show" identifier="goToChangeCountry" id="pzi-di-LCX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="64.885496183206101" y="-2.1126760563380285"/>
+            <point key="canvasLocation" x="991.60305343511448" y="-2.1126760563380285"/>
+        </scene>
+        <!--Страны-->
+        <scene sceneID="Z5B-JP-mIX">
+            <objects>
+                <tableViewController id="SHi-gu-MMT" customClass="ChangeCountryController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="96J-y9-0re">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" name="ColorBackgound"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="79Q-rT-rKn">
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="SHi-gu-MMT" id="4JN-W4-nVq"/>
+                            </connections>
+                        </searchBar>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="rsu-Rz-E4g">
+                                <rect key="frame" x="0.0" y="94" width="393" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rsu-Rz-E4g" id="scF-yX-2Kf">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="SHi-gu-MMT" id="zhr-O2-bfT"/>
+                            <outlet property="delegate" destination="SHi-gu-MMT" id="BSO-ES-xj2"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Страны" id="li3-4k-nAM"/>
+                    <connections>
+                        <outlet property="searchBar" destination="79Q-rT-rKn" id="gbh-7w-zhO"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SAQ-xt-mgs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1808.3969465648854" y="-2.1126760563380285"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="aTp-iC-Mps">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lzz-Kr-v1g" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Hhd-aN-Up3">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="DbE-8n-9BO" kind="relationship" relationship="rootViewController" id="6ti-Xr-TBk"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Csk-uP-xB2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-684.73282442748086" y="-2.1126760563380285"/>
         </scene>
     </scenes>
     <resources>

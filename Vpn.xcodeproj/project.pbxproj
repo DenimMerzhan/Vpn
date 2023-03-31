@@ -15,6 +15,8 @@
 		CF5A97C329D3164E00D4F2F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF5A97C229D3164E00D4F2F5 /* Assets.xcassets */; };
 		CF5A97C629D3164E00D4F2F5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF5A97C429D3164E00D4F2F5 /* LaunchScreen.storyboard */; };
 		CF5A97D029D31FD300D4F2F5 /* PresentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5A97CF29D31FD300D4F2F5 /* PresentViewController.swift */; };
+		CF8FB08229D6BCC600993513 /* ChangeCountryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8FB08129D6BCC600993513 /* ChangeCountryController.swift */; };
+		CF8FB08429D6BEF300993513 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8FB08329D6BEF300993513 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +33,8 @@
 		CF5A97C529D3164E00D4F2F5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CF5A97C729D3164E00D4F2F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CF5A97CF29D31FD300D4F2F5 /* PresentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentViewController.swift; sourceTree = "<group>"; };
+		CF8FB08129D6BCC600993513 /* ChangeCountryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeCountryController.swift; sourceTree = "<group>"; };
+		CF8FB08329D6BEF300993513 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = Vpn/Controller/Constants.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +105,7 @@
 			children = (
 				CF5A97CF29D31FD300D4F2F5 /* PresentViewController.swift */,
 				CF5A97BD29D3164D00D4F2F5 /* ViewController.swift */,
+				CF8FB08129D6BCC600993513 /* ChangeCountryController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -116,6 +121,7 @@
 		CF5A97D329D3518A00D4F2F5 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CF8FB08329D6BEF300993513 /* Constants.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -239,6 +245,8 @@
 				CF5A97BA29D3164D00D4F2F5 /* AppDelegate.swift in Sources */,
 				CF5A97D029D31FD300D4F2F5 /* PresentViewController.swift in Sources */,
 				CF5A97BC29D3164D00D4F2F5 /* SceneDelegate.swift in Sources */,
+				CF8FB08229D6BCC600993513 /* ChangeCountryController.swift in Sources */,
+				CF8FB08429D6BEF300993513 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

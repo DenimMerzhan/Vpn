@@ -23,7 +23,6 @@ class PresentViewController: UIViewController {
     
     
     @IBAction func subscriptionClick(_ sender: UIButton) {
-        performSegue(withIdentifier: "goToVPN", sender: self)
         
     }
     
