@@ -10,7 +10,7 @@ import ChameleonFramework
 import AVVPNService
 import NetworkExtension
 
-class ViewController: UIViewController, AVVPNServiceDelegate {
+class ViewController: UIViewController {
 
     
     @IBOutlet weak var currentStatusVpn: UILabel!
@@ -18,13 +18,14 @@ class ViewController: UIViewController, AVVPNServiceDelegate {
     
     
     var pressedVPNButton: Bool = false
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = true
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.navigationBar.isHidden = true
-        
-        AVVPNService.shared.delegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeStatus), name: NSNotification.Name.NEVPNStatusDidChange, object: nil) /// Добавляем наблюдателя, в данном случае наш класс VC
         
         currentStatusVpn.text = "VPN отключен"

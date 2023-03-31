@@ -11,6 +11,12 @@ struct K {
     
     struct color {
         static let background = "ColorBackgound"
+        static let placeholder = "PlacheolderColor"
+        
+    }
+    
+    struct image {
+        static let checkMark = "doneImage"
         
     }
 }

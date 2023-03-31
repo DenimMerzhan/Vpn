@@ -8,6 +8,8 @@ target 'Vpn' do
 
 pod 'ChameleonFramework/Swift'
 pod 'AVVPNService', '~> 0.1'
+pod 'FirebaseAuth'
+pod 'FirebaseFirestore'
 
   # Pods for Vpn
 
