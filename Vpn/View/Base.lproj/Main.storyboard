@@ -35,7 +35,7 @@
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="subscriptionClick:" destination="DbE-8n-9BO" eventType="touchUpInside" id="FNq-wP-Hxc"/>
-                                    <segue destination="BYZ-38-t0r" kind="presentation" identifier="goToVPN" id="Vgs-nB-OJS"/>
+                                    <segue destination="BYZ-38-t0r" kind="presentation" identifier="goToVPN" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="Vgs-nB-OJS"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IFG-hn-pwO">
@@ -78,22 +78,58 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bMp-cl-aqJ">
-                                <rect key="frame" x="124" y="123" width="144" height="134"/>
+                                <rect key="frame" x="135" y="257" width="122" height="110"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" name="ColorBackgound"/>
-                                <buttonConfiguration key="configuration" style="filled" image="OnButton"/>
+                                <buttonConfiguration key="configuration" style="filled" image="VpnDIsconnected">
+                                    <color key="baseBackgroundColor" name="ColorBackgound"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="vpnConnectPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Zha-e8-6jl"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YBj-Nm-2Wy">
+                                <rect key="frame" x="262" y="59" width="131" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" name="ColorBackgound"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" image="link" catalog="system" title="Выбрать страну">
+                                    <fontDescription key="titleFontDescription" type="system" pointSize="0.0"/>
+                                    <color key="baseBackgroundColor" name="ColorBackgound"/>
+                                </buttonConfiguration>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jXK-wZ-tWY">
+                                <rect key="frame" x="16" y="59" width="51" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" name="ColorBackgound"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="gearshape" catalog="system"/>
+                                <buttonConfiguration key="configuration" style="filled" image="gearshape" catalog="system">
+                                    <color key="baseBackgroundColor" name="ColorBackgound"/>
+                                </buttonConfiguration>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="dwddwdw" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z3t-7P-vuX">
+                                <rect key="frame" x="124" y="375" width="144" height="55"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="ColorBackgound"/>
                     </view>
+                    <navigationItem key="navigationItem" id="GCh-oo-T65"/>
+                    <connections>
+                        <outlet property="buttonVPN" destination="bMp-cl-aqJ" id="Ya6-AC-YyQ"/>
+                        <outlet property="changeCountryLabel" destination="YBj-Nm-2Wy" id="GDp-if-2ss"/>
+                        <outlet property="currentStatusVpn" destination="Z3t-7P-vuX" id="YSV-XJ-geM"/>
+                        <outlet property="settingsLabel" destination="jXK-wZ-tWY" id="Rxw-VO-iEc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -101,7 +137,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="OnButton" width="120" height="120"/>
+        <image name="VpnDIsconnected" width="108.66666412353516" height="120"/>
+        <image name="gearshape" catalog="system" width="128" height="123"/>
+        <image name="link" catalog="system" width="128" height="124"/>
         <namedColor name="ColorBackgound">
             <color red="0.2199999988079071" green="0.28200000524520874" blue="0.36100000143051147" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>

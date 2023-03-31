@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import VPNApplicationSDK
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,19 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-//        let ipsec: IPSecSDK
-//        let configuration = IPSecConfiguration(hostURL: "i31-nl-kvm1.vdsina.ru",
-//                                               carrierID: "CARRIER_ID", trafficCountersFetchInterval: nil,
-//                                               isOnDemandEnabled: true,
-//                                               profileName: "TOP")
-//        
-//        ipsec = IPSecSDK(configuration: configuration)
-//        
-//        let authMethod = AuthMethod.anonymous()
-//
-//        ipsec.login(method: authMethod) { error, user in
-//            print("isLogged: \(error == nil)")
-//        }
+
         
         return true
     }
