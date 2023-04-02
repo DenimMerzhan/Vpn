@@ -31,5 +31,9 @@ class PresentViewController: UIViewController {
         
         
     }
+    @IBAction func autorizationPressed(_ sender: UIButton) {
+    }
+    
+    
     
 }

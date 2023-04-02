@@ -9,18 +9,29 @@ import UIKit
 import ChameleonFramework
 import AVVPNService
 import NetworkExtension
+import FirebaseAuth
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController, transtitonDataServer {
     
+    
+    func transitionCountry(country: Country) {
+        currentCountry = country
+    }
+
+    @IBOutlet weak var currentCountryVpn: UILabel!
     @IBOutlet weak var currentStatusVpn: UILabel!
     @IBOutlet weak var buttonVPN: UIButton!
     
-    
+    var currentCountry: Country?
     var pressedVPNButton: Bool = false
+    
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = true
+        
+        if currentCountry?.name != nil {
+            currentCountryVpn.text = "Текущая страна: \(currentCountry!.name)"
+        }
     }
 
     override func viewDidLoad() {
@@ -29,10 +40,21 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeStatus), name: NSNotification.Name.NEVPNStatusDidChange, object: nil) /// Добавляем наблюдателя, в данном случае наш класс VC
         
         currentStatusVpn.text = "VPN отключен"
-        
     }
     
     
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let destination = segue.destination as? ChangeCountryController else { return }
+        destination.delegate = self
+    }
+
+    
+    
+    
+    
+    
+//MARK: - Кнопка подключения нажата
     
     
     @IBAction func vpnConnectPressed(_ sender: UIButton) {
@@ -40,14 +62,32 @@ class ViewController: UIViewController {
         
         if pressedVPNButton {
             
-            let credentials = AVVPNCredentials.IPSec(server: "62.84.98.66", username: "vpnuser", password: "FEdJF89frXxLr9kE", shared: "fbfe64e2359a248448a771c044758a39")
             
-            AVVPNService.shared.connect(credentials: credentials) { error in
-                if error != nil {
-                    self.currentStatusVpn.text = "Подключение не удалось"
-                    print("Ошибка подключения: \(error!)")
+            if let country = currentCountry {
+                print(country.serverIP)
+                
+                AVVPNService.shared.removeConfiguration()
+                let credentials = AVVPNCredentials.IPSec(server: country.serverIP, username: country.userName, password: country.password, shared: country.sharedKey)
+                
+                AVVPNService.shared.connect(credentials: credentials) { error in
+                    if error != nil {
+                        self.currentStatusVpn.text = "Подключение не удалось"
+                        print("Ошибка подключения: \(error!)")
+                    }
+                }
+                
+            }
+            else {
+                let credentials = AVVPNCredentials.IPSec(server: "62.84.98.66", username: "vpnuser", password: "FEdJF89frXxLr9kE", shared: "fbfe64e2359a248448a771c044758a39")
+                AVVPNService.shared.connect(credentials: credentials) { error in
+                    if error != nil {
+                        self.currentStatusVpn.text = "Подключение не удалось"
+                        print("Ошибка подключения: \(error!)")
+                    }
                 }
             }
+            
+
 
         }else {
             AVVPNService.shared.disconnect()
@@ -61,10 +101,24 @@ class ViewController: UIViewController {
         performSegue(withIdentifier: "goToChangeCountry", sender: self)
     }
     
+    
+//MARK: - Кнопка выхода нажата
+    
+    
+    @IBAction func logOutPressed(_ sender: UIButton) {
+        
+        do {
+          try Auth.auth().signOut() /// Пытаемся выйти из учетной записи
+            navigationController?.popToRootViewController(animated: true) /// Отправляем пользователя на корневой/ главный экран
+        } catch let signOutError as NSError {  /// Если не получилось выйти из учетной записи в Firestore
+          print("Error signing out: %@", signOutError)
+        }
+    }
+    
     }
 
 
-/// Отслеживание ВПН соединения
+//MARK: - Отслеживание ВПН соединения
 
 
 

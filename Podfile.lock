@@ -597,6 +597,7 @@ PODS:
     - abseil/base/config
     - abseil/meta/type_traits
   - AVVPNService (0.1.4)
+  - BetterVPNManager (1.0.0)
   - BoringSSL-GRPC (0.0.24):
     - BoringSSL-GRPC/Implementation (= 0.0.24)
     - BoringSSL-GRPC/Interface (= 0.0.24)
@@ -713,6 +714,7 @@ PODS:
 
 DEPENDENCIES:
   - AVVPNService (~> 0.1)
+  - BetterVPNManager
   - ChameleonFramework/Swift
   - FirebaseAuth
   - FirebaseFirestore
@@ -721,6 +723,7 @@ SPEC REPOS:
   trunk:
     - abseil
     - AVVPNService
+    - BetterVPNManager
     - BoringSSL-GRPC
     - ChameleonFramework
     - FirebaseAuth
@@ -739,6 +742,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   abseil: ebe5b5529fb05d93a8bdb7951607be08b7fa71bc
   AVVPNService: 13158abf0f522a59c847da07194bdc50eac93906
+  BetterVPNManager: 2ceca7b1ebb83f12572da89776bbad102ce215f7
   BoringSSL-GRPC: 3175b25143e648463a56daeaaa499c6cb86dad33
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   FirebaseAuth: 743e5cd568af59d6d99a91ea9300843672515cf7
@@ -754,6 +758,6 @@ SPEC CHECKSUMS:
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
 
-PODFILE CHECKSUM: 44faef441da243937b13efeeb2fe32210da74efc
+PODFILE CHECKSUM: cb931ebc117caeccf582d974c6e7cf8b54bfe3df
 
 COCOAPODS: 1.12.0
