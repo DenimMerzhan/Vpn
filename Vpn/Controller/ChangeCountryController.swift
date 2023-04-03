@@ -25,7 +25,7 @@ class ChangeCountryController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
-        searchBar.searchTextField.backgroundColor = UIColor(named: K.color.placeholder)
+        searchBar.searchTextField.backgroundColor = UIColor(named: K.color.placeholder) /// Настраиваем строку поиска
         searchBar.placeholder = "Поиск"
         searchBar.searchTextField.textColor = .white
         searchBar.backgroundImage = UIImage()
@@ -36,9 +36,6 @@ class ChangeCountryController: UITableViewController {
         navigationController?.navigationBar.shadowImage = UIImage() /// Убираем полоску
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.tintColor = .white
-        navigationController?.navigationItem.backBarButtonItem =   UIBarButtonItem(
-            title: "Назад", style: .plain, target: nil, action: nil)
-        navigationController?.navigationItem.backButtonTitle = "dwdwwd"
         
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true /// большой НавБар
@@ -65,19 +62,27 @@ class ChangeCountryController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "countryCell", for: indexPath)
         cell.textLabel?.text = country[indexPath.row].name
         cell.backgroundColor = UIColor(named: K.color.background)
+        
         cell.textLabel?.textColor = .white
         tableView.rowHeight = 60
+        cell.accessoryType = country[indexPath.row].selected ? .checkmark : .none
+        
         return cell
     }
+    
+    
+    
+//MARK: - Клиент выбрал ячейку
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         delegate?.transitionCountry(country: country[indexPath.row])
         
         
-        for i in 0...country.count - 1 { /// Ставим у всех стран "статус выбрана ли страна"  =  false
+        for i in 0...country.count - 1 { /// Ставим у всех стран  статус false
             let doc = db.collection("Country").document(country[i].name)
             
             doc.updateData(["selected": false]) { err in
@@ -98,7 +103,8 @@ class ChangeCountryController: UITableViewController {
                 print("Документ успешно обновлен")
             }
         }
-        
+        country.removeAll() /// Очищаем архив что бы не было дублей данных
+        loadCountry() /// Загружаем данные
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
@@ -122,13 +128,14 @@ extension ChangeCountryController {
                if let dataArr = QuerySnapshot?.documents {
                    for doc in dataArr {
                        let data = doc.data()
-                       
-                       if let name = data["name"] as? String, let serverIP = data["serverIP"] as? String, let password = data["password"] as? String, let sharedKey = data["sharedKey"] as? String, let userName = data["userName"] as? String {
+                       if let name = data["name"] as? String, let serverIP = data["serverIP"] as? String, let password = data["password"] as? String, let sharedKey = data["sharedKey"] as? String, let userName = data["userName"] as? String, let selected = data["selected"] as? Bool {
                            
-                           self.country.append(Country(name: name, serverIP: serverIP, userName: userName, password: password, sharedKey: sharedKey, selected: false))
+                           self.country.append(Country(name: name, serverIP: serverIP, userName: userName, password: password, sharedKey: sharedKey, selected: selected))
+                           
                            DispatchQueue.main.async {
                                self.tableView.reloadData()
                            }
+                           
                        }else {
                            print("Ошибка преобразования данных")
                        }

@@ -13,9 +13,10 @@ import FirebaseAuth
 
 class ViewController: UIViewController, transtitonDataServer {
     
-    
+    let defaults = UserDefaults.standard
     func transitionCountry(country: Country) {
         currentCountry = country
+        defaults.set(currentCountry?.name, forKey: "CurrentCountry")
     }
 
     @IBOutlet weak var currentCountryVpn: UILabel!
@@ -29,8 +30,8 @@ class ViewController: UIViewController, transtitonDataServer {
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = true
         
-        if currentCountry?.name != nil {
-            currentCountryVpn.text = "Текущая страна: \(currentCountry!.name)"
+        if let currentCountryName = defaults.string(forKey: "CurrentCountry") {
+            currentCountryVpn.text = "Текущая страна: \(currentCountryName)"
         }
     }
 
@@ -64,34 +65,30 @@ class ViewController: UIViewController, transtitonDataServer {
             
             var credentials = AVVPNCredentials.IPSec(server: "91.142.73.170", username: "vpnuser", password: "fj1v5R3qaDPavFgj", shared: "14e70a6b1363b6442e02036719ee9703")
             
-            if let country = currentCountry {
+            if let country = currentCountry { /// Если задана новая страна в настройках "Выбрать страну" то мы подключаемся к новой стране
                 print(country.serverIP)
                 
                 credentials = AVVPNCredentials.IPSec(server: country.serverIP, username: country.userName, password: country.password, shared: country.sharedKey)
                 
-                AVVPNService.shared.connect(credentials: credentials) { error in
-                    if error != nil {
-                        self.currentStatusVpn.text = "Подключение не удалось"
-                        print("Ошибка подключения: \(error!)")
-                    }
+                
+            } else { /// Иначе подключаемся по умолчанию к России
+                currentCountryVpn.text = "Текущая страна: Россия"
+            }
+            
+            
+            AVVPNService.shared.connect(credentials: credentials) { error in /// Производим подключение к выбранной стране
+                if error != nil {
+                    self.currentStatusVpn.text = "Подключение не удалось"
+                    print("Ошибка подключения: \(error!)")
                 }
                 
             }
-            else {
-                currentCountryVpn.text = "Текущая страна: Россия"
-                AVVPNService.shared.connect(credentials: credentials) { error in
-                    if error != nil {
-                        self.currentStatusVpn.text = "Подключение не удалось"
-                        print("Ошибка подключения: \(error!)")
-                    }
-                }
+            
+            }else { /// Если кнопка была нажатва второй раз то отключаемся от ВПН
+                AVVPNService.shared.disconnect()
             }
-
-        }else {
-            AVVPNService.shared.disconnect()
+            
         }
-
-    }
     
     
     
@@ -99,6 +96,11 @@ class ViewController: UIViewController, transtitonDataServer {
         
         performSegue(withIdentifier: "goToChangeCountry", sender: self)
     }
+    
+    
+    
+    
+    
     
     
 //MARK: - Кнопка выхода нажата
@@ -115,6 +117,10 @@ class ViewController: UIViewController, transtitonDataServer {
     }
     
     }
+
+
+
+
 
 
 //MARK: - Отслеживание ВПН соединения
