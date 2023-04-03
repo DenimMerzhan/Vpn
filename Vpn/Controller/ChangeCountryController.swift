@@ -16,6 +16,7 @@ class ChangeCountryController: UITableViewController {
     
     var country = [Country]()
     var currentIndexCountry = Int()
+    
     let db = Firestore.firestore()
     var delegate: transtitonDataServer?
     
@@ -74,6 +75,29 @@ class ChangeCountryController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         delegate?.transitionCountry(country: country[indexPath.row])
+        
+        
+        for i in 0...country.count - 1 { /// Ставим у всех стран "статус выбрана ли страна"  =  false
+            let doc = db.collection("Country").document(country[i].name)
+            
+            doc.updateData(["selected": false]) { err in
+                if let error = err {
+                    print("Ошибка при перезаписи документа - ", error)
+                }else {
+                    print("Документ успешно обновлен")
+                }
+            }
+        }
+        
+        
+        db.collection("Country").document(country[indexPath.row].name).updateData(["selected": true]) { err in /// ставим статус выбраной страны true
+            
+            if let error = err {
+                print("Ошибка при перезаписи документа - ", error)
+            }else {
+                print("Документ успешно обновлен")
+            }
+        }
         
         tableView.deselectRow(at: indexPath, animated: true)
     }

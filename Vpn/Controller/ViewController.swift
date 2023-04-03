@@ -62,12 +62,12 @@ class ViewController: UIViewController, transtitonDataServer {
         
         if pressedVPNButton {
             
+            var credentials = AVVPNCredentials.IPSec(server: "91.142.73.170", username: "vpnuser", password: "fj1v5R3qaDPavFgj", shared: "14e70a6b1363b6442e02036719ee9703")
             
             if let country = currentCountry {
                 print(country.serverIP)
                 
-                AVVPNService.shared.removeConfiguration()
-                let credentials = AVVPNCredentials.IPSec(server: country.serverIP, username: country.userName, password: country.password, shared: country.sharedKey)
+                credentials = AVVPNCredentials.IPSec(server: country.serverIP, username: country.userName, password: country.password, shared: country.sharedKey)
                 
                 AVVPNService.shared.connect(credentials: credentials) { error in
                     if error != nil {
@@ -78,7 +78,7 @@ class ViewController: UIViewController, transtitonDataServer {
                 
             }
             else {
-                let credentials = AVVPNCredentials.IPSec(server: "62.84.98.66", username: "vpnuser", password: "FEdJF89frXxLr9kE", shared: "fbfe64e2359a248448a771c044758a39")
+                currentCountryVpn.text = "Текущая страна: Россия"
                 AVVPNService.shared.connect(credentials: credentials) { error in
                     if error != nil {
                         self.currentStatusVpn.text = "Подключение не удалось"
@@ -86,14 +86,13 @@ class ViewController: UIViewController, transtitonDataServer {
                     }
                 }
             }
-            
-
 
         }else {
             AVVPNService.shared.disconnect()
         }
 
     }
+    
     
     
     @IBAction func changeCountryPressed(_ sender: UIButton) {
