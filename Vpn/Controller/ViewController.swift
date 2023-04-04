@@ -11,28 +11,21 @@ import AVVPNService
 import NetworkExtension
 import FirebaseAuth
 
-class ViewController: UIViewController, transtitonDataServer {
+class ViewController: UIViewController {
     
     let defaults = UserDefaults.standard
-    func transitionCountry(country: Country) {
-        currentCountry = country
-        defaults.set(currentCountry?.name, forKey: "CurrentCountry")
-    }
 
     @IBOutlet weak var currentCountryVpn: UILabel!
     @IBOutlet weak var currentStatusVpn: UILabel!
     @IBOutlet weak var buttonVPN: UIButton!
     
-    var currentCountry: Country?
+    
     var pressedVPNButton: Bool = false
     
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = true
         
-        if let currentCountryName = defaults.string(forKey: "CurrentCountry") {
-            currentCountryVpn.text = "Текущая страна: \(currentCountryName)"
-        }
     }
 
     override func viewDidLoad() {
@@ -44,11 +37,6 @@ class ViewController: UIViewController, transtitonDataServer {
     }
     
     
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let destination = segue.destination as? ChangeCountryController else { return }
-        destination.delegate = self
-    }
 
     
     
@@ -65,13 +53,12 @@ class ViewController: UIViewController, transtitonDataServer {
             
             var credentials = AVVPNCredentials.IPSec(server: "91.142.73.170", username: "vpnuser", password: "fj1v5R3qaDPavFgj", shared: "14e70a6b1363b6442e02036719ee9703")
             
-            if let country = currentCountry { /// Если задана новая страна в настройках "Выбрать страну" то мы подключаемся к новой стране
-                print(country.serverIP)
+            
+           if let country = defaults.dictionary(forKey: "vpnData")  { /// Если в UserDefaults что то есть
+               
+               credentials = AVVPNCredentials.IPSec(server: country["serverIP"] as! String , username: country["userName"] as! String, password: country["password"] as! String, shared: country["sharedKey"] as! String)
                 
-                credentials = AVVPNCredentials.IPSec(server: country.serverIP, username: country.userName, password: country.password, shared: country.sharedKey)
-                
-                
-            } else { /// Иначе подключаемся по умолчанию к России
+            }else { /// Иначе подключаемся по умолчанию к России
                 currentCountryVpn.text = "Текущая страна: Россия"
             }
             
@@ -135,6 +122,13 @@ extension ViewController {
             
             if connection.status == .connected {
                 currentStatusVpn.text = "Подключение выполнено!"
+                
+                if let country = defaults.dictionary(forKey: "vpnData")  { /// Если в UserDefaults что то есть
+                    currentCountryVpn.text = "Текущая страна: \(country["name"] as! String)"
+                 }
+                
+                
+                
                 buttonVPN.setImage(UIImage(named: "VPNConnected"), for: [])
                 
             }
@@ -155,6 +149,7 @@ extension ViewController {
         
     }
 }
+
 
     
     

@@ -20,6 +20,7 @@
 		CF8FB08629D6FC5200993513 /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8FB08529D6FC5200993513 /* RegistrationController.swift */; };
 		CF8FB08829D6FDDD00993513 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF8FB08729D6FDDD00993513 /* GoogleService-Info.plist */; };
 		CF8FB08A29D708FF00993513 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8FB08929D708FF00993513 /* Country.swift */; };
+		CF91AF0A29DC031B00EAAC01 /* LoadFireBaseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF91AF0929DC031B00EAAC01 /* LoadFireBaseData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		CF8FB08529D6FC5200993513 /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
 		CF8FB08729D6FDDD00993513 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CF8FB08929D708FF00993513 /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Country.swift; path = Vpn/Controller/Country.swift; sourceTree = SOURCE_ROOT; };
+		CF91AF0929DC031B00EAAC01 /* LoadFireBaseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadFireBaseData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +133,7 @@
 			children = (
 				CF8FB08329D6BEF300993513 /* Constants.swift */,
 				CF8FB08929D708FF00993513 /* Country.swift */,
+				CF91AF0929DC031B00EAAC01 /* LoadFireBaseData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -251,6 +254,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF91AF0A29DC031B00EAAC01 /* LoadFireBaseData.swift in Sources */,
 				CF5A97BE29D3164D00D4F2F5 /* ViewController.swift in Sources */,
 				CF5A97BA29D3164D00D4F2F5 /* AppDelegate.swift in Sources */,
 				CF5A97D029D31FD300D4F2F5 /* PresentViewController.swift in Sources */,

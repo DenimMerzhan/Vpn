@@ -18,8 +18,8 @@ class ChangeCountryController: UITableViewController {
     var currentIndexCountry = Int()
     
     let db = Firestore.firestore()
-    var delegate: transtitonDataServer?
-    
+    let defaults = UserDefaults.standard
+
     
     
     
@@ -40,18 +40,10 @@ class ChangeCountryController: UITableViewController {
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true /// большой НавБар
         }
-        
-        
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
         loadCountry()
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
         
     }
+    
 
     // MARK: - Table view data source
 
@@ -69,42 +61,30 @@ class ChangeCountryController: UITableViewController {
         
         cell.textLabel?.textColor = .white
         tableView.rowHeight = 60
-        cell.accessoryType = country[indexPath.row].selected ? .checkmark : .none
+        
+        if let currentCountryName = defaults.dictionary(forKey: "vpnData") {
+            if currentCountryName["name"] as! String  == country[indexPath.row].name {
+                cell.accessoryType = .checkmark
+            }else {
+                cell.accessoryType = .none
+            }
+        }
+        
         
         return cell
     }
     
     
     
-//MARK: - Клиент выбрал ячейку
+    
+    
+//MARK: - Пользователь выбрал ячейку
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        delegate?.transitionCountry(country: country[indexPath.row])
-        
-        
-        for i in 0...country.count - 1 { /// Ставим у всех стран  статус false
-            let doc = db.collection("Country").document(country[i].name)
-            
-            doc.updateData(["selected": false]) { err in
-                if let error = err {
-                    print("Ошибка при перезаписи документа - ", error)
-                }else {
-                    print("Документ успешно обновлен")
-                }
-            }
-        }
-        
-        
-        db.collection("Country").document(country[indexPath.row].name).updateData(["selected": true]) { err in /// ставим статус выбраной страны true
-            
-            if let error = err {
-                print("Ошибка при перезаписи документа - ", error)
-            }else {
-                print("Документ успешно обновлен")
-            }
-        }
-        country.removeAll() /// Очищаем архив что бы не было дублей данных
-        loadCountry() /// Загружаем данные
+        let currentCountry = country[indexPath.row]
+        let dict = ["name":currentCountry.name ,"serverIP":currentCountry.serverIP ,"userName": currentCountry.userName,"password": currentCountry.password,"sharedKey":currentCountry.sharedKey]
+        defaults.set(dict, forKey: "vpnData")
+        tableView.reloadData()
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
@@ -114,37 +94,41 @@ class ChangeCountryController: UITableViewController {
 
 
 
+
+
 //MARK: - Загрузка данных страны
 
 extension ChangeCountryController {
     
-   func loadCountry() {
+    func loadCountry() {
        
-       db.collection("Country").getDocuments { QuerySnapshot, Error in
+        db.collection("Country").getDocuments { QuerySnapshot, Error in
+            
+            if let error = Error {
+                print("Ошибка загрузки данных - \(error)")
+            }else {
+                if let dataArr = QuerySnapshot?.documents {
+                    for doc in dataArr {
+                        let data = doc.data()
+                        if let name = data["name"] as? String, let serverIP = data["serverIP"] as? String, let password = data["password"] as? String, let sharedKey = data["sharedKey"] as? String, let userName = data["userName"] as? String, let selected = data["selected"] as? Bool {
+                            
+                            self.country.append(Country(name: name, serverIP: serverIP, userName: userName, password: password, sharedKey: sharedKey, selected: selected))
+                            
+                            DispatchQueue.main.async {
+                                self.tableView.reloadData()
+                            }
+                            
+                        }else {
+                            print("Ошибка преобразования данных")
+                        }
+                    }
+                }
+            }
+            
+            
+        }
            
-           if let error = Error {
-               print("Ошибка загрузки данных - \(error)")
-           }else {
-               if let dataArr = QuerySnapshot?.documents {
-                   for doc in dataArr {
-                       let data = doc.data()
-                       if let name = data["name"] as? String, let serverIP = data["serverIP"] as? String, let password = data["password"] as? String, let sharedKey = data["sharedKey"] as? String, let userName = data["userName"] as? String, let selected = data["selected"] as? Bool {
-                           
-                           self.country.append(Country(name: name, serverIP: serverIP, userName: userName, password: password, sharedKey: sharedKey, selected: selected))
-                           
-                           DispatchQueue.main.async {
-                               self.tableView.reloadData()
-                           }
-                           
-                       }else {
-                           print("Ошибка преобразования данных")
-                       }
-                   }
-               }
-           }
-           
-           
-       }
 
     }
+    
 }
