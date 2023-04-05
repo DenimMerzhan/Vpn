@@ -49,6 +49,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        currentCountryVpn.text = ""
+        
         if accessUser {
             numberOfDayFreeVersion.text = amountOfDay
         }else {
@@ -129,6 +131,21 @@ class ViewController: UIViewController {
     
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
