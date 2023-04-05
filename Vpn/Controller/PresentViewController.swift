@@ -30,10 +30,6 @@ class PresentViewController: UIViewController {
     }
     
     
-    @IBAction func registerClick(_ sender: UIButton) {
-        
-    }
-    
     
     @IBAction func subscriptionClick(_ sender: UIButton) {
         

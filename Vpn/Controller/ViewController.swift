@@ -10,20 +10,22 @@ import ChameleonFramework
 import AVVPNService
 import NetworkExtension
 import FirebaseAuth
-import FirebaseAnalytics
 
 class ViewController: UIViewController {
     
     let defaults = UserDefaults.standard
     var accessUser = true
     var pressedVPNButton: Bool = false
+    var amountOfDay: String = ""
     
     var currentUser: Users? {
         didSet {
             
             let differencer = NSDate().timeIntervalSince1970 - currentUser!.dataFirstLaunch
-            if differencer > 10 {
+            if differencer > 604800 {  /// Если разница составляет больше 7 денй, у меня в секундах, то закрываем доступ
                 accessUser = false
+            }else {
+                amountOfDat(second: differencer)
             }
                         
         }
@@ -33,8 +35,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var currentCountryVpn: UILabel!
     @IBOutlet weak var currentStatusVpn: UILabel!
     @IBOutlet weak var buttonVPN: UIButton!
+    @IBOutlet weak var numberOfDayFreeVersion: UILabel!
     
-    
+    @IBOutlet weak var additionallabel: UILabel!
     
     
     
@@ -45,6 +48,13 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if accessUser {
+            numberOfDayFreeVersion.text = amountOfDay
+        }else {
+            numberOfDayFreeVersion.text = "Срок истек"
+            additionallabel.isHidden  = true
+        }
         
         if currentUser!.firstLaunch {
             creatAlert(text: "Ваш бесплатный доступ состовляет 7 дней. Приятного пользования!")
@@ -174,8 +184,7 @@ extension ViewController {
 
 
 
-//MARK: - Создаем уведомление
-
+//MARK: - Создаем уведомление и отоброжаем количество оставшихся дней
 
 extension ViewController {
     
@@ -190,6 +199,21 @@ extension ViewController {
         
     }
     
+    
+    
+    func amountOfDat(second: TimeInterval){
+        let diff = 7 - Int(second / 86400)
+        if diff > 4 || diff == 0 {
+            amountOfDay = "\(String(diff)) дней"
+        }else if diff > 1 {
+            amountOfDay = "\(String(diff)) дня"
+        }else {
+            amountOfDay = "\(String(diff)) день"
+        }
+        
+        
+        
+    }
 }
 
 

@@ -47,7 +47,6 @@
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="freeVersionClick:" destination="DbE-8n-9BO" eventType="touchUpInside" id="vKv-rz-Kll"/>
-                                    <action selector="registerClick:" destination="DbE-8n-9BO" eventType="touchUpInside" id="gOc-0Q-dQc"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Восстановить покупки" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lab-Tn-IzA">
@@ -203,15 +202,31 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="До истечения бесплатного пользования" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y3w-Pn-ovB">
+                                <rect key="frame" x="96" y="782" width="200" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="3 дня" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vKt-y0-Wib">
+                                <rect key="frame" x="135" y="732" width="113" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="ColorBackgound"/>
                     </view>
                     <navigationItem key="navigationItem" title="VPN" style="editor" id="GCh-oo-T65"/>
                     <connections>
+                        <outlet property="additionallabel" destination="Y3w-Pn-ovB" id="mpO-KQ-woN"/>
                         <outlet property="buttonVPN" destination="bMp-cl-aqJ" id="5ln-GQ-vEE"/>
                         <outlet property="currentCountryVpn" destination="eim-Ff-q91" id="owE-aH-YuK"/>
                         <outlet property="currentStatusVpn" destination="Z3t-7P-vuX" id="YSV-XJ-geM"/>
+                        <outlet property="numberOfDayFreeVersion" destination="vKt-y0-Wib" id="son-dh-6mX"/>
                         <segue destination="SHi-gu-MMT" kind="show" identifier="goToChangeCountry" id="pzi-di-LCX"/>
                     </connections>
                 </viewController>
