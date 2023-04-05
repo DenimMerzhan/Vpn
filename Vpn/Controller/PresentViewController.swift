@@ -7,8 +7,7 @@
 
 import UIKit
 import FirebaseFirestore
-import FirebaseCore
-import FirebaseCoreInternal
+
 
 class PresentViewController: UIViewController {
 
@@ -25,7 +24,7 @@ class PresentViewController: UIViewController {
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard segue.identifier == "freeVersionToVPN" else { return }
+        
         guard let destination = segue.destination as? ViewController else {return}
         destination.currentUser = currentUser
     }
@@ -42,8 +41,11 @@ class PresentViewController: UIViewController {
     
     
     @IBAction func freeVersionClick(_ sender: UIButton) {
+        
         db.collection("Users").document(currentDevice).setData(["dataFirstLaunch":NSDate().timeIntervalSince1970,"firstLaunch": true,"subscription":false])
         
+        currentUser = Users(dataFirstLaunch: NSDate().timeIntervalSince1970, firstLaunch: true, subscription: false)
+        performSegue(withIdentifier: "freeVersionToVPN", sender: self)
     }
     
     
@@ -67,11 +69,12 @@ extension PresentViewController {
             for document in QuerySnapshot!.documents {
                 if document.documentID == self.currentDevice { /// Если текущий пользователь уже был зарегестрирован то переходим на главный экран
                     
-                   let date =  document["dataFirstLaunch"]
+                   let date =  document["dataFirstLaunch"] as! TimeInterval /// Преобразуем данные из FireBase
                    let subscription = document["subscription"] as! Bool
-                   self.currentUser = Users(dataFirstLaunch: date!, firstLaunch: false, subscription: subscription)
+                   self.currentUser = Users(dataFirstLaunch: date, firstLaunch: false, subscription: subscription)
+                    
                     DispatchQueue.main.async {
-                        self.performSegue(withIdentifier: "freeVersionToVPN", sender: self)
+                        self.performSegue(withIdentifier: "goToVPN", sender: self)
                     }
                     
                 }

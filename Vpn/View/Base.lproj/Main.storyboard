@@ -48,7 +48,6 @@
                                 <connections>
                                     <action selector="freeVersionClick:" destination="DbE-8n-9BO" eventType="touchUpInside" id="vKv-rz-Kll"/>
                                     <action selector="registerClick:" destination="DbE-8n-9BO" eventType="touchUpInside" id="gOc-0Q-dQc"/>
-                                    <segue destination="BYZ-38-t0r" kind="show" identifier="freeVersionToVPN" id="Nhw-wz-Xzb"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Восстановить покупки" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lab-Tn-IzA">
@@ -82,7 +81,7 @@
                                 </state>
                                 <connections>
                                     <action selector="autorizationPressed:" destination="DbE-8n-9BO" eventType="touchUpInside" id="AAE-Gm-4c4"/>
-                                    <segue destination="deO-Zk-SxG" kind="show" id="Gmx-g8-ccm"/>
+                                    <segue destination="deO-Zk-SxG" kind="show" identifier="goToAuth" id="Gmx-g8-ccm"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -90,6 +89,10 @@
                         <color key="backgroundColor" name="ColorBackgound"/>
                     </view>
                     <navigationItem key="navigationItem" id="pqF-KH-yVw"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="freeVersionToVPN" id="HIh-Rd-mgr"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="goToVPN" id="F2X-TO-cHG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zRm-bI-0no" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -290,7 +293,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Nhw-wz-Xzb"/>
+        <segue reference="F2X-TO-cHG"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="VpnDIsconnected" width="108.66666412353516" height="120"/>

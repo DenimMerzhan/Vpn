@@ -10,7 +10,7 @@ import Foundation
 
 struct Users {
         
-    let dataFirstLaunch: Any
+    let dataFirstLaunch: TimeInterval
     let firstLaunch: Bool
     let subscription: Bool
     

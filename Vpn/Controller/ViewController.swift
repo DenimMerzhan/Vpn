@@ -10,12 +10,22 @@ import ChameleonFramework
 import AVVPNService
 import NetworkExtension
 import FirebaseAuth
+import FirebaseAnalytics
 
 class ViewController: UIViewController {
     
     let defaults = UserDefaults.standard
+    var accessUser = true
+    var pressedVPNButton: Bool = false
+    
     var currentUser: Users? {
         didSet {
+            
+            let differencer = NSDate().timeIntervalSince1970 - currentUser!.dataFirstLaunch
+            if differencer > 10 {
+                accessUser = false
+            }
+                        
         }
     }
     
@@ -25,7 +35,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var buttonVPN: UIButton!
     
     
-    var pressedVPNButton: Bool = false
+    
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,6 +45,11 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if currentUser!.firstLaunch {
+            creatAlert(text: "Ваш бесплатный доступ состовляет 7 дней. Приятного пользования!")
+        }
+
         
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeStatus), name: NSNotification.Name.NEVPNStatusDidChange, object: nil) /// Добавляем наблюдателя, в данном случае наш класс VC
         
@@ -46,6 +61,8 @@ class ViewController: UIViewController {
     
     
     
+  
+    
     
     
     
@@ -55,35 +72,45 @@ class ViewController: UIViewController {
     @IBAction func vpnConnectPressed(_ sender: UIButton) {
         pressedVPNButton = !pressedVPNButton
         
-        if pressedVPNButton {
+        if accessUser {
             
-            var credentials = AVVPNCredentials.IPSec(server: "91.142.73.170", username: "vpnuser", password: "fj1v5R3qaDPavFgj", shared: "14e70a6b1363b6442e02036719ee9703")
-            
-            
-            if let country = defaults.dictionary(forKey: "vpnData")  { /// Если в UserDefaults что то есть
+            if pressedVPNButton {
                 
-                credentials = AVVPNCredentials.IPSec(server: country["serverIP"] as! String , username: country["userName"] as! String, password: country["password"] as! String, shared: country["sharedKey"] as! String)
+                var credentials = AVVPNCredentials.IPSec(server: "91.142.73.170", username: "vpnuser", password: "fj1v5R3qaDPavFgj", shared: "14e70a6b1363b6442e02036719ee9703")
                 
-            }else { /// Иначе подключаемся по умолчанию к России
-                currentCountryVpn.text = "Текущая страна: Россия"
-            }
-            
-            
-            AVVPNService.shared.connect(credentials: credentials) { error in /// Производим подключение к выбранной стране
-                if error != nil {
-                    self.currentStatusVpn.text = "Подключение не удалось"
-                    print("Ошибка подключения: \(error!)")
+                
+                if let country = defaults.dictionary(forKey: "vpnData")  { /// Если в UserDefaults что то есть
+                    
+                    credentials = AVVPNCredentials.IPSec(server: country["serverIP"] as! String , username: country["userName"] as! String, password: country["password"] as! String, shared: country["sharedKey"] as! String)
+                    
+                }else { /// Иначе подключаемся по умолчанию к России
+                    currentCountryVpn.text = "Текущая страна: Россия"
                 }
                 
+                
+                AVVPNService.shared.connect(credentials: credentials) { error in /// Производим подключение к выбранной стране
+                    if error != nil {
+                        self.currentStatusVpn.text = "Подключение не удалось"
+                        print("Ошибка подключения: \(error!)")
+                    }
+                    
+                }
+                
+            }else { /// Если кнопка была нажатва второй раз то отключаемся от ВПН
+                AVVPNService.shared.disconnect()
             }
             
-        }else { /// Если кнопка была нажатва второй раз то отключаемся от ВПН
-            AVVPNService.shared.disconnect()
+        }else {
+           creatAlert(text: "Ваш срок бесплатного пользования истек. Вы можете купить премиум аккаунт для его продления")
         }
+        
         
     }
     
     
+    
+    
+//MARK: - Смена страны
     
     @IBAction func changeCountryPressed(_ sender: UIButton) {
         
@@ -95,8 +122,10 @@ class ViewController: UIViewController {
 
 
 
-//MARK: - Отслеживание ВПН соединения
 
+
+
+//MARK: - Отслеживание ВПН соединения
 
 
 extension ViewController {
@@ -128,7 +157,7 @@ extension ViewController {
             }
             
             else {
-                print("Ошибка подключения: Связанная конфигурация VPN не существует в настройках расширения сети или не включена")
+                creatAlert(text: "Ошибка подключения: Связанная конфигурация VPN не существует в настройках расширения сети или не включена")
             }
         }
         
@@ -139,6 +168,28 @@ extension ViewController {
         print(data)
         
     }
+}
+
+
+
+
+
+//MARK: - Создаем уведомление
+
+
+extension ViewController {
+    
+    
+    func creatAlert(text: String){
+        
+        let alert = UIAlertController(title: "Предупреждение!", message: text, preferredStyle: .alert)
+        present(alert, animated: true)
+        
+        alert.addAction(UIAlertAction(title: "ок", style: .default))
+        
+        
+    }
+    
 }
 
 
