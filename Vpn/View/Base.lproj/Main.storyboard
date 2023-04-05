@@ -35,7 +35,6 @@
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="subscriptionClick:" destination="DbE-8n-9BO" eventType="touchUpInside" id="FNq-wP-Hxc"/>
-                                    <segue destination="BYZ-38-t0r" kind="show" identifier="goToVPN" id="Vgs-nB-OJS"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IFG-hn-pwO">
@@ -49,6 +48,7 @@
                                 <connections>
                                     <action selector="freeVersionClick:" destination="DbE-8n-9BO" eventType="touchUpInside" id="vKv-rz-Kll"/>
                                     <action selector="registerClick:" destination="DbE-8n-9BO" eventType="touchUpInside" id="gOc-0Q-dQc"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="freeVersionToVPN" id="Nhw-wz-Xzb"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Восстановить покупки" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lab-Tn-IzA">
@@ -73,13 +73,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fJK-Qc-22c">
-                                <rect key="frame" x="100" y="762" width="205" height="24"/>
+                                <rect key="frame" x="93" y="762" width="205" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="У меня уже есть аккаунт">
-                                    <fontDescription key="titleFontDescription" type="system" pointSize="14"/>
-                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </buttonConfiguration>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="У меня уже есть аккаунт">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <action selector="autorizationPressed:" destination="DbE-8n-9BO" eventType="touchUpInside" id="AAE-Gm-4c4"/>
                                     <segue destination="deO-Zk-SxG" kind="show" id="Gmx-g8-ccm"/>
@@ -95,10 +95,10 @@
             </objects>
             <point key="canvasLocation" x="241.98473282442748" y="-2.1126760563380285"/>
         </scene>
-        <!--Registration Controller-->
+        <!--Authorization Cotroller-->
         <scene sceneID="Kpm-6k-s0q">
             <objects>
-                <viewController id="deO-Zk-SxG" customClass="RegistrationController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="deO-Zk-SxG" customClass="AuthorizationCotroller" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Zzd-Ix-P5d">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -126,7 +126,7 @@
                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="registerPressed:" destination="deO-Zk-SxG" eventType="touchUpInside" id="IYk-s6-m1T"/>
+                                    <action selector="authPressed:" destination="deO-Zk-SxG" eventType="touchUpInside" id="Rgq-Ms-tbE"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -137,7 +137,7 @@
                     <connections>
                         <outlet property="emailTextField" destination="LaI-NE-6iB" id="EOJ-nK-s3A"/>
                         <outlet property="passwordTextField" destination="p2I-1t-FFo" id="BnQ-Gf-EqY"/>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="registerToChat" id="keu-HC-oNQ"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="authToChat" id="keu-HC-oNQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S9Y-6S-QKj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -193,15 +193,6 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TYR-4j-1ll">
-                                <rect key="frame" x="219" y="633" width="174" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Выйти из аккаунта"/>
-                                <connections>
-                                    <action selector="logOutPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5xD-1h-nyB"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eim-Ff-q91">
                                 <rect key="frame" x="73" y="797" width="246" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -299,7 +290,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Vgs-nB-OJS"/>
+        <segue reference="Nhw-wz-Xzb"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="VpnDIsconnected" width="108.66666412353516" height="120"/>

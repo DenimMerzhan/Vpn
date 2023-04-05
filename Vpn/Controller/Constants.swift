@@ -21,6 +21,3 @@ struct K {
     }
 }
 
-protocol transtitonDataServer {
-    func transitionCountry(country:Country)
-}

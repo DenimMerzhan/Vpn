@@ -16,7 +16,6 @@ class ChangeCountryController: UITableViewController {
     
     var country = [Country]()
     var currentIndexCountry = Int()
-    
     let db = Firestore.firestore()
     let defaults = UserDefaults.standard
 
