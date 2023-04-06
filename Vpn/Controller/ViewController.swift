@@ -106,7 +106,7 @@ class ViewController: UIViewController {
                 
                 AVVPNService.shared.connect(credentials: credentials) { error in /// Производим подключение к выбранной стране
                     if error != nil {
-                        self.currentStatusVpn.text = "Подключение не удалось"
+                        self.currentStatusVpn.text = "Подключение не удалось \(error!)"
                         print("Ошибка подключения: \(error!)")
                     }
                     
