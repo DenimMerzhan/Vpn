@@ -12,13 +12,17 @@ import FirebaseFirestore
 class PresentViewController: UIViewController {
 
     let defaults = UserDefaults.standard
-    let db = Firestore.firestore()
     var currentUser: Users?
     var currentDevice = UIDevice.current.identifierForVendor!.uuidString /// Получаем текущий индефикатор устройства
-    
+    let db = Firestore.firestore()
     
     override func viewWillAppear(_ animated: Bool) {
-         loadData()
+        
+        if let current = defaults.string(forKey: "CurrentDevice") {
+            if current == currentDevice {
+                self.performSegue(withIdentifier: "goToVPN", sender: self)
+            }
+        }
         
     }
     
@@ -39,7 +43,7 @@ class PresentViewController: UIViewController {
     @IBAction func freeVersionClick(_ sender: UIButton) {
         
         db.collection("Users").document(currentDevice).setData(["dataFirstLaunch":NSDate().timeIntervalSince1970,"firstLaunch": true,"subscription":false])
-        
+        defaults.set(self.currentDevice, forKey: "CurrentDevice")
         currentUser = Users(dataFirstLaunch: NSDate().timeIntervalSince1970, firstLaunch: true, subscription: false)
         performSegue(withIdentifier: "freeVersionToVPN", sender: self)
     }
@@ -53,28 +57,4 @@ class PresentViewController: UIViewController {
 }
 
 
-extension PresentViewController {
-    
-    func loadData() {
-        
-        db.collection("Users").getDocuments { QuerySnapshot, Error in
-            if let err = Error {
-                print("Ошибка получения данных - \(err)")
-            }
-            
-            for document in QuerySnapshot!.documents {
-                if document.documentID == self.currentDevice { /// Если текущий пользователь уже был зарегестрирован то переходим на главный экран
-                    
-                   let date =  document["dataFirstLaunch"] as! TimeInterval /// Преобразуем данные из FireBase
-                   let subscription = document["subscription"] as! Bool
-                   self.currentUser = Users(dataFirstLaunch: date, firstLaunch: false, subscription: subscription)
-                    
-                    DispatchQueue.main.async {
-                        self.performSegue(withIdentifier: "goToVPN", sender: self)
-                    }
-                    
-                }
-            }
-        }
-    }
-}
+

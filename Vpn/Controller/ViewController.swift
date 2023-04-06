@@ -10,26 +10,18 @@ import ChameleonFramework
 import AVVPNService
 import NetworkExtension
 import FirebaseAuth
+import FirebaseFirestore
 
 class ViewController: UIViewController {
     
     let defaults = UserDefaults.standard
     var accessUser = true
-    var pressedVPNButton: Bool = false
-    var amountOfDay: String = ""
+    let db = Firestore.firestore()
     
-    var currentUser: Users? {
-        didSet {
-            
-            let differencer = NSDate().timeIntervalSince1970 - currentUser!.dataFirstLaunch
-            if differencer > 604800 {  /// Если разница составляет больше 7 денй, у меня в секундах, то закрываем доступ
-                accessUser = false
-            }else {
-                amountOfDat(second: differencer)
-            }
-                        
-        }
-    }
+    var pressedVPNButton: Bool = false
+    var amountOfDay: String = "ff"
+    var currentDevice = String()
+    
     
     
     @IBOutlet weak var currentCountryVpn: UILabel!
@@ -38,9 +30,28 @@ class ViewController: UIViewController {
     @IBOutlet weak var numberOfDayFreeVersion: UILabel!
     @IBOutlet weak var additionallabel: UILabel!
     
-    
+    var currentUser: Users? {
+        
+        didSet {
+            
+            if currentUser != nil {
+                let differencer = NSDate().timeIntervalSince1970 - currentUser!.dataFirstLaunch
+                if differencer > 604800 {  /// Если разница составляет больше 7 денй, у меня в секундах, то закрываем доступ
+                    accessUser = false
+                    accesUserFalse()
+                }else {
+                    amountOfDay(second: differencer) /// Преобразуем секунды в дни
+                }
+                
+            }
+        }
+    }
+
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        currentDevice = defaults.string(forKey: "CurrentDevice") ?? "Нет данных"
+        loadData()
         navigationController?.navigationBar.isHidden = true
         
     }
@@ -49,17 +60,13 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         currentCountryVpn.text = ""
+    
         
-        if accessUser {
-            numberOfDayFreeVersion.text = amountOfDay
-        }else {
-            numberOfDayFreeVersion.text = "Срок истек"
-            additionallabel.isHidden  = true
-        }
-        
-        if currentUser!.firstLaunch {
-            creatAlert(text: "Ваш бесплатный доступ состовляет 7 дней. Приятного пользования!")
-            let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
+        if let current = currentUser?.firstLaunch {
+            if current {
+                creatAlert(text: "Ваш бесплатный доступ состовляет 7 дней. Приятного пользования!")
+            }
+                
         }
 
         
@@ -68,9 +75,6 @@ class ViewController: UIViewController {
         currentStatusVpn.text = "VPN отключен"
         
     }
-    
-    
-    
     
     
   
@@ -84,7 +88,7 @@ class ViewController: UIViewController {
     @IBAction func vpnConnectPressed(_ sender: UIButton) {
         pressedVPNButton = !pressedVPNButton
         
-        if accessUser {
+        if accessUser { /// Если доступ есть то разрешаем подключение
             
             if pressedVPNButton {
                 
@@ -112,7 +116,7 @@ class ViewController: UIViewController {
                 AVVPNService.shared.disconnect()
             }
             
-        }else {
+        }else { /// Если нету то уведомляем пользователя
            creatAlert(text: "Ваш срок бесплатного пользования истек. Вы можете купить премиум аккаунт для его продления")
         }
         
@@ -139,28 +143,21 @@ class ViewController: UIViewController {
 
 
 
-
-
-
-
-
 //MARK: - Отслеживание ВПН соединения
 
 
 extension ViewController {
     
-    @objc func didChangeStatus(_ notification: Notification) {
+    @objc func didChangeStatus(_ notification: Notification) { /// Отслеживаем статус впн
         
         if let connection = notification.object as? NEVPNConnection {
             
             if connection.status == .connected {
                 currentStatusVpn.text = "Подключение выполнено!"
                 
-                if let country = defaults.dictionary(forKey: "vpnData")  { /// Если в UserDefaults что то есть
+                if let country = defaults.dictionary(forKey: "vpnData")  { /// Если в UserDefaults что то есть то оброжаем текущую страну
                     currentCountryVpn.text = "Текущая страна: \(country["name"] as! String)"
                  }
-                
-                
                 
                 buttonVPN.setImage(UIImage(named: "VPNConnected"), for: [])
                 
@@ -168,6 +165,7 @@ extension ViewController {
             
             else if connection.status == .disconnected {
                 currentStatusVpn.text = "VPN отключен"
+                currentCountryVpn.text = ""
                 buttonVPN.setImage(UIImage(named: "VpnDIsconnected"), for: [])
             }
             
@@ -182,11 +180,7 @@ extension ViewController {
         
     }
     
-    func loadData(){
-        let data = LoadFireBaseData().loadData()
-        print(data)
-        
-    }
+
 }
 
 
@@ -198,7 +192,7 @@ extension ViewController {
 extension ViewController {
     
     
-    func creatAlert(text: String){
+    func creatAlert(text: String){ /// Функция для создания уведомлений
         
         let alert = UIAlertController(title: "Предупреждение!", message: text, preferredStyle: .alert)
         present(alert, animated: true)
@@ -208,10 +202,14 @@ extension ViewController {
         
     }
     
+    func accesUserFalse(){ /// Отображаем пользователю, что его доступ истек
+        
+    }
     
     
-    func amountOfDat(second: TimeInterval){
-        print(second)
+    
+    func amountOfDay(second: TimeInterval){ /// Подсчитываем сколько дней осталось до конца бесплатного периода
+        
         let diff = 7 - Int(second / 86400)
         if diff > 4 || diff == 0 {
             amountOfDay = "\(String(diff)) дней"
@@ -221,11 +219,53 @@ extension ViewController {
             amountOfDay = "\(String(diff)) день"
         }
         
+       
+        
         
         
     }
 }
 
+
+
+//MARK: - Загрузка данных о пользователе
+
+extension ViewController {
+    
+    func loadData() {
+        
+        db.collection("Users").getDocuments { QuerySnapshot, Error in
+            if let err = Error {
+                print("Ошибка получения данных - \(err)")
+            }
+            
+            for document in QuerySnapshot!.documents {
+                
+                if document.documentID == self.currentDevice { /// Если текущий пользователь уже был зарегестрирован
+                    
+            
+                   let date =  document["dataFirstLaunch"] as! TimeInterval /// Преобразуем данные из FireBase
+                   let subscription = document["subscription"] as! Bool /// Отображаем сведения о подписке
+                   self.currentUser = Users(dataFirstLaunch: date, firstLaunch: false, subscription: subscription)
+
+                    
+                    DispatchQueue.main.async { /// Как только посчитано количество дней, мы отоброжаем инфу пользователю
+                        
+                        if self.accessUser {
+                            self.numberOfDayFreeVersion.text = self.amountOfDay
+                            self.additionallabel.text = "До истечения бесплатного пользования"
+                        }else {
+                            self.numberOfDayFreeVersion.text = "Срок истек"
+                            self.additionallabel.isHidden  = true
+                        }
+                        
+                    }
+                    
+                }
+            }
+        }
+    }
+}
 
     
     

@@ -24,7 +24,6 @@ class MenuViewController: UIViewController, UITableViewDataSource {
     
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("Yeha")
         return menuCell.count
     }
     
