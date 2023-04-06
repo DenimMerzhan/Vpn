@@ -102,7 +102,7 @@
             <objects>
                 <viewController id="deO-Zk-SxG" customClass="AuthorizationCotroller" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Zzd-Ix-P5d">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LaI-NE-6iB">
@@ -389,7 +389,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="F2X-TO-cHG"/>
-        <segue reference="Gob-Jt-VnS"/>
+        <segue reference="Gmx-g8-ccm"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="VpnDIsconnected" width="108.66666412353516" height="120"/>
