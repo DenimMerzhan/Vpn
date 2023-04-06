@@ -36,7 +36,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var currentStatusVpn: UILabel!
     @IBOutlet weak var buttonVPN: UIButton!
     @IBOutlet weak var numberOfDayFreeVersion: UILabel!
-    
     @IBOutlet weak var additionallabel: UILabel!
     
     
@@ -60,6 +59,7 @@ class ViewController: UIViewController {
         
         if currentUser!.firstLaunch {
             creatAlert(text: "Ваш бесплатный доступ состовляет 7 дней. Приятного пользования!")
+            let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
         }
 
         
@@ -129,20 +129,9 @@ class ViewController: UIViewController {
         performSegue(withIdentifier: "goToChangeCountry", sender: self)
     }
     
-    
-    
 
     
 }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -222,6 +211,7 @@ extension ViewController {
     
     
     func amountOfDat(second: TimeInterval){
+        print(second)
         let diff = 7 - Int(second / 86400)
         if diff > 4 || diff == 0 {
             amountOfDay = "\(String(diff)) дней"

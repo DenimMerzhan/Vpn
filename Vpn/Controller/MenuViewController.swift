@@ -35,4 +35,12 @@ class MenuViewController: UIViewController, UITableViewDataSource {
         return cell
     }
     
+    
+    @IBAction func regristerPressed(_ sender: UIButton) {
+        
+        performSegue(withIdentifier: "preferencesToAuth", sender: self)
+    }
+    
+    
+    
 }
