@@ -24,7 +24,6 @@ class PresentViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
-        fetchAvailableProducts()
         receiptValidation()
         defaults.set("dwd", forKey: "CurrentDevice")
         
@@ -74,11 +73,7 @@ class PresentViewController: UIViewController {
 
 //MARK: - Платная подпиская
 
-extension PresentViewController: SKPaymentTransactionObserver, SKProductsRequestDelegate {
-
-    
-
-    
+extension PresentViewController: SKPaymentTransactionObserver {
     
     func buyPremium(){
         if SKPaymentQueue.canMakePayments() { /// Если включен родительский контроль то покупку совершить нельзя
@@ -125,65 +120,21 @@ extension PresentViewController: SKPaymentTransactionObserver, SKProductsRequest
     
     
     
-    func receiptValidation(){
-        let urlString = "https://sandbox.itunes.apple.com/verifyReceipt" /// Указываем что берем даныне с песочницы
-        
-        guard let receiptURL = Bundle.main.appStoreReceiptURL, let receiptString = try? Data(contentsOf: receiptURL).base64EncodedString() , let url = URL(string: urlString) else { /// 1 URL-адрес файла для квитанции App Store о пакете.   2  Преобразуем в строку    3 преобразуем наш URL песочницы в URL
-                       return
-               }
-        
-        let requestData : [String : Any] = ["receipt-data" : receiptString, /// Создаем словарь
-                                                    "password" : "11f70af409dc42dfadee27090ff87b66", /// пароль это секретный ключ
-                                                    "exclude-old-transactions" : false] /// Исключать старые транзакции нет
-        let httpBody = try? JSONSerialization.data(withJSONObject: requestData, options: []) /// Объект, который выполняет преобразование между JSON и эквивалентными объектами Foundation.
-        
-        var request = URLRequest(url: url) /// Запрос загрузки URL, который не зависит от протокола или схемы URL.
-        request.httpMethod = "POST" /// POST — означает что некоторые данные должны быть помещены на сервер.
-        
-        request.setValue("Application/json", forHTTPHeaderField: "Content-Type") /// Задает значение для поля заголовка. Field Имя поля заголовка для установки. В соответствии с HTTP RFC имена полей заголовков HTTP нечувствительны к регистру.
-        
-        request.httpBody = httpBody /// Данные, отправляемые в виде тела сообщения запроса, например, для HTTP-запроса POST.
-        
-        URLSession.shared.dataTask(with: request) { data, respose, error in
-            
-            DispatchQueue.main.async {
-                if let data = data, let jsonData = try? JSONSerialization.jsonObject(with: data, options: .allowFragments){
-                    print(jsonData)
-              }
-            }
-            
-        }.resume()
-        
-    }
+
     
+
     
+}
+
+
+extension Formatter {
     
-    
-    
-    
-//MARK: - Загружаем все продукты пользователя
-    
-    func fetchAvailableProducts(){
-        
-        let productIdentifiers = NSSet(object: productID)
-        let productsRequest = SKProductsRequest(productIdentifiers: productIdentifiers as! Set<String>)
-        productsRequest.delegate = self
-        productsRequest.start()
-    }
-    
-    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
-        if (response.products.count > 0) {
-            
-              arrProduct.removeAll()
-            
-              for prod in response.products
-              {
-                  print(prod)
-                  arrProduct.append(prod)
-              }
-          }
-    }
-    
+    static let customDate: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss VV"
+        return formatter
+    }()
 }
 
 

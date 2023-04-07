@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     let defaults = UserDefaults.standard
     var accessUser = true
     let db = Firestore.firestore()
+    var subscriptionStatus = Bool()
     
     var pressedVPNButton: Bool = false
     var amountOfDay: String = "ff"
@@ -265,6 +266,64 @@ extension ViewController {
             }
         }
     }
+}
+
+
+
+/// 
+
+extension ViewController {
+    
+    func receiptValidation(){
+        let urlString = "https://sandbox.itunes.apple.com/verifyReceipt" /// Указываем что берем даныне с песочницы
+        
+        guard let receiptURL = Bundle.main.appStoreReceiptURL, let receiptString = try? Data(contentsOf: receiptURL).base64EncodedString() , let url = URL(string: urlString) else { /// 1 URL-адрес файла для квитанции App Store о пакете.   2  Преобразуем в строку    3 преобразуем наш URL песочницы в URL
+                       return
+               }
+        
+        let requestData : [String : Any] = ["receipt-data" : receiptString, /// Создаем словарь
+                                                    "password" : "11f70af409dc42dfadee27090ff87b66", /// пароль это секретный ключ
+                                                    "exclude-old-transactions" : false] /// Исключать старые транзакции нет
+        
+        let httpBody = try? JSONSerialization.data(withJSONObject: requestData, options: []) /// Объект, который выполняет преобразование между JSON и эквивалентными объектами Foundation.
+        
+        
+        
+        var request = URLRequest(url: url) /// Запрос загрузки URL, который не зависит от протокола или схемы URL.
+        request.httpMethod = "POST" /// POST — означает что некоторые данные должны быть помещены на сервер.
+        
+        
+        request.setValue("Application/json", forHTTPHeaderField: "Content-Type") /// Задает значение для поля заголовка. Field Имя поля заголовка для установки. В соответствии с HTTP RFC имена полей заголовков HTTP нечувствительны к регистру.
+        
+        
+        request.httpBody = httpBody /// Данные, отправляемые в виде тела сообщения запроса, например, для HTTP-запроса POST.
+        
+        URLSession.shared.dataTask(with: request) { data, respose, error in
+            
+            DispatchQueue.main.async {
+                
+                if let data = data, let jsonData = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:Any] { /// Преобразуем файл Json в словарь
+                    
+                    
+                    let dataArr = jsonData["latest_receipt_info"] as! [[String: Any]]
+                    let subscriptionExpirationDate = dataArr[0]["expires_date"] as! String // Берем последний массив и от туда дату окончания подписки
+                    let daty = dataArr[0]["expires_date"] as! Date
+                    print(daty)
+                    if let dateEndSubscription = Formatter.customDate.date(from: subscriptionExpirationDate) { /// Форматиурем нашу строку в дату
+                        
+                        if Date() > dateEndSubscription {
+                            self.subscriptionStatus = false
+                        }
+                    }
+
+                    
+              }
+            }
+            
+        }.resume()
+        
+    }
+    
 }
 
     
