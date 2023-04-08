@@ -15,13 +15,13 @@ import FirebaseFirestore
 class ViewController: UIViewController {
     
     let defaults = UserDefaults.standard
-    var accessUser = true
+    var accessUser = false
     let db = Firestore.firestore()
-    var subscriptionStatus = Bool()
+    var noSubscriptionsFound = false
     
     var pressedVPNButton: Bool = false
     var amountOfDay: String = "ff"
-    var currentDevice = String()
+    var currentDevice = UIDevice.current.identifierForVendor!.uuidString /// Получаем текущий индефикатор устройства
     
     
     
@@ -36,12 +36,24 @@ class ViewController: UIViewController {
         didSet {
             
             if currentUser != nil {
-                let differencer = NSDate().timeIntervalSince1970 - currentUser!.dataFirstLaunch
-                if differencer > 604800 {  /// Если разница составляет больше 7 денй, у меня в секундах, то закрываем доступ
+                
+                if currentUser!.subscriptionStatus {
+                    accessUser = true
+                }
+                
+                else if currentUser!.subscriptionPayment == false { /// Если пользователь никогда не покупал подписку
+                    
+                    let differencer = NSDate().timeIntervalSince1970 - currentUser!.dataFirstLaunch
+            
+                    if differencer > 604800 {  /// Если разница составляет больше 7 денй, у меня в секундах, то закрываем доступ
+                        accesUserFalse()
+                    }else {
+                        accessUser = true
+                        amountOfDay(second: differencer) /// Преобразуем секунды в дни
+                    }
+                    
+                }else if currentUser!.subscriptionStatus == false {
                     accessUser = false
-                    accesUserFalse()
-                }else {
-                    amountOfDay(second: differencer) /// Преобразуем секунды в дни
                 }
                 
             }
@@ -51,25 +63,32 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
-        currentDevice = defaults.string(forKey: "CurrentDevice") ?? "Нет данных"
-        loadData()
+        
+        if defaults.bool(forKey: "subscriptionPayment") { /// Если пользователь хоть раз покупал продукт то загружаем статус его подписки
+            print(noSubscriptionsFound)
+            receiptValidation()
+        }else {loadData()} /// Если нет то загружаем данные когда заканчивается бесплатная версия
+        
         navigationController?.navigationBar.isHidden = true
         
     }
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { /// Если пользователь нажал кнопку восстановить покупки но их не было то выходим из контроллера
+            
+            if self.noSubscriptionsFound {
+                self .navigationController?.popViewController(animated: true)
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
+        
+        
         
         currentCountryVpn.text = ""
     
-        
-        if let current = currentUser?.firstLaunch {
-            if current {
-                creatAlert(text: "Ваш бесплатный доступ состовляет 7 дней. Приятного пользования!")
-            }
-                
-        }
-
         
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeStatus), name: NSNotification.Name.NEVPNStatusDidChange, object: nil) /// Добавляем наблюдателя, в данном случае наш класс VC
         
@@ -118,7 +137,12 @@ class ViewController: UIViewController {
             }
             
         }else { /// Если нету то уведомляем пользователя
-           creatAlert(text: "Ваш срок бесплатного пользования истек. Вы можете купить премиум аккаунт для его продления")
+            
+            if currentUser!.subscriptionPayment {
+                creatAlert(text: "Ваш срок премиум аккаунта истек. Вы можете его продлить в разделе настроек")
+            }else {
+                creatAlert(text: "Ваш срок бесплатного пользования истек. Вы можете купить премиум аккаунт для его продления")
+            }
         }
         
         
@@ -140,10 +164,6 @@ class ViewController: UIViewController {
 
 
 
-
-
-
-
 //MARK: - Отслеживание ВПН соединения
 
 
@@ -158,13 +178,16 @@ extension ViewController {
                 
                 if let country = defaults.dictionary(forKey: "vpnData")  { /// Если в UserDefaults что то есть то оброжаем текущую страну
                     currentCountryVpn.text = "Текущая страна: \(country["name"] as! String)"
-                 }
+                }else {
+                    currentCountryVpn.text = "Текущая страна: Россия"
+                }
                 
                 buttonVPN.setImage(UIImage(named: "VPNConnected"), for: [])
                 
             }
             
             else if connection.status == .disconnected {
+                
                 currentStatusVpn.text = "VPN отключен"
                 currentCountryVpn.text = ""
                 buttonVPN.setImage(UIImage(named: "VpnDIsconnected"), for: [])
@@ -220,16 +243,13 @@ extension ViewController {
             amountOfDay = "\(String(diff)) день"
         }
         
-       
-        
-        
         
     }
 }
 
 
 
-//MARK: - Загрузка данных о пользователе
+//MARK: - Загрузка данных о пользователе если у него нет подписки
 
 extension ViewController {
     
@@ -246,13 +266,18 @@ extension ViewController {
                     
             
                    let date =  document["dataFirstLaunch"] as! TimeInterval /// Преобразуем данные из FireBase
-                   let subscription = document["subscription"] as! Bool /// Отображаем сведения о подписке
-                   self.currentUser = Users(dataFirstLaunch: date, firstLaunch: false, subscription: subscription)
+                   self.currentUser = Users(dataFirstLaunch: date, subscriptionPayment: false, subscriptionStatus: false)
 
                     
                     DispatchQueue.main.async { /// Как только посчитано количество дней, мы отоброжаем инфу пользователю
                         
                         if self.accessUser {
+                            
+                            if self.defaults.bool(forKey: "FirstLaunch") {
+                                self.creatAlert(text: "Ваш бесплатный доступ состовляет 7 дней. Приятного пользования!")
+                                self.defaults.set(false, forKey: "FirstLaunch")
+                            }
+                            
                             self.numberOfDayFreeVersion.text = self.amountOfDay
                             self.additionallabel.text = "До истечения бесплатного пользования"
                         }else {
@@ -270,16 +295,35 @@ extension ViewController {
 
 
 
-/// 
+
+
+
+//MARK: - Проверяем статус подписки запрашивая квитанцую от Apple
+
+
 
 extension ViewController {
     
     func receiptValidation(){
+        
+        
         let urlString = "https://sandbox.itunes.apple.com/verifyReceipt" /// Указываем что берем даныне с песочницы
         
-        guard let receiptURL = Bundle.main.appStoreReceiptURL, let receiptString = try? Data(contentsOf: receiptURL).base64EncodedString() , let url = URL(string: urlString) else { /// 1 URL-адрес файла для квитанции App Store о пакете.   2  Преобразуем в строку    3 преобразуем наш URL песочницы в URL
+        guard let receiptURL = Bundle.main.appStoreReceiptURL  else { /// 1 URL-адрес файла для квитанции App Store о пакете.   2  Преобразуем в строку    3 преобразуем наш URL песочницы в URL
+            
+            creatAlert(text: "Нет активных подписок!")
+            noSubscriptionsFound = true
                        return
                }
+        print(receiptURL)
+        do {
+            let receiptString =  try  Data(contentsOf: receiptURL).base64EncodedString()
+            
+        }catch{
+            print("Ошибка преобразования данных - \(error)")
+        }
+        
+        let url = URL(string: urlString)!
         
         let requestData : [String : Any] = ["receipt-data" : receiptString, /// Создаем словарь
                                                     "password" : "11f70af409dc42dfadee27090ff87b66", /// пароль это секретный ключ
@@ -300,22 +344,42 @@ extension ViewController {
         
         URLSession.shared.dataTask(with: request) { data, respose, error in
             
+            
             DispatchQueue.main.async {
                 
+               
                 if let data = data, let jsonData = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:Any] { /// Преобразуем файл Json в словарь
                     
+                    let dataArr = jsonData["latest_receipt_info"] as! [[String: Any]] /// Далее преобразуем в архив словарей
                     
-                    let dataArr = jsonData["latest_receipt_info"] as! [[String: Any]]
                     let subscriptionExpirationDate = dataArr[0]["expires_date"] as! String // Берем последний массив и от туда дату окончания подписки
-                    let daty = dataArr[0]["expires_date"] as! Date
-                    print(daty)
+                    
+                    
                     if let dateEndSubscription = Formatter.customDate.date(from: subscriptionExpirationDate) { /// Форматиурем нашу строку в дату
                         
-                        if Date() > dateEndSubscription {
-                            self.subscriptionStatus = false
+                        
+                        if Date() > dateEndSubscription { /// Если текущая дата больше даты окончания заканчиваем подписку
+                            
+                            self.currentUser = Users(dataFirstLaunch: 0, subscriptionPayment: true, subscriptionStatus: false)
+                            self.numberOfDayFreeVersion.text = ""
+                            self.additionallabel.text  = "Срок премиум аккаунта истек"
+                            print("Now \(dateEndSubscription)")
+                        }
+                        
+                        else {
+                            self.currentUser = Users(dataFirstLaunch: 0, subscriptionPayment: true, subscriptionStatus: true)
+                            self.additionallabel.text  = "Премиум Активен до \(dateEndSubscription)"
+                            
+                            if self.defaults.bool(forKey: "FirstLaunch") {
+                                self.creatAlert(text: "Премиум аккаунт активирован")
+                                self.defaults.set(false, forKey: "FirstLaunch")
+                            }
+                            
+                            print("Yeah \(dateEndSubscription)")
                         }
                     }
 
+                    
                     
               }
             }

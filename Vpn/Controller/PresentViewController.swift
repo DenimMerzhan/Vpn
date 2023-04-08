@@ -22,28 +22,24 @@ class PresentViewController: UIViewController {
     let productID  = "com.TopVpnDenimMerzhan.Vpn"
     var arrProduct  = [SKProduct]()
     
+    
     override func viewWillAppear(_ animated: Bool) {
         
-        receiptValidation()
-        defaults.set("dwd", forKey: "CurrentDevice")
+//        defaults.set(true, forKey: "FirstLaunch")
         
-        if let current = defaults.string(forKey: "CurrentDevice") {
-            if current == currentDevice {
+        if let firstLainch  = defaults.object(forKey: "FirstLaunch") { /// Если есть ключ FirstLaunch то проверяем его
+            
+            if firstLainch as! Bool == false { /// Если это не первый вход то переходим на второй контроллер
                 self.performSegue(withIdentifier: "goToVPN", sender: self)
             }
         }
+    
         
+    }
+    
+    override func viewDidLoad() {
         SKPaymentQueue.default().add(self) /// Добавляем наблюдателя за транзакциями
-        
     }
-    
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        guard let destination = segue.destination as? ViewController else {return}
-        destination.currentUser = currentUser
-    }
-    
     
     
     @IBAction func subscriptionClick(_ sender: UIButton) {
@@ -54,17 +50,21 @@ class PresentViewController: UIViewController {
     
     @IBAction func freeVersionClick(_ sender: UIButton) {
         
-        db.collection("Users").document(currentDevice).setData(["dataFirstLaunch":NSDate().timeIntervalSince1970,"firstLaunch": true,"subscription":false])
-        defaults.set(self.currentDevice, forKey: "CurrentDevice")
-        currentUser = Users(dataFirstLaunch: NSDate().timeIntervalSince1970, firstLaunch: true, subscription: false)
-        performSegue(withIdentifier: "freeVersionToVPN", sender: self)
+        defaults.set(true, forKey: "FirstLaunch")
+        
+        db.collection("Users").document(currentDevice).setData(["dataFirstLaunch":NSDate().timeIntervalSince1970,"subscription":false]) /// Добавляем данные о бесплатно пользователе
+        defaults.set(false, forKey: "subscriptionPayment")
+        performSegue(withIdentifier: "goToVPN", sender: self)
     }
     
     
-    @IBAction func autorizationPressed(_ sender: UIButton) {
+    
+    @IBAction func resotorePressed(_ sender: UIButton) {
+        
+        defaults.set(true, forKey: "subscriptionPayment")
+        defaults.set(true, forKey: "FirstLaunch")
+        performSegue(withIdentifier: "goToVPN", sender: self)
     }
-    
-    
     
 }
 
@@ -76,6 +76,7 @@ class PresentViewController: UIViewController {
 extension PresentViewController: SKPaymentTransactionObserver {
     
     func buyPremium(){
+        
         if SKPaymentQueue.canMakePayments() { /// Если включен родительский контроль то покупку совершить нельзя
             
             let paymentRequest = SKMutablePayment() /// Создаем запрос на покупку в приложение
@@ -90,10 +91,16 @@ extension PresentViewController: SKPaymentTransactionObserver {
             
         
             if transaction.transactionState == .purchased {
-                print("Transaction Okay")
-
                 
+                print("Transaction  Okay")
+                
+                defaults.set(true, forKey: "subscriptionPayment")
+                defaults.set(true, forKey: "FirstLaunch")
                 SKPaymentQueue.default().finishTransaction(transaction) /// Завершаем транзакцию
+                
+                performSegue(withIdentifier: "goToVPN", sender: self)
+                
+                
                 
             }else if transaction.transactionState == .failed {
                 print("Transaction  Fall")
@@ -104,11 +111,11 @@ extension PresentViewController: SKPaymentTransactionObserver {
                 
                 SKPaymentQueue.default().finishTransaction(transaction)
                 
-            }else if transaction.transactionState == .restored {
-                print("Transaction Restored")
+            } else if transaction.transactionState == .restored {
+                SKPaymentQueue.default().finishTransaction(transaction)
             }
-            
             else if transaction.transactionState == .purchasing {
+                
                 print("Обработка платежа")
             }
         }
@@ -116,18 +123,12 @@ extension PresentViewController: SKPaymentTransactionObserver {
     
     
 //MARK: - Проверка квитанции
-    
-    
-    
-    
 
-    
-
-    
 }
 
 
 extension Formatter {
+    
     
     static let customDate: DateFormatter = {
         let formatter = DateFormatter()
