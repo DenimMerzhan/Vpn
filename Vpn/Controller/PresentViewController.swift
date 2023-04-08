@@ -25,12 +25,11 @@ class PresentViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
-//        defaults.set(true, forKey: "FirstLaunch")
         
         if let firstLainch  = defaults.object(forKey: "FirstLaunch") { /// Если есть ключ FirstLaunch то проверяем его
             
             if firstLainch as! Bool == false { /// Если это не первый вход то переходим на второй контроллер
-                self.performSegue(withIdentifier: "goToVPN", sender: self)
+                changeRootVC() /// Устанавливаем новый контроллер корневым и показываем его
             }
         }
     
@@ -50,11 +49,11 @@ class PresentViewController: UIViewController {
     
     @IBAction func freeVersionClick(_ sender: UIButton) {
         
-        defaults.set(true, forKey: "FirstLaunch")
         
-        db.collection("Users").document(currentDevice).setData(["dataFirstLaunch":NSDate().timeIntervalSince1970,"subscription":false]) /// Добавляем данные о бесплатно пользователе
         defaults.set(false, forKey: "subscriptionPayment")
-        performSegue(withIdentifier: "goToVPN", sender: self)
+        defaults.set(true, forKey: "FirstLaunch")
+        changeRootVC()
+        
     }
     
     
@@ -94,12 +93,13 @@ extension PresentViewController: SKPaymentTransactionObserver {
             if transaction.transactionState == .purchased {
                 
                 print("Transaction  Okay")
+
                 
                 defaults.set(true, forKey: "subscriptionPayment")
                 defaults.set(true, forKey: "FirstLaunch")
                 SKPaymentQueue.default().finishTransaction(transaction) /// Завершаем транзакцию
                 
-                performSegue(withIdentifier: "goToVPN", sender: self)
+                changeRootVC()
                 
                 
                 
@@ -137,6 +137,22 @@ extension Formatter {
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss VV"
         return formatter
     }()
+}
+
+
+//MARK: - Установка корневого контроллера
+
+
+extension PresentViewController {
+    
+    func changeRootVC(){
+        
+        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = mainStoryboard.instantiateViewController(withIdentifier: "VpnID") as! ViewController
+        UIApplication.shared.windows.first?.rootViewController = viewController
+        UIApplication.shared.windows.first?.makeKeyAndVisible()
+    }
+    
 }
 
 

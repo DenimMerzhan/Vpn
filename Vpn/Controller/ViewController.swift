@@ -265,16 +265,18 @@ extension ViewController {
     
     func loadData() {
         
+        var existingUser = false
+        
         db.collection("Users").getDocuments { QuerySnapshot, Error in
             if let err = Error {
                 print("Ошибка получения данных - \(err)")
             }
             
             for document in QuerySnapshot!.documents {
-                
+               
                 if document.documentID == self.currentDevice { /// Если текущий пользователь уже был зарегестрирован
-                    
-            
+                
+                   existingUser = true
                    let date =  document["dataFirstLaunch"] as! TimeInterval /// Преобразуем данные из FireBase
                    self.currentUser = Users(dataFirstLaunch: date, subscriptionPayment: false, subscriptionStatus: false)
 
@@ -299,6 +301,13 @@ extension ViewController {
                     
                 }
             }
+            
+            if existingUser == false { /// Если такого пользователя не было
+                print("New User")
+                self.db.collection("Users").document(self.currentDevice).setData(["dataFirstLaunch":NSDate().timeIntervalSince1970,"subscription":false]) /// Добавляем данные о бесплатно пользователе
+                self.loadData() /// Загружаем еще раз данные
+            }
+            
         }
     }
 }
