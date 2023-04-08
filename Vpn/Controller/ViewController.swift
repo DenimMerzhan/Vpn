@@ -80,7 +80,7 @@ class ViewController: UIViewController {
         
         super.viewDidLoad()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { /// Если пользователь нажал кнопку восстановить покупки но их не было то выходим из контроллера
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { /// Если пользователь нажал кнопку восстановить покупки но их не было то выходим из контроллера
             
             if self.noSubscriptionsFound {
                 self .navigationController?.popViewController(animated: true)
@@ -357,8 +357,9 @@ extension ViewController: SKRequestDelegate{
                 
                 DispatchQueue.main.async {
                     
-                   
                     if let data = data, let jsonData = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:Any] { /// Преобразуем файл Json в словарь
+                        
+                    print(jsonData)
                         
                         if let dataArr = jsonData["latest_receipt_info"] as? [[String: Any]] { /// Далее преобразуем в архив словарей если там есть  latest_receipt_info
                             
