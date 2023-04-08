@@ -11,6 +11,7 @@ import AVVPNService
 import NetworkExtension
 import FirebaseAuth
 import FirebaseFirestore
+import StoreKit
 
 class ViewController: UIViewController {
     
@@ -73,19 +74,19 @@ class ViewController: UIViewController {
         
     }
     
+    
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { /// Если пользователь нажал кнопку восстановить покупки но их не было то выходим из контроллера
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { /// Если пользователь нажал кнопку восстановить покупки но их не было то выходим из контроллера
             
             if self.noSubscriptionsFound {
                 self .navigationController?.popViewController(animated: true)
                 self.dismiss(animated: true, completion: nil)
             }
         }
-        
-        
         
         currentCountryVpn.text = ""
     
@@ -95,6 +96,12 @@ class ViewController: UIViewController {
         currentStatusVpn.text = "VPN отключен"
         
     }
+    
+    
+    
+    
+    
+    
     
     
   
@@ -138,11 +145,15 @@ class ViewController: UIViewController {
             
         }else { /// Если нету то уведомляем пользователя
             
-            if currentUser!.subscriptionPayment {
-                creatAlert(text: "Ваш срок премиум аккаунта истек. Вы можете его продлить в разделе настроек")
-            }else {
-                creatAlert(text: "Ваш срок бесплатного пользования истек. Вы можете купить премиум аккаунт для его продления")
+            if let subsc = currentUser?.subscriptionPayment {
+                
+                if subsc {
+                    creatAlert(text: "Ваш срок премиум аккаунта истек. Вы можете его продлить в разделе настроек")
+                }else {
+                    creatAlert(text: "Ваш срок бесплатного пользования истек. Вы можете купить премиум аккаунт для его продления")
+                }
             }
+
         }
         
         
@@ -223,7 +234,6 @@ extension ViewController {
         
         alert.addAction(UIAlertAction(title: "ок", style: .default))
         
-        
     }
     
     func accesUserFalse(){ /// Отображаем пользователю, что его доступ истек
@@ -302,90 +312,102 @@ extension ViewController {
 
 
 
-extension ViewController {
+extension ViewController: SKRequestDelegate{
     
     func receiptValidation(){
         
-        
         let urlString = "https://sandbox.itunes.apple.com/verifyReceipt" /// Указываем что берем даныне с песочницы
         
-        guard let receiptURL = Bundle.main.appStoreReceiptURL  else { /// 1 URL-адрес файла для квитанции App Store о пакете.   2  Преобразуем в строку    3 преобразуем наш URL песочницы в URL
-            
-            creatAlert(text: "Нет активных подписок!")
-            noSubscriptionsFound = true
+        guard let receiptURL = Bundle.main.appStoreReceiptURL,let receiptString =  try?  Data(contentsOf: receiptURL).base64EncodedString()  else { /// 1 Путь к файлу квитанции  2  Пытаемся преобразовать файл   Если вдруг нет пути или нет файла то мы вызываем обновление чека
+            refrreshReceipt()
                        return
                }
-        print(receiptURL)
-        do {
-            let receiptString =  try  Data(contentsOf: receiptURL).base64EncodedString()
+        
+        
+            let url = URL(string: urlString)!
             
-        }catch{
-            print("Ошибка преобразования данных - \(error)")
-        }
-        
-        let url = URL(string: urlString)!
-        
-        let requestData : [String : Any] = ["receipt-data" : receiptString, /// Создаем словарь
-                                                    "password" : "11f70af409dc42dfadee27090ff87b66", /// пароль это секретный ключ
-                                                    "exclude-old-transactions" : false] /// Исключать старые транзакции нет
-        
-        let httpBody = try? JSONSerialization.data(withJSONObject: requestData, options: []) /// Объект, который выполняет преобразование между JSON и эквивалентными объектами Foundation.
-        
-        
-        
-        var request = URLRequest(url: url) /// Запрос загрузки URL, который не зависит от протокола или схемы URL.
-        request.httpMethod = "POST" /// POST — означает что некоторые данные должны быть помещены на сервер.
-        
-        
-        request.setValue("Application/json", forHTTPHeaderField: "Content-Type") /// Задает значение для поля заголовка. Field Имя поля заголовка для установки. В соответствии с HTTP RFC имена полей заголовков HTTP нечувствительны к регистру.
-        
-        
-        request.httpBody = httpBody /// Данные, отправляемые в виде тела сообщения запроса, например, для HTTP-запроса POST.
-        
-        URLSession.shared.dataTask(with: request) { data, respose, error in
+            let requestData : [String : Any] = ["receipt-data" : receiptString, /// Создаем словарь
+                                                        "password" : "11f70af409dc42dfadee27090ff87b66", /// пароль это секретный ключ
+                                                        "exclude-old-transactions" : false] /// Исключать старые транзакции нет
+            
+            let httpBody = try? JSONSerialization.data(withJSONObject: requestData, options: []) /// Объект, который выполняет преобразование между JSON и эквивалентными объектами Foundation.
             
             
-            DispatchQueue.main.async {
+            
+            var request = URLRequest(url: url) /// Запрос загрузки URL, который не зависит от протокола или схемы URL.
+            request.httpMethod = "POST" /// POST — означает что некоторые данные должны быть помещены на сервер.
+            
+            
+            request.setValue("Application/json", forHTTPHeaderField: "Content-Type") /// Задает значение для поля заголовка. Field Имя поля заголовка для установки. В соответствии с HTTP RFC имена полей заголовков HTTP нечувствительны к регистру.
+            
+            
+            request.httpBody = httpBody /// Данные, отправляемые в виде тела сообщения запроса, например, для HTTP-запроса POST.
+            
+            URLSession.shared.dataTask(with: request) { data, respose, error in
                 
-               
-                if let data = data, let jsonData = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:Any] { /// Преобразуем файл Json в словарь
+                
+                DispatchQueue.main.async {
                     
-                    let dataArr = jsonData["latest_receipt_info"] as! [[String: Any]] /// Далее преобразуем в архив словарей
-                    
-                    let subscriptionExpirationDate = dataArr[0]["expires_date"] as! String // Берем последний массив и от туда дату окончания подписки
-                    
-                    
-                    if let dateEndSubscription = Formatter.customDate.date(from: subscriptionExpirationDate) { /// Форматиурем нашу строку в дату
+                   
+                    if let data = data, let jsonData = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:Any] { /// Преобразуем файл Json в словарь
                         
-                        
-                        if Date() > dateEndSubscription { /// Если текущая дата больше даты окончания заканчиваем подписку
+                        if let dataArr = jsonData["latest_receipt_info"] as? [[String: Any]] { /// Далее преобразуем в архив словарей если там есть  latest_receipt_info
                             
-                            self.currentUser = Users(dataFirstLaunch: 0, subscriptionPayment: true, subscriptionStatus: false)
-                            self.numberOfDayFreeVersion.text = ""
-                            self.additionallabel.text  = "Срок премиум аккаунта истек"
-                            print("Now \(dateEndSubscription)")
-                        }
-                        
-                        else {
-                            self.currentUser = Users(dataFirstLaunch: 0, subscriptionPayment: true, subscriptionStatus: true)
-                            self.additionallabel.text  = "Премиум Активен до \(dateEndSubscription)"
+                            let subscriptionExpirationDate = dataArr[0]["expires_date"] as! String // Берем последний массив и от туда дату окончания подписки
                             
-                            if self.defaults.bool(forKey: "FirstLaunch") {
-                                self.creatAlert(text: "Премиум аккаунт активирован")
-                                self.defaults.set(false, forKey: "FirstLaunch")
+                            
+                            if let dateEndSubscription = Formatter.customDate.date(from: subscriptionExpirationDate) { /// Форматиурем нашу строку в дату
+                                
+                                
+                                if Date() > dateEndSubscription { /// Если текущая дата больше даты окончания заканчиваем подписку
+                                    
+                                    self.currentUser = Users(dataFirstLaunch: 0, subscriptionPayment: true, subscriptionStatus: false)
+                                    self.numberOfDayFreeVersion.text = ""
+                                    self.additionallabel.text  = "Срок премиум аккаунта истек"
+                                    print("Now \(dateEndSubscription)")
+                                }
+                                
+                                else {
+                                    self.currentUser = Users(dataFirstLaunch: 0, subscriptionPayment: true, subscriptionStatus: true)
+                                    self.additionallabel.text  = "Премиум Активен до \(dateEndSubscription)"
+                                    
+                                    if self.defaults.bool(forKey: "FirstLaunch") {
+                                        self.creatAlert(text: "Премиум аккаунт активирован")
+                                        self.defaults.set(false, forKey: "FirstLaunch")
+                                    }
+                                    
+                                    print("Yeah \(dateEndSubscription)")
+                                }
                             }
-                            
-                            print("Yeah \(dateEndSubscription)")
+                        }else { /// latest_receipt_info - если данной строки нет значит пользователь никогда не покупал подписку
+                            self.noSubscriptionsFound = true
+                            self.creatAlert(text: "Нет активных подписок!")
                         }
-                    }
-
-                    
-                    
-              }
-            }
-            
-        }.resume()
+                        
+                  }
+                }
+                
+            }.resume()
         
+        
+        
+        
+
+        
+    }
+    
+    func refrreshReceipt(){ /// Функция которая обновляет чек, я вызваю ее когда чека нету по нужно пути
+        let request = SKReceiptRefreshRequest(receiptProperties: nil)
+        request.delegate = self
+        request.start() /// Отправляет запрос в Apple App Store. Результаты запроса отправляются делегату запроса.
+    }
+    
+    
+    func requestDidFinish(_ request: SKRequest) {
+        
+        if request is SKReceiptRefreshRequest { /// Если чек есть вызваем еще раз функцию проверки чека
+            receiptValidation()
+        }
     }
     
 }

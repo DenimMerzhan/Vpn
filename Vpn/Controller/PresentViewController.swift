@@ -61,6 +61,7 @@ class PresentViewController: UIViewController {
     
     @IBAction func resotorePressed(_ sender: UIButton) {
         
+        
         defaults.set(true, forKey: "subscriptionPayment")
         defaults.set(true, forKey: "FirstLaunch")
         performSegue(withIdentifier: "goToVPN", sender: self)
