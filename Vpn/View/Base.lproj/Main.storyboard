@@ -73,6 +73,7 @@
                                 </state>
                                 <connections>
                                     <action selector="autorizationPressed:" destination="DbE-8n-9BO" eventType="touchUpInside" id="AAE-Gm-4c4"/>
+                                    <segue destination="deO-Zk-SxG" kind="show" id="57r-mU-Wg9"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A4D-eh-sup">
@@ -105,7 +106,7 @@
             <objects>
                 <viewController id="deO-Zk-SxG" customClass="AuthorizationCotroller" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Zzd-Ix-P5d">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LaI-NE-6iB">
@@ -398,9 +399,68 @@
             </objects>
             <point key="canvasLocation" x="-684.73282442748086" y="-2.1126760563380285"/>
         </scene>
+        <!--Authorization Cotroller-->
+        <scene sceneID="VBT-hB-fcU">
+            <objects>
+                <viewController id="mBi-4y-Y28" customClass="AuthorizationCotroller" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6PR-hj-G0u">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZXq-FQ-EZk">
+                                <rect key="frame" x="102" y="767" width="189" height="51"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Регистрация">
+                                    <fontDescription key="titleFontDescription" name="Impact" family="Impact" pointSize="30"/>
+                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="authPressed:" destination="mBi-4y-Y28" eventType="touchUpInside" id="ue0-LC-boN"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mip-K8-sSG">
+                                <rect key="frame" x="16" y="409" width="361" height="57"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" name="ColorButtonYellow"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Получить код">
+                                    <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="18"/>
+                                    <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="baseBackgroundColor" name="ColorButtonYellow"/>
+                                </buttonConfiguration>
+                            </button>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IYM-HV-bsv">
+                                <rect key="frame" x="16" y="352" width="51" height="34"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="981 755 00 00" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RVE-uG-rqY">
+                                <rect key="frame" x="75" y="352" width="216" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Введите номер телефона" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fmg-AX-qBE">
+                                <rect key="frame" x="16" y="308" width="215" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="q9G-GR-GdH"/>
+                        <color key="backgroundColor" name="ColorBackgound"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="2LH-3d-Rhp"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OKQ-es-Xau" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1296.9465648854962" y="624.64788732394368"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="F2X-TO-cHG"/>
+        <segue reference="keu-HC-oNQ"/>
+        <segue reference="57r-mU-Wg9"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="VpnDIsconnected" width="108.66666412353516" height="120"/>
@@ -408,6 +468,9 @@
         <image name="link" catalog="system" width="128" height="124"/>
         <namedColor name="ColorBackgound">
             <color red="0.18799999356269836" green="0.24300000071525574" blue="0.3059999942779541" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="ColorButtonYellow">
+            <color red="0.98400002717971802" green="0.90200001001358032" blue="0.48199999332427979" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="PlacheolderColor">
             <color red="0.2199999988079071" green="0.28200000524520874" blue="0.36100000143051147" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

@@ -51,8 +51,7 @@ class PresentViewController: UIViewController {
         
         
         defaults.set(false, forKey: "subscriptionPayment")
-        defaults.set(true, forKey: "FirstLaunch")
-        changeRootVC()
+        
         
     }
     
@@ -151,6 +150,11 @@ extension PresentViewController {
         let viewController = mainStoryboard.instantiateViewController(withIdentifier: "VpnID") as! ViewController
         UIApplication.shared.windows.first?.rootViewController = viewController
         UIApplication.shared.windows.first?.makeKeyAndVisible()
+        
+//
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let dvc = storyboard.instantiateViewController(withIdentifier: "VpnID") as! ViewController
+//        self.present(dvc, animated: true)
     }
     
 }
