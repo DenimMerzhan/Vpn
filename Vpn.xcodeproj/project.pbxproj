@@ -25,6 +25,7 @@
 		CF91AF0C29DD4F8300EAAC01 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF91AF0B29DD4F8300EAAC01 /* Users.swift */; };
 		CF91AF1629DDBAAD00EAAC01 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF91AF1529DDBAAD00EAAC01 /* MenuViewController.swift */; };
 		CFAA9DD829E3F68A000B3438 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAA9DD729E3F68A000B3438 /* CustomTextField.swift */; };
+		CFAA9DDA29E43FC7000B3438 /* CheckCodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAA9DD929E43FC7000B3438 /* CheckCodViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +52,7 @@
 		CF91AF0B29DD4F8300EAAC01 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		CF91AF1529DDBAAD00EAAC01 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		CFAA9DD729E3F68A000B3438 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		CFAA9DD929E43FC7000B3438 /* CheckCodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CheckCodViewController.swift; path = Vpn/CheckCodViewController.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +127,7 @@
 				CF5A97CF29D31FD300D4F2F5 /* PresentViewController.swift */,
 				CF8FB08529D6FC5200993513 /* AuthorizationController.swift */,
 				CF48831C29E2B0E600702FA0 /* RegisterViewController.swift */,
+				CFAA9DD929E43FC7000B3438 /* CheckCodViewController.swift */,
 				CF5A97BD29D3164D00D4F2F5 /* ViewController.swift */,
 				CF8FB08129D6BCC600993513 /* ChangeCountryController.swift */,
 				CF91AF1529DDBAAD00EAAC01 /* MenuViewController.swift */,
@@ -271,6 +274,7 @@
 				CF5A97BE29D3164D00D4F2F5 /* ViewController.swift in Sources */,
 				CF91AF0C29DD4F8300EAAC01 /* Users.swift in Sources */,
 				CF5A97BA29D3164D00D4F2F5 /* AppDelegate.swift in Sources */,
+				CFAA9DDA29E43FC7000B3438 /* CheckCodViewController.swift in Sources */,
 				CF48831D29E2B0E600702FA0 /* RegisterViewController.swift in Sources */,
 				CF5A97D029D31FD300D4F2F5 /* PresentViewController.swift in Sources */,
 				CF5A97BC29D3164D00D4F2F5 /* SceneDelegate.swift in Sources */,

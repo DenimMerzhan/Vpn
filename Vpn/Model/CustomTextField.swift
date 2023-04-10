@@ -7,12 +7,23 @@
 
 import UIKit
 
+protocol DeleteButtonPressed {
+    
+    func deleteButtonPressed(pressed: Bool)
+    
+}
+
 class CustomTextField: UITextField {
 
+    var deleteButtonDelegate: DeleteButtonPressed?
+    
     override func deleteBackward() {
-        print("yeah")
+        deleteButtonDelegate?.deleteButtonPressed(pressed: true)
+        
         super.deleteBackward()
         
     }
 
 }
+
+
