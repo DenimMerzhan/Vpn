@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9D670012CA5D79C0BCA1638A /* Pods_Vpn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0DBFEDAD926140A075FAF3 /* Pods_Vpn.framework */; };
 		CF29BE1029DEE91C0040FB92 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF29BE0F29DEE91C0040FB92 /* StoreKit.framework */; };
+		CF48831D29E2B0E600702FA0 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF48831C29E2B0E600702FA0 /* RegisterViewController.swift */; };
 		CF5A97BA29D3164D00D4F2F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5A97B929D3164D00D4F2F5 /* AppDelegate.swift */; };
 		CF5A97BC29D3164D00D4F2F5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5A97BB29D3164D00D4F2F5 /* SceneDelegate.swift */; };
 		CF5A97BE29D3164D00D4F2F5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5A97BD29D3164D00D4F2F5 /* ViewController.swift */; };
@@ -23,7 +24,7 @@
 		CF8FB08A29D708FF00993513 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8FB08929D708FF00993513 /* Country.swift */; };
 		CF91AF0C29DD4F8300EAAC01 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF91AF0B29DD4F8300EAAC01 /* Users.swift */; };
 		CF91AF1629DDBAAD00EAAC01 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF91AF1529DDBAAD00EAAC01 /* MenuViewController.swift */; };
-		CFAF1BAF29E00833005A6318 /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAF1BAE29E00833005A6318 /* Subscription.swift */; };
+		CFAA9DD829E3F68A000B3438 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAA9DD729E3F68A000B3438 /* CustomTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		AF94F8E1614E69D09A920D35 /* Pods-Vpn.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vpn.debug.xcconfig"; path = "Target Support Files/Pods-Vpn/Pods-Vpn.debug.xcconfig"; sourceTree = "<group>"; };
 		CF29BE0F29DEE91C0040FB92 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		CF3C1A6F29D5A10F007BD706 /* Vpn.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Vpn.entitlements; sourceTree = "<group>"; };
+		CF48831C29E2B0E600702FA0 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		CF5A97B629D3164D00D4F2F5 /* Vpn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vpn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF5A97B929D3164D00D4F2F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CF5A97BB29D3164D00D4F2F5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -48,7 +50,7 @@
 		CF8FB08929D708FF00993513 /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Country.swift; path = Vpn/Controller/Country.swift; sourceTree = SOURCE_ROOT; };
 		CF91AF0B29DD4F8300EAAC01 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		CF91AF1529DDBAAD00EAAC01 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
-		CFAF1BAE29E00833005A6318 /* Subscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subscription.swift; sourceTree = "<group>"; };
+		CFAA9DD729E3F68A000B3438 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 			children = (
 				CF5A97CF29D31FD300D4F2F5 /* PresentViewController.swift */,
 				CF8FB08529D6FC5200993513 /* AuthorizationController.swift */,
+				CF48831C29E2B0E600702FA0 /* RegisterViewController.swift */,
 				CF5A97BD29D3164D00D4F2F5 /* ViewController.swift */,
 				CF8FB08129D6BCC600993513 /* ChangeCountryController.swift */,
 				CF91AF1529DDBAAD00EAAC01 /* MenuViewController.swift */,
@@ -143,7 +146,7 @@
 				CF8FB08329D6BEF300993513 /* Constants.swift */,
 				CF8FB08929D708FF00993513 /* Country.swift */,
 				CF91AF0B29DD4F8300EAAC01 /* Users.swift */,
-				CFAF1BAE29E00833005A6318 /* Subscription.swift */,
+				CFAA9DD729E3F68A000B3438 /* CustomTextField.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -264,11 +267,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFAA9DD829E3F68A000B3438 /* CustomTextField.swift in Sources */,
 				CF5A97BE29D3164D00D4F2F5 /* ViewController.swift in Sources */,
 				CF91AF0C29DD4F8300EAAC01 /* Users.swift in Sources */,
 				CF5A97BA29D3164D00D4F2F5 /* AppDelegate.swift in Sources */,
+				CF48831D29E2B0E600702FA0 /* RegisterViewController.swift in Sources */,
 				CF5A97D029D31FD300D4F2F5 /* PresentViewController.swift in Sources */,
-				CFAF1BAF29E00833005A6318 /* Subscription.swift in Sources */,
 				CF5A97BC29D3164D00D4F2F5 /* SceneDelegate.swift in Sources */,
 				CF8FB08A29D708FF00993513 /* Country.swift in Sources */,
 				CF91AF1629DDBAAD00EAAC01 /* MenuViewController.swift in Sources */,
