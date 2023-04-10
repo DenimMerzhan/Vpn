@@ -16,6 +16,8 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     @IBOutlet weak var phoneNumberTextField: UITextField!
     @IBOutlet weak var numberCountryPicker: UIPickerView!
     
+    var custom = CustomTextField(frame: CGRect(x: 50, y: 100, width: 40, height: 20))
+    
     var valideNumber: Bool? {
         
         didSet {
@@ -38,10 +40,8 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     override func viewWillAppear(_ animated: Bool) {
         
-        
-        let previousResponder = phoneNumberTextField.superview
-        let previousTextField = previousResponder as!  CustomTextField
-
+        custom.backgroundColor = .yellow
+        view.addSubview(custom)
         
         NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: phoneNumberTextField, queue: OperationQueue.main) { (notification) in /// Добавляем наблюдателя который следит за изменениями в ТекстФилде
             
