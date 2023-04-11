@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, DeleteButtonPressed {
     
@@ -16,21 +17,19 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     @IBOutlet weak var numberCountryPicker: UIPickerView!
     var deletePressed =  Bool()
     var validNumberString = ""
-    var valideNumber: Bool? {
+    var valideNumber = false {
         
         didSet {
-            if valideNumber != nil {
-                
-                if valideNumber! { /// Если номер валидный то делаем кнопку получить код доступной
-                    getNumberLabel.backgroundColor = UIColor(named: "ColorButtonYellow")
-                    getNumberLabel.tintColor = UIColor(named: "ColorButtonYellow")
-                }else {
-                    getNumberLabel.backgroundColor = UIColor(named: "ColorButtonYellow")?.withAlphaComponent(0.2)
-                    getNumberLabel.tintColor = UIColor(named: "ColorButtonYellow")?.withAlphaComponent(0.2)
+            
+            if valideNumber { /// Если номер валидный то делаем кнопку получить код доступной
+                getNumberLabel.alpha = 1
+                getNumberLabel.isEnabled = true
+            }else {
+                getNumberLabel.alpha = 0.2
+                getNumberLabel.isEnabled = false
                 }
                 
                 
-            }
         }
     }
     
@@ -89,10 +88,7 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         phoneNumberTextField.textColor = .white
         phoneNumberTextField.font = .systemFont(ofSize: 20)
         
-        
-        
-        getNumberLabel.backgroundColor = UIColor(named: "ColorButtonYellow")?.withAlphaComponent(0.1) /// Устанавливаем кнопку полупрозрачной
-        getNumberLabel.tintColor = UIColor(named: "ColorButtonYellow")?.withAlphaComponent(0.1)
+        valideNumber = false
         
     }
     
@@ -103,14 +99,48 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         deletePressed = true
     }
     
+    
+    
+    
+    
+//MARK: - Кнопка получить кода нажата
+    
+    
+    
     @IBAction func getCodePressed(_ sender: UIButton) {
-        if let valid = valideNumber {
-            if valid {
-                performSegue(withIdentifier: "goToCod", sender: self)
-            }
+        
+        
+        if var number = phoneNumberTextField.text {
+
+            let vowels: Set<Character> = ["-", " "]
+            number.removeAll(where: {vowels.contains($0)}) /// Убираем лишние знаки из номера
+            number = "+7" + number
+
+            
+                PhoneAuthProvider.provider().verifyPhoneNumber(number, uiDelegate: nil) { verivicationID, error in
+                    if let err = error {
+                        print("Ошибка авторизации - \(err)")
+                    }
+                    
+                    else {
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        let dvc = storyboard.instantiateViewController(withIdentifier: "CodeValidVC") as! CheckCodViewController
+                        dvc.phoneNumber = number
+                        dvc.verifictaionID = verivicationID!
+                        self.present(dvc, animated: true)
+                    }
+                }
+
+
+            
         }
         
     }
+    
+    
+    
+    
+    
     
     
     
@@ -129,13 +159,12 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         return NSAttributedString(string: "+7", attributes: [NSAttributedString.Key
             .foregroundColor: UIColor.white,
-                                                             .font:UIFont.boldSystemFont(ofSize: 20)])
+            .font:UIFont.boldSystemFont(ofSize: 20)])
     }
     
     
     
 }
-    
     
 
 
@@ -152,4 +181,6 @@ extension RegisterViewController: UITextFieldDelegate {
         
 
     }
+
+
 

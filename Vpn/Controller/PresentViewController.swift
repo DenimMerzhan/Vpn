@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseFirestore
 import StoreKit
+import FirebaseAuth
 
 
 class PresentViewController: UIViewController {
@@ -25,16 +26,30 @@ class PresentViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
-        
-        if let firstLainch  = defaults.object(forKey: "FirstLaunch") { /// Если есть ключ FirstLaunch то проверяем его
+        if let premium = defaults.object(forKey: "subscriptionPayment") as? Bool { /// Если пользователь покупал подписку хоть раз в текущей версии приложения
+            if premium  {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let dvc  = storyboard.instantiateViewController(withIdentifier: "VpnID") as! ViewController
+                dvc.currentUser = Users(dataFirstLaunch: 0, subscriptionStatus: true, freeUser: false)
+                self.present(dvc, animated: true)
+            }
+        }else {
             
-            if firstLainch as! Bool == false { /// Если это не первый вход то переходим на второй контроллер
-                changeRootVC() /// Устанавливаем новый контроллер корневым и показываем его
+            DispatchQueue.main.async {
+                
+                if Auth.auth().currentUser?.uid != nil {
+                    
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let dvc  = storyboard.instantiateViewController(withIdentifier: "VpnID") as! ViewController
+                    dvc.currentUser = Users(dataFirstLaunch: 0, subscriptionStatus: false, freeUser: true)
+                    dvc.phoneNumber = Auth.auth().currentUser!.phoneNumber!
+                    self.present(dvc, animated: true)
+                }
             }
         }
+    }
     
         
-    }
     
     override func viewDidLoad() {
         SKPaymentQueue.default().add(self) /// Добавляем наблюдателя за транзакциями
@@ -49,19 +64,12 @@ class PresentViewController: UIViewController {
     
     @IBAction func freeVersionClick(_ sender: UIButton) {
         
-        
-        defaults.set(false, forKey: "subscriptionPayment")
-        
-        
     }
     
     
     
     @IBAction func resotorePressed(_ sender: UIButton) {
         
-        
-        defaults.set(true, forKey: "subscriptionPayment")
-        defaults.set(true, forKey: "FirstLaunch")
         performSegue(withIdentifier: "goToVPN", sender: self)
     }
     
@@ -95,10 +103,12 @@ extension PresentViewController: SKPaymentTransactionObserver {
 
                 
                 defaults.set(true, forKey: "subscriptionPayment")
-                defaults.set(true, forKey: "FirstLaunch")
                 SKPaymentQueue.default().finishTransaction(transaction) /// Завершаем транзакцию
                 
-                changeRootVC()
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let dvc = storyboard.instantiateViewController(withIdentifier: "VpnID") as! ViewController
+                dvc.currentUser = Users(dataFirstLaunch: 0, subscriptionStatus: true, freeUser: false)
+                self.present(dvc, animated: true)
                 
                 
                 
@@ -139,25 +149,6 @@ extension Formatter {
 }
 
 
-//MARK: - Установка корневого контроллера
-
-
-extension PresentViewController {
-    
-    func changeRootVC(){
-        
-        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewController = mainStoryboard.instantiateViewController(withIdentifier: "VpnID") as! ViewController
-        UIApplication.shared.windows.first?.rootViewController = viewController
-        UIApplication.shared.windows.first?.makeKeyAndVisible()
-        
-//
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let dvc = storyboard.instantiateViewController(withIdentifier: "VpnID") as! ViewController
-//        self.present(dvc, animated: true)
-    }
-    
-}
 
 
 

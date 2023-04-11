@@ -11,8 +11,8 @@ import Foundation
 struct Users {
         
     let dataFirstLaunch: TimeInterval
-    let subscriptionPayment: Bool
     let subscriptionStatus: Bool
+    let freeUser: Bool
     
     
 }

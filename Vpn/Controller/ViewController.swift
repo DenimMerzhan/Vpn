@@ -18,12 +18,14 @@ class ViewController: UIViewController {
     let defaults = UserDefaults.standard
     var accessUser = false
     let db = Firestore.firestore()
+    
     var noSubscriptionsFound = false
+    var freeUser = Bool()
+    var phoneNumber = String()
     
     var pressedVPNButton: Bool = false
-    var amountOfDay: String = "ff"
-    var currentDevice = UIDevice.current.identifierForVendor!.uuidString /// Получаем текущий индефикатор устройства
-    
+    var amountOfDay: String = ""
+
     
     
     @IBOutlet weak var currentCountryVpn: UILabel!
@@ -42,7 +44,7 @@ class ViewController: UIViewController {
                     accessUser = true
                 }
                 
-                else if currentUser!.subscriptionPayment == false { /// Если пользователь никогда не покупал подписку
+                else if currentUser!.freeUser == true { /// Если у пользователя бесплатный контент
                     
                     let differencer = NSDate().timeIntervalSince1970 - currentUser!.dataFirstLaunch
             
@@ -65,12 +67,12 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         
         
-        if defaults.bool(forKey: "subscriptionPayment") { /// Если пользователь хоть раз покупал продукт то загружаем статус его подписки
+        if currentUser!.freeUser { /// Если пользователь с бесплатной версией загружаем дату окончания промо периода
+            loadData()
+        }else {
             print(noSubscriptionsFound)
             receiptValidation()
-        }else {loadData()} /// Если нет то загружаем данные когда заканчивается бесплатная версия
-        
-        navigationController?.navigationBar.isHidden = true
+        }
         
     }
     
@@ -143,14 +145,14 @@ class ViewController: UIViewController {
                 AVVPNService.shared.disconnect()
             }
             
-        }else { /// Если нету то уведомляем пользователя
+        }else { /// Если нету доступа уведомляем пользователя
             
-            if let subsc = currentUser?.subscriptionPayment {
+            if let subsc = currentUser?.freeUser {
                 
                 if subsc {
-                    creatAlert(text: "Ваш срок премиум аккаунта истек. Вы можете его продлить в разделе настроек")
-                }else {
                     creatAlert(text: "Ваш срок бесплатного пользования истек. Вы можете купить премиум аккаунт для его продления")
+                }else {
+                    creatAlert(text: "Ваш срок премиум аккаунта истек. Вы можете его продлить в разделе настроек")
                 }
             }
 
@@ -274,11 +276,11 @@ extension ViewController {
             
             for document in QuerySnapshot!.documents {
                
-                if document.documentID == self.currentDevice { /// Если текущий пользователь уже был зарегестрирован
+                if document.documentID == self.phoneNumber { /// Если текущий пользователь уже был зарегестрирован
                 
                    existingUser = true
-                   let date =  document["dataFirstLaunch"] as! TimeInterval /// Преобразуем данные из FireBase
-                   self.currentUser = Users(dataFirstLaunch: date, subscriptionPayment: false, subscriptionStatus: false)
+                   let date =  document["dateFirstLaunch"] as! TimeInterval /// Преобразуем данные из FireBase
+                    self.currentUser = Users(dataFirstLaunch: date, subscriptionStatus: false, freeUser: true)
 
                     
                     DispatchQueue.main.async { /// Как только посчитано количество дней, мы отоброжаем инфу пользователю
@@ -304,7 +306,11 @@ extension ViewController {
             
             if existingUser == false { /// Если такого пользователя не было
                 print("New User")
-                self.db.collection("Users").document(self.currentDevice).setData(["dataFirstLaunch":NSDate().timeIntervalSince1970,"subscription":false]) /// Добавляем данные о бесплатно пользователе
+                self.db.collection("Users").document(self.phoneNumber).setData(["dateFirstLaunch" : NSDate().timeIntervalSince1970]) { error in
+                    if let  err = error {
+                        print("Ошибка записи данных в обалко - \(err)")
+                    }
+                }
                 self.loadData() /// Загружаем еще раз данные
             }
             
@@ -363,22 +369,25 @@ extension ViewController: SKRequestDelegate{
                         
                         if let dataArr = jsonData["latest_receipt_info"] as? [[String: Any]] { /// Далее преобразуем в архив словарей если там есть  latest_receipt_info
                             
+                            self.defaults.set(true, forKey: "subscriptionPayment") /// Говорим что пользователь покупал подписку
+                            
                             let subscriptionExpirationDate = dataArr[0]["expires_date"] as! String // Берем последний массив и от туда дату окончания подписки
                             
                             
                             if let dateEndSubscription = Formatter.customDate.date(from: subscriptionExpirationDate) { /// Форматиурем нашу строку в дату
                                 
                                 
+                                
                                 if Date() > dateEndSubscription { /// Если текущая дата больше даты окончания заканчиваем подписку
                                     
-                                    self.currentUser = Users(dataFirstLaunch: 0, subscriptionPayment: true, subscriptionStatus: false)
+                                    self.currentUser = Users(dataFirstLaunch: 0, subscriptionStatus: false, freeUser: false)
                                     self.numberOfDayFreeVersion.text = ""
                                     self.additionallabel.text  = "Срок премиум аккаунта истек"
                                     print("Now \(dateEndSubscription)")
                                 }
                                 
                                 else {
-                                    self.currentUser = Users(dataFirstLaunch: 0, subscriptionPayment: true, subscriptionStatus: true)
+                                    self.currentUser = Users(dataFirstLaunch: 0, subscriptionStatus: true, freeUser: false)
                                     self.additionallabel.text  = "Премиум Активен до \(dateEndSubscription)"
                                     
                                     if self.defaults.bool(forKey: "FirstLaunch") {
@@ -389,13 +398,17 @@ extension ViewController: SKRequestDelegate{
                                     print("Yeah \(dateEndSubscription)")
                                 }
                             }
-                        }else { /// latest_receipt_info - если данной строки нет значит пользователь никогда не покупал подписку
+                            
+                            
+                        }else { /// latest_receipt_info - если данной строки нет значит пользователь никогда не покупал подписку, в таком случае откланяем viewController
                             self.noSubscriptionsFound = true
                             self.creatAlert(text: "Нет активных подписок!")
                         }
                         
                   }
                 }
+                
+                
                 
             }.resume()
         

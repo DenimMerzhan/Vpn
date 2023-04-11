@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class MenuViewController: UIViewController, UITableViewDataSource {
 
@@ -18,7 +19,11 @@ class MenuViewController: UIViewController, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self /// Устанавливаем себя в качестве делегата
-
+        
+        if Auth.auth().currentUser?.uid != nil {
+            
+        }
+        
         // Do any additional setup after loading the view.
     }
     

@@ -150,7 +150,7 @@
         <!--VPN-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="VpnID" id="BYZ-38-t0r" customClass="ViewController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VpnID" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="ViewController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -329,7 +329,7 @@
             <objects>
                 <tableViewController id="SHi-gu-MMT" customClass="ChangeCountryController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="singleLineEtched" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" id="96J-y9-0re">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="ColorBackgound"/>
                         <color key="separatorColor" systemColor="labelColor"/>
@@ -419,10 +419,13 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mip-K8-sSG">
                                 <rect key="frame" x="16" y="398" width="361" height="57"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.98431372640000003" green="0.90196073060000004" blue="0.48235297199999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" red="0.98431372640000003" green="0.90196073060000004" blue="0.48235297199999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Получить код">
                                     <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="18"/>
                                     <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="baseBackgroundColor" red="0.98431372640000003" green="0.90196073060000004" blue="0.48235297199999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="getCodePressed:" destination="mBi-4y-Y28" eventType="touchUpInside" id="Fh0-vS-xLX"/>
@@ -455,7 +458,6 @@
                         <outlet property="getNumberLabel" destination="mip-K8-sSG" id="cJ1-cM-oWV"/>
                         <outlet property="numberCountryPicker" destination="IYM-HV-bsv" id="bfM-Uc-t46"/>
                         <outlet property="phoneNumberTextField" destination="RVE-uG-rqY" id="FdO-xM-liO"/>
-                        <segue destination="iU3-1L-fd6" kind="show" identifier="goToCod" id="CSr-KC-6bz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OKQ-es-Xau" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -465,7 +467,7 @@
         <!--Check Cod View Controller-->
         <scene sceneID="H89-e0-4Ps">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="iU3-1L-fd6" customClass="CheckCodViewController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CodeValidVC" modalPresentationStyle="fullScreen" id="iU3-1L-fd6" customClass="CheckCodViewController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2iE-pV-HEk">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -492,22 +494,25 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cOI-Gu-mZ1">
                                 <rect key="frame" x="16" y="398" width="361" height="57"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" name="ColorButtonYellow"/>
+                                <color key="tintColor" name="ColorButtonYellow"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Проверить код">
                                     <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="18"/>
                                     <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="baseBackgroundColor" red="0.98431372640000003" green="0.90196073060000004" blue="0.48235297199999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="checkCodePressed:" destination="iU3-1L-fd6" eventType="touchUpInside" id="QJp-Fg-dT2"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="M2o-Ob-0fL">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="M2o-Ob-0fL">
                                 <rect key="frame" x="16" y="323" width="361" height="49"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" name="ColorBackgound"/>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="phonePad"/>
                             </textView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="tks-dv-4IU"/>
@@ -517,7 +522,6 @@
                     <connections>
                         <outlet property="checkCodeUiButton" destination="cOI-Gu-mZ1" id="3io-qd-vKh"/>
                         <outlet property="codeTextView" destination="M2o-Ob-0fL" id="Tod-V7-jHC"/>
-                        <segue destination="BYZ-38-t0r" kind="show" id="nnR-Pd-RnH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WVO-W4-vcR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -534,6 +538,9 @@
         <image name="link" catalog="system" width="128" height="124"/>
         <namedColor name="ColorBackgound">
             <color red="0.18799999356269836" green="0.24300000071525574" blue="0.3059999942779541" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="ColorButtonYellow">
+            <color red="0.98400002717971802" green="0.90200001001358032" blue="0.48199999332427979" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="PlacheolderColor">
             <color red="0.2199999988079071" green="0.28200000524520874" blue="0.36100000143051147" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
