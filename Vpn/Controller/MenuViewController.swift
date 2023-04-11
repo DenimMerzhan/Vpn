@@ -13,6 +13,7 @@ class MenuViewController: UIViewController, UITableViewDataSource {
     
     
     
+    @IBOutlet weak var buttonPremium: UIButton!
     @IBOutlet weak var accountButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
@@ -20,17 +21,22 @@ class MenuViewController: UIViewController, UITableViewDataSource {
     var menuCell = ["Поддержка","Ответы на вопросы", "Пользовательское соглашение","Политика конфиденциальности"]
     let defaults = UserDefaults.standard
     
+    var currentUsers = Users(dataFirstLaunch: 0, subscriptionStatus: false, freeUser: false)
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         SKPaymentQueue.default().add(self)
         tableView.dataSource = self /// Устанавливаем себя в качестве делегата
         
-        if Auth.auth().currentUser?.uid != nil {
+        if currentUsers.freeUser {
             accountButton.setTitle("Выйти из аккаунта", for: .normal)
+        }else if currentUsers.subscriptionStatus {
+            buttonPremium.isHidden = true
         }
         
-        // Do any additional setup after loading the view.
     }
     
     
@@ -64,8 +70,9 @@ class MenuViewController: UIViewController, UITableViewDataSource {
         buyPremium()
     }
     
-    
 }
+
+
 
  //MARK: - LogOut
 
@@ -85,33 +92,35 @@ extension MenuViewController {
 }
 
 
+
+
+
+
 //MARK: - Покупка премиум
 
 
 extension MenuViewController: SKPaymentTransactionObserver {
-    
+
     func buyPremium(){
-        
+
         if SKPaymentQueue.canMakePayments() { /// Если включен родительский контроль то покупку совершить нельзя
-            
+
             let paymentRequest = SKMutablePayment() /// Создаем запрос на покупку в приложение
             paymentRequest.productIdentifier = productID
             SKPaymentQueue.default().add(paymentRequest)
-            
+
         }
     }
-    
+
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        
         for transaction in transactions {
             
-        
             if transaction.transactionState == .purchased {
                 
-                print("Transaction  Okay")
-
-                
-                defaults.set(true, forKey: "subscriptionPayment")
-                SKPaymentQueue.default().finishTransaction(transaction) /// Завершаем транзакцию
+                if Auth.auth().currentUser?.uid != nil {
+                    logOut()
+                }
                 
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let dvc = storyboard.instantiateViewController(withIdentifier: "VpnID") as! ViewController
@@ -119,25 +128,10 @@ extension MenuViewController: SKPaymentTransactionObserver {
                 self.present(dvc, animated: true)
                 
                 
-                
-            }else if transaction.transactionState == .failed {
-                print("Transaction  Fall")
-                
-                if  let error = transaction.error {
-                    print("Ошибка обработки платежа - \(error.localizedDescription)")
-                }
-                
-                SKPaymentQueue.default().finishTransaction(transaction)
-                
-            } else if transaction.transactionState == .restored {
-                SKPaymentQueue.default().finishTransaction(transaction)
-            }
-            else if transaction.transactionState == .purchasing {
-                
-                print("Обработка платежа")
             }
         }
+
     }
-    
+
 
 }

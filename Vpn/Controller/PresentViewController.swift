@@ -58,15 +58,18 @@ class PresentViewController: UIViewController {
     }
     
     
-    @IBAction func subscriptionClick(_ sender: UIButton) {
+    @IBAction func subscriptionClick(_ sender: UIButton) { /// Кнопка подписки нажата
         
         buyPremium()
     }
     
     
-    @IBAction func resotorePressed(_ sender: UIButton) {
+    @IBAction func resotorePressed(_ sender: UIButton) { /// Кнопка восстановления нажата
         
-        performSegue(withIdentifier: "goToVPN", sender: self)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let dvc = storyboard.instantiateViewController(withIdentifier: "VpnID") as! ViewController
+        dvc.currentUser = Users(dataFirstLaunch: 0, subscriptionStatus: false, freeUser: false)
+        self.present(dvc, animated: true)
     }
     
 }
@@ -96,7 +99,7 @@ extension PresentViewController: SKPaymentTransactionObserver {
             if transaction.transactionState == .purchased {
                 
                 print("Transaction  Okay")
-
+                
                 
                 defaults.set(true, forKey: "subscriptionPayment")
                 SKPaymentQueue.default().finishTransaction(transaction) /// Завершаем транзакцию
@@ -130,6 +133,9 @@ extension PresentViewController: SKPaymentTransactionObserver {
 
 }
 
+
+
+//MARK: - Расширение для преобразования даты
 
 extension Formatter {
     

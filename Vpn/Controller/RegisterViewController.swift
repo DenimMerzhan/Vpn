@@ -41,7 +41,7 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) { // Проверяем валидность номера
         
         NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: phoneNumberTextField, queue: OperationQueue.main) { (notification) in /// Добавляем наблюдателя который следит за изменениями в ТекстФилде
             
@@ -79,6 +79,7 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             }
         }
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

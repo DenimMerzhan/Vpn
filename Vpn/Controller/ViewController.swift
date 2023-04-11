@@ -101,13 +101,18 @@ class ViewController: UIViewController {
     
     
     
+    @IBAction func preferencesPressed(_ sender: UIButton) {
+        performSegue(withIdentifier: "vpnToPreferences", sender: self)
+    }
     
     
-    
-    
-    
-  
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if let dvc = segue.destination as?  MenuViewController {
+            dvc.currentUsers = currentUser!
+        }
+        
+    }
     
     
     
@@ -161,15 +166,6 @@ class ViewController: UIViewController {
         
     }
     
-    
-    
-    
-//MARK: - Смена страны
-    
-    @IBAction func changeCountryPressed(_ sender: UIButton) {
-        
-        performSegue(withIdentifier: "goToChangeCountry", sender: self)
-    }
     
 
     
@@ -361,7 +357,6 @@ extension ViewController: SKRequestDelegate{
                     
                     if let data = data, let jsonData = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:Any] { /// Преобразуем файл Json в словарь
                         
-                    print(jsonData)
                         
                         if let dataArr = jsonData["latest_receipt_info"] as? [[String: Any]] { /// Далее преобразуем в архив словарей если там есть  latest_receipt_info
                             

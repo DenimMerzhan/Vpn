@@ -92,6 +92,9 @@
                         <color key="backgroundColor" name="ColorBackgound"/>
                     </view>
                     <navigationItem key="navigationItem" id="pqF-KH-yVw"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="goToVpn" id="Hfd-JW-UiA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zRm-bI-0no" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -126,7 +129,7 @@
                                     <color key="baseBackgroundColor" name="ColorBackgound"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="changeCountryPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dmJ-pS-bv4"/>
+                                    <segue destination="SHi-gu-MMT" kind="show" id="vQu-8y-ss4"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jXK-wZ-tWY">
@@ -139,7 +142,7 @@
                                     <color key="baseBackgroundColor" name="ColorBackgound"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <segue destination="e91-Sj-btM" kind="presentation" id="wx2-Lo-bIQ"/>
+                                    <action selector="preferencesPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lct-eG-dn2"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="dwddwdw" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z3t-7P-vuX">
@@ -181,7 +184,7 @@
                         <outlet property="currentCountryVpn" destination="eim-Ff-q91" id="owE-aH-YuK"/>
                         <outlet property="currentStatusVpn" destination="Z3t-7P-vuX" id="YSV-XJ-geM"/>
                         <outlet property="numberOfDayFreeVersion" destination="vKt-y0-Wib" id="son-dh-6mX"/>
-                        <segue destination="SHi-gu-MMT" kind="showDetail" identifier="goToChangeCountry" id="pzi-di-LCX"/>
+                        <segue destination="e91-Sj-btM" kind="show" identifier="vpnToPreferences" id="J8f-lX-5o0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -193,7 +196,7 @@
             <objects>
                 <viewController id="e91-Sj-btM" customClass="MenuViewController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wf4-5P-5S7">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Настройки" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZCJ-NU-8v4">
@@ -259,8 +262,10 @@
                         <viewLayoutGuide key="safeArea" id="CbB-V3-D1h"/>
                         <color key="backgroundColor" name="ColorBackgound"/>
                     </view>
+                    <navigationItem key="navigationItem" id="MUX-CA-8Ga"/>
                     <connections>
                         <outlet property="accountButton" destination="Dfb-JT-2w1" id="1Aw-I9-4Ws"/>
+                        <outlet property="buttonPremium" destination="auz-Bx-zeH" id="VTq-4U-yuf"/>
                         <outlet property="tableView" destination="uJa-i6-np4" id="qcu-Pu-LYu"/>
                         <segue destination="mBi-4y-Y28" kind="show" identifier="menuToAuth" id="hga-QA-uw2"/>
                     </connections>
@@ -274,7 +279,7 @@
             <objects>
                 <tableViewController id="SHi-gu-MMT" customClass="ChangeCountryController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="singleLineEtched" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" id="96J-y9-0re">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="ColorBackgound"/>
                         <color key="separatorColor" systemColor="labelColor"/>
@@ -346,7 +351,7 @@
             <objects>
                 <viewController id="mBi-4y-Y28" customClass="RegisterViewController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6PR-hj-G0u">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mip-K8-sSG">
@@ -365,7 +370,7 @@
                                 </connections>
                             </button>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IYM-HV-bsv">
-                                <rect key="frame" x="13" y="330" width="72" height="46"/>
+                                <rect key="frame" x="13" y="330" width="71" height="46"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             </pickerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Введите номер телефона" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fmg-AX-qBE">
@@ -403,7 +408,7 @@
             <objects>
                 <viewController storyboardIdentifier="CodeValidVC" id="iU3-1L-fd6" customClass="CheckCodViewController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2iE-pV-HEk">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iv6-X0-7NK">
@@ -418,13 +423,6 @@
                                     <action selector="authPressed:" destination="iU3-1L-fd6" eventType="touchUpInside" id="ZXp-tN-acp"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Введите проверочный код" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vPc-FX-Yug">
-                                <rect key="frame" x="16" y="279" width="279" height="27"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cOI-Gu-mZ1">
                                 <rect key="frame" x="16" y="398" width="361" height="57"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -448,6 +446,13 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="phonePad"/>
                             </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Введите проверочный код" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vPc-FX-Yug">
+                                <rect key="frame" x="60" y="288" width="279" height="27"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="tks-dv-4IU"/>
                         <color key="backgroundColor" name="ColorBackgound"/>
@@ -464,7 +469,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="hga-QA-uw2"/>
+        <segue reference="9HV-TU-38b"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="VpnDIsconnected" width="108.66666412353516" height="120"/>
