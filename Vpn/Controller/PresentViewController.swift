@@ -21,23 +21,15 @@ class PresentViewController: UIViewController {
     
     let db = Firestore.firestore()
     let productID  = "com.TopVpnDenimMerzhan.Vpn"
-    var arrProduct  = [SKProduct]()
     
     
     override func viewWillAppear(_ animated: Bool) {
         
-        if let premium = defaults.object(forKey: "subscriptionPayment") as? Bool { /// Если пользователь покупал подписку хоть раз в текущей версии приложения
-            if premium  {
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let dvc  = storyboard.instantiateViewController(withIdentifier: "VpnID") as! ViewController
-                dvc.currentUser = Users(dataFirstLaunch: 0, subscriptionStatus: true, freeUser: false)
-                self.present(dvc, animated: true)
-            }
-        }else {
+        
             
             DispatchQueue.main.async {
                 
-                if Auth.auth().currentUser?.uid != nil {
+                if Auth.auth().currentUser?.uid != nil { /// Проверяем на бесплатного пользователя
                     
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     let dvc  = storyboard.instantiateViewController(withIdentifier: "VpnID") as! ViewController
@@ -45,8 +37,18 @@ class PresentViewController: UIViewController {
                     dvc.phoneNumber = Auth.auth().currentUser!.phoneNumber!
                     self.present(dvc, animated: true)
                 }
+                
+                else if let premium = self.defaults.object(forKey: "subscriptionPayment") as? Bool { /// Проверяем покупал ли подписку
+                    
+                    if premium  {
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        let dvc  = storyboard.instantiateViewController(withIdentifier: "VpnID") as! ViewController
+                        dvc.currentUser = Users(dataFirstLaunch: 0, subscriptionStatus: true, freeUser: false)
+                        self.present(dvc, animated: true)
+                    }
+                }
             }
-        }
+        
     }
     
         
@@ -60,12 +62,6 @@ class PresentViewController: UIViewController {
         
         buyPremium()
     }
-    
-    
-    @IBAction func freeVersionClick(_ sender: UIButton) {
-        
-    }
-    
     
     
     @IBAction func resotorePressed(_ sender: UIButton) {
@@ -131,8 +127,6 @@ extension PresentViewController: SKPaymentTransactionObserver {
         }
     }
     
-    
-//MARK: - Проверка квитанции
 
 }
 
@@ -141,9 +135,20 @@ extension Formatter {
     
     
     static let customDate: DateFormatter = {
+        
         let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss VV"
+        formatter.locale = Locale(identifier: "en_US_POSIX") /// На каком языке будет отображться
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss VV" /// Какой формат M - месяц Y - Year b т.д
+        
+        return formatter
+    }()
+    
+    static let formatToRusDate: DateFormatter = {
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd MMMM"
+        formatter.locale = Locale(identifier: "ru_Ru")
+        
         return formatter
     }()
 }

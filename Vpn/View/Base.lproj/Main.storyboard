@@ -13,7 +13,7 @@
         <!--Present View Controller-->
         <scene sceneID="I42-Es-4QW">
             <objects>
-                <viewController id="DbE-8n-9BO" customClass="PresentViewController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="presentVC" modalPresentationStyle="fullScreen" id="DbE-8n-9BO" customClass="PresentViewController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="i8d-Xj-Z3L">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -46,8 +46,7 @@
                                     <color key="baseBackgroundColor" red="1" green="0.88446849279999995" blue="0.33426339290000001" alpha="1" colorSpace="calibratedRGB"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="freeVersionClick:" destination="DbE-8n-9BO" eventType="touchUpInside" id="vKv-rz-Kll"/>
-                                    <segue destination="mBi-4y-Y28" kind="show" id="mFC-0T-JWW"/>
+                                    <segue destination="mBi-4y-Y28" kind="show" id="9HV-TU-38b"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="149 р/ в месяц" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cDH-Bs-66i">
@@ -73,8 +72,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="autorizationPressed:" destination="DbE-8n-9BO" eventType="touchUpInside" id="AAE-Gm-4c4"/>
-                                    <segue destination="deO-Zk-SxG" kind="show" id="57r-mU-Wg9"/>
+                                    <segue destination="mBi-4y-Y28" kind="show" id="IJE-Fv-znb"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A4D-eh-sup">
@@ -98,54 +96,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zRm-bI-0no" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="241.98473282442748" y="-2.1126760563380285"/>
-        </scene>
-        <!--Authorization Cotroller-->
-        <scene sceneID="Kpm-6k-s0q">
-            <objects>
-                <viewController id="deO-Zk-SxG" customClass="AuthorizationCotroller" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Zzd-Ix-P5d">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LaI-NE-6iB">
-                                <rect key="frame" x="40" y="124" width="313" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.98431372640000003" green="0.90196073060000004" blue="0.48235297199999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Пароль" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p2I-1t-FFo">
-                                <rect key="frame" x="40" y="205" width="313" height="58"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.98431372640000003" green="0.90196073060000004" blue="0.48235297199999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yw9-ve-Mik">
-                                <rect key="frame" x="99" y="271" width="195" height="51"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Авторизация">
-                                    <fontDescription key="titleFontDescription" name="Impact" family="Impact" pointSize="30"/>
-                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <action selector="authPressed:" destination="deO-Zk-SxG" eventType="touchUpInside" id="Rgq-Ms-tbE"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="rDe-H1-fkr"/>
-                        <color key="backgroundColor" name="ColorBackgound"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="Q9y-g4-5Ub"/>
-                    <connections>
-                        <outlet property="emailTextField" destination="LaI-NE-6iB" id="EOJ-nK-s3A"/>
-                        <outlet property="passwordTextField" destination="p2I-1t-FFo" id="BnQ-Gf-EqY"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="S9Y-6S-QKj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1297" y="-566"/>
         </scene>
         <!--VPN-->
         <scene sceneID="tne-QT-ifu">
@@ -231,12 +181,12 @@
                         <outlet property="currentCountryVpn" destination="eim-Ff-q91" id="owE-aH-YuK"/>
                         <outlet property="currentStatusVpn" destination="Z3t-7P-vuX" id="YSV-XJ-geM"/>
                         <outlet property="numberOfDayFreeVersion" destination="vKt-y0-Wib" id="son-dh-6mX"/>
-                        <segue destination="SHi-gu-MMT" kind="show" identifier="goToChangeCountry" id="pzi-di-LCX"/>
+                        <segue destination="SHi-gu-MMT" kind="showDetail" identifier="goToChangeCountry" id="pzi-di-LCX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3537" y="-2"/>
+            <point key="canvasLocation" x="3034" y="15"/>
         </scene>
         <!--Menu View Controller-->
         <scene sceneID="J0U-us-mpr">
@@ -262,6 +212,9 @@
                                     <color key="baseForegroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="baseBackgroundColor" red="0.98431372640000003" green="0.90196073060000004" blue="0.48235297199999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="buyPremiumPressed:" destination="e91-Sj-btM" eventType="touchUpInside" id="rc4-T2-Nlt"/>
+                                </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="uJa-i6-np4">
                                 <rect key="frame" x="16" y="275" width="361" height="200"/>
@@ -292,37 +245,29 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dfb-JT-2w1">
-                                <rect key="frame" x="104" y="714" width="185" height="35"/>
+                                <rect key="frame" x="80" y="714" width="234" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="У меня есть аккаунт">
+                                <buttonConfiguration key="configuration" style="filled" title="Регистрация/Авторизация">
                                     <color key="baseBackgroundColor" name="ColorBackgound"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="regristerPressed:" destination="e91-Sj-btM" eventType="touchUpInside" id="kB0-2n-PRO"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4mb-Q5-XCv">
-                                <rect key="frame" x="16" y="211" width="101" height="25"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="8"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="Восстановить покупки">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="CbB-V3-D1h"/>
                         <color key="backgroundColor" name="ColorBackgound"/>
                     </view>
                     <connections>
+                        <outlet property="accountButton" destination="Dfb-JT-2w1" id="1Aw-I9-4Ws"/>
                         <outlet property="tableView" destination="uJa-i6-np4" id="qcu-Pu-LYu"/>
-                        <segue destination="deO-Zk-SxG" kind="show" identifier="preferencesToAuth" id="Gob-Jt-VnS"/>
+                        <segue destination="mBi-4y-Y28" kind="show" identifier="menuToAuth" id="hga-QA-uw2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ubb-Of-sUn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5265" y="344"/>
+            <point key="canvasLocation" x="4673" y="358"/>
         </scene>
         <!--Страны-->
         <scene sceneID="Z5B-JP-mIX">
@@ -376,7 +321,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SAQ-xt-mgs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5265" y="-473"/>
+            <point key="canvasLocation" x="4734" y="-444"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="aTp-iC-Mps">
@@ -401,21 +346,9 @@
             <objects>
                 <viewController id="mBi-4y-Y28" customClass="RegisterViewController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6PR-hj-G0u">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZXq-FQ-EZk">
-                                <rect key="frame" x="125" y="776" width="148" height="38"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Регистрация">
-                                    <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="20"/>
-                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <action selector="authPressed:" destination="mBi-4y-Y28" eventType="touchUpInside" id="ue0-LC-boN"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mip-K8-sSG">
                                 <rect key="frame" x="16" y="398" width="361" height="57"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -432,7 +365,7 @@
                                 </connections>
                             </button>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IYM-HV-bsv">
-                                <rect key="frame" x="14" y="330" width="71" height="46"/>
+                                <rect key="frame" x="13" y="330" width="72" height="46"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             </pickerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Введите номер телефона" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fmg-AX-qBE">
@@ -458,18 +391,19 @@
                         <outlet property="getNumberLabel" destination="mip-K8-sSG" id="cJ1-cM-oWV"/>
                         <outlet property="numberCountryPicker" destination="IYM-HV-bsv" id="bfM-Uc-t46"/>
                         <outlet property="phoneNumberTextField" destination="RVE-uG-rqY" id="FdO-xM-liO"/>
+                        <segue destination="iU3-1L-fd6" kind="show" identifier="authToCheckCode" id="1UX-Yb-hdn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OKQ-es-Xau" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1297" y="615"/>
+            <point key="canvasLocation" x="1118" y="664"/>
         </scene>
         <!--Check Cod View Controller-->
         <scene sceneID="H89-e0-4Ps">
             <objects>
-                <viewController storyboardIdentifier="CodeValidVC" modalPresentationStyle="fullScreen" id="iU3-1L-fd6" customClass="CheckCodViewController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CodeValidVC" id="iU3-1L-fd6" customClass="CheckCodViewController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2iE-pV-HEk">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iv6-X0-7NK">
@@ -510,7 +444,7 @@
                                 <rect key="frame" x="16" y="323" width="361" height="49"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" name="ColorBackgound"/>
-                                <color key="textColor" systemColor="labelColor"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="phonePad"/>
                             </textView>
@@ -526,11 +460,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WVO-W4-vcR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2646.5648854961833" y="33.802816901408455"/>
+            <point key="canvasLocation" x="2179" y="663"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Gob-Jt-VnS"/>
+        <segue reference="hga-QA-uw2"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="VpnDIsconnected" width="108.66666412353516" height="120"/>

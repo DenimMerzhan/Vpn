@@ -12,9 +12,15 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     
     
+
     @IBOutlet weak var getNumberLabel: UIButton!
     @IBOutlet weak var phoneNumberTextField: CustomTextField!
     @IBOutlet weak var numberCountryPicker: UIPickerView!
+    
+    var registerAuthUser = ""
+    var verfictationID  = ""
+    var phoneNumber = ""
+    
     var deletePressed =  Bool()
     var validNumberString = ""
     var valideNumber = false {
@@ -115,19 +121,17 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             let vowels: Set<Character> = ["-", " "]
             number.removeAll(where: {vowels.contains($0)}) /// Убираем лишние знаки из номера
             number = "+7" + number
-
             
-                PhoneAuthProvider.provider().verifyPhoneNumber(number, uiDelegate: nil) { verivicationID, error in
+                PhoneAuthProvider.provider().verifyPhoneNumber(number, uiDelegate: nil) { verivicationId, error in
                     if let err = error {
                         print("Ошибка авторизации - \(err)")
                     }
                     
                     else {
-                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                        let dvc = storyboard.instantiateViewController(withIdentifier: "CodeValidVC") as! CheckCodViewController
-                        dvc.phoneNumber = number
-                        dvc.verifictaionID = verivicationID!
-                        self.present(dvc, animated: true)
+                        self.phoneNumber = number
+                        self.verfictationID = verivicationId!
+                        self.performSegue(withIdentifier: "authToCheckCode", sender: self)
+
                     }
                 }
 
@@ -141,7 +145,13 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        guard let dvc = segue.destination as? CheckCodViewController else {return}
     
+        dvc.phoneNumber = phoneNumber
+        dvc.verifictaionID = verfictationID
+    }
     
     
     

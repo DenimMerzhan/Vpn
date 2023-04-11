@@ -286,11 +286,7 @@ extension ViewController {
                     DispatchQueue.main.async { /// Как только посчитано количество дней, мы отоброжаем инфу пользователю
                         
                         if self.accessUser {
-                            
-                            if self.defaults.bool(forKey: "FirstLaunch") {
-                                self.creatAlert(text: "Ваш бесплатный доступ состовляет 7 дней. Приятного пользования!")
-                                self.defaults.set(false, forKey: "FirstLaunch")
-                            }
+
                             
                             self.numberOfDayFreeVersion.text = self.amountOfDay
                             self.additionallabel.text = "До истечения бесплатного пользования"
@@ -388,7 +384,11 @@ extension ViewController: SKRequestDelegate{
                                 
                                 else {
                                     self.currentUser = Users(dataFirstLaunch: 0, subscriptionStatus: true, freeUser: false)
-                                    self.additionallabel.text  = "Премиум Активен до \(dateEndSubscription)"
+                                    
+                            
+                                    let rusDate = Formatter.formatToRusDate.string(from: dateEndSubscription)
+                                    
+                                    self.additionallabel.text  = "Премиум Активен до \(rusDate)"
                                     
                                     if self.defaults.bool(forKey: "FirstLaunch") {
                                         self.creatAlert(text: "Премиум аккаунт активирован")

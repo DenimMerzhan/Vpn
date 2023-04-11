@@ -18,6 +18,8 @@ class CheckCodViewController: UIViewController {
     var phoneNumber = String()
     let db = Firestore.firestore()
     
+    let defaults = UserDefaults.standard
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -56,6 +58,7 @@ class CheckCodViewController: UIViewController {
         let dvc = storyboard.instantiateViewController(withIdentifier: "VpnID") as! ViewController
         dvc.currentUser = Users(dataFirstLaunch: 0, subscriptionStatus: false, freeUser: true)
         dvc.phoneNumber = phoneNumber
+        defaults.set(false, forKey: "subscriptionPayment")
         self.present(dvc, animated: true)
     }
     
