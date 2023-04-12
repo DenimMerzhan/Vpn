@@ -115,6 +115,12 @@ class ViewController: UIViewController {
     }
     
     
+    @IBAction func changeCountryPresed(_ sender: UIButton) {
+        performSegue(withIdentifier: "vpnToChangeCountry", sender: self)
+    }
+    
+    
+    
     
     //MARK: - Кнопка подключения нажата
     

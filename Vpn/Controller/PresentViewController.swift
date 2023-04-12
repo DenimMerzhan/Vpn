@@ -24,25 +24,27 @@ class PresentViewController: UIViewController {
     
     
     override func viewWillAppear(_ animated: Bool) {
-        
+
         
             
             DispatchQueue.main.async {
                 
                 if Auth.auth().currentUser?.uid != nil { /// Проверяем на бесплатного пользователя
                     
-                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    let dvc  = storyboard.instantiateViewController(withIdentifier: "VpnID") as! ViewController
+                    let dvc = self.presentNewController()
                     dvc.currentUser = Users(dataFirstLaunch: 0, subscriptionStatus: false, freeUser: true)
                     dvc.phoneNumber = Auth.auth().currentUser!.phoneNumber!
+                    
+                    
                     self.present(dvc, animated: true)
                 }
                 
                 else if let premium = self.defaults.object(forKey: "subscriptionPayment") as? Bool { /// Проверяем покупал ли подписку
                     
                     if premium  {
-                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                        let dvc  = storyboard.instantiateViewController(withIdentifier: "VpnID") as! ViewController
+                        
+                        let dvc = self.presentNewController()
+                        
                         dvc.currentUser = Users(dataFirstLaunch: 0, subscriptionStatus: true, freeUser: false)
                         self.present(dvc, animated: true)
                     }
@@ -51,6 +53,9 @@ class PresentViewController: UIViewController {
         
     }
     
+    override var traitCollection: UITraitCollection {
+      UITraitCollection(traitsFrom: [super.traitCollection, UITraitCollection(userInterfaceStyle: .light)])
+    } /// Меняем тему приложения на всегда светлый
         
     
     override func viewDidLoad() {
@@ -66,8 +71,7 @@ class PresentViewController: UIViewController {
     
     @IBAction func resotorePressed(_ sender: UIButton) { /// Кнопка восстановления нажата
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let dvc = storyboard.instantiateViewController(withIdentifier: "VpnID") as! ViewController
+        let dvc = presentNewController()
         dvc.currentUser = Users(dataFirstLaunch: 0, subscriptionStatus: false, freeUser: false)
         self.present(dvc, animated: true)
     }
@@ -104,8 +108,7 @@ extension PresentViewController: SKPaymentTransactionObserver {
                 defaults.set(true, forKey: "subscriptionPayment")
                 SKPaymentQueue.default().finishTransaction(transaction) /// Завершаем транзакцию
                 
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let dvc = storyboard.instantiateViewController(withIdentifier: "VpnID") as! ViewController
+                let dvc = presentNewController()
                 dvc.currentUser = Users(dataFirstLaunch: 0, subscriptionStatus: true, freeUser: false)
                 self.present(dvc, animated: true)
                 
@@ -157,6 +160,19 @@ extension Formatter {
         
         return formatter
     }()
+}
+
+
+extension PresentViewController {
+    
+    func presentNewController() -> ViewController {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let dvc  = storyboard.instantiateViewController(withIdentifier: "VpnID") as! ViewController
+    
+        return dvc
+    }
+    
 }
 
 
