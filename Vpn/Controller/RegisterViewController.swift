@@ -40,8 +40,14 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     }
     
     
+//MARK: Проверка валидности номера
+    
     
     override func viewWillAppear(_ animated: Bool) { // Проверяем валидность номера
+        
+        
+        navigationItem.backBarButtonItem = UIBarButtonItem(
+            title: "Назад", style: .plain, target: nil, action: nil) /// Текст кнопки назад
         
         NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: phoneNumberTextField, queue: OperationQueue.main) { (notification) in /// Добавляем наблюдателя который следит за изменениями в ТекстФилде
             
@@ -79,6 +85,9 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             }
         }
     }
+    
+    
+//MARK: -  Настройка пикера и текстфилда
     
     
     override func viewDidLoad() {
@@ -157,6 +166,8 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     
     
+    
+    
     //MARK: - PickerView
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -177,6 +188,7 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
 }
     
+
 
 
 

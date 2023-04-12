@@ -34,13 +34,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var numberOfDayFreeVersion: UILabel!
     @IBOutlet weak var additionallabel: UILabel!
     
-    var currentUser: Users? {
+    var currentUser: Users? { /// Основная переменная для остлеживания статуса пользователя
         
         didSet {
-            
-            if currentUser != nil {
                 
-                if currentUser!.subscriptionStatus {
+                if currentUser!.subscriptionStatus { /// Если у пользователя активна подписка то открываем доступ
                     accessUser = true
                 }
                 
@@ -55,22 +53,21 @@ class ViewController: UIViewController {
                         amountOfDay(second: differencer) /// Преобразуем секунды в дни
                     }
                     
-                }else if currentUser!.subscriptionStatus == false {
+                }else if currentUser!.subscriptionStatus == false { /// Если подписка закончилась
                     accessUser = false
                 }
-                
-            }
         }
     }
 
     
     override func viewWillAppear(_ animated: Bool) {
         
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        navigationController?.navigationBar.isHidden = true
         
         if currentUser!.freeUser { /// Если пользователь с бесплатной версией загружаем дату окончания промо периода
             loadData()
-        }else {
-            print(noSubscriptionsFound)
+        }else { /// Если нет закгружаем квитанцию
             receiptValidation()
         }
         
@@ -82,18 +79,7 @@ class ViewController: UIViewController {
         
         super.viewDidLoad()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { /// Если пользователь нажал кнопку восстановить покупки но их не было то выходим из контроллера
-            
-            if self.noSubscriptionsFound {
-                self .navigationController?.popViewController(animated: true)
-                self.dismiss(animated: true, completion: nil)
-            }
-        }
-        
-        currentCountryVpn.text = ""
-    
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(didChangeStatus), name: NSNotification.Name.NEVPNStatusDidChange, object: nil) /// Добавляем наблюдателя, в данном случае наш класс VC
+        NotificationCenter.default.addObserver(self, selector: #selector(didChangeStatus), name: NSNotification.Name.NEVPNStatusDidChange, object: nil) /// Добавляем наблюдателя за впн соединением, в данном случае наш класс VC
         
         currentStatusVpn.text = "VPN отключен"
         
@@ -108,7 +94,7 @@ class ViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if let dvc = segue.destination as?  MenuViewController {
+        if let dvc = segue.destination as?  MenuViewController { /// Переходим в меню передавая текущие данные о пользователе
             dvc.currentUsers = currentUser!
         }
         
@@ -139,41 +125,33 @@ class ViewController: UIViewController {
                     
                     credentials = AVVPNCredentials.IPSec(server: country["serverIP"] as! String , username: country["userName"] as! String, password: country["password"] as! String, shared: country["sharedKey"] as! String)
                     
-                }else { /// Иначе подключаемся по умолчанию к России
-                    currentCountryVpn.text = "Текущая страна: Россия"
-                }
-                
-                
-                AVVPNService.shared.connect(credentials: credentials) { error in /// Производим подключение к выбранной стране
-                    if error != nil {
-                        self.currentStatusVpn.text = "Подключение не удалось \(error!)"
-                        print("Ошибка подключения: \(error!)")
+                    AVVPNService.shared.connect(credentials: credentials) { error in /// Производим подключение к выбранной стране
+                        if error != nil {
+                            self.currentStatusVpn.text = "Подключение не удалось \(error!)"
+                            print("Ошибка подключения: \(error!)")
+                        }
                     }
-                    
-                }
-                
+                }else {
+                        creatAlert(text: "Выберете страну подключения")
+                    }
+            
             }else { /// Если кнопка была нажатва второй раз то отключаемся от ВПН
                 AVVPNService.shared.disconnect()
             }
             
         }else { /// Если нету доступа уведомляем пользователя
             
-            if let subsc = currentUser?.freeUser {
                 
-                if subsc {
+            if currentUser!.freeUser {
                     creatAlert(text: "Ваш срок бесплатного пользования истек. Вы можете купить премиум аккаунт для его продления")
                 }else {
                     creatAlert(text: "Ваш срок премиум аккаунта истек. Вы можете его продлить в разделе настроек")
                 }
-            }
 
         }
         
         
     }
-    
-    
-
     
 }
 
@@ -241,7 +219,9 @@ extension ViewController {
     }
     
     func accesUserFalse(){ /// Отображаем пользователю, что его доступ истек
-        
+        accessUser = false
+        numberOfDayFreeVersion.text = "Доступ истек"
+        additionallabel.isHidden  = true
     }
     
     
@@ -269,7 +249,7 @@ extension ViewController {
     
     func loadData() {
         
-        var existingUser = false
+        var existingUser = false /// Проверка существует ли пользователь с данным номером телефона в базе
         
         db.collection("Users").getDocuments { QuerySnapshot, Error in
             if let err = Error {
@@ -288,7 +268,6 @@ extension ViewController {
                     DispatchQueue.main.async { /// Как только посчитано количество дней, мы отоброжаем инфу пользователю
                         
                         if self.accessUser {
-
                             
                             self.numberOfDayFreeVersion.text = self.amountOfDay
                             self.additionallabel.text = "До истечения бесплатного пользования"
@@ -402,8 +381,11 @@ extension ViewController: SKRequestDelegate{
                             
                             
                         }else { /// latest_receipt_info - если данной строки нет значит пользователь никогда не покупал подписку, в таком случае откланяем viewController
-                            self.noSubscriptionsFound = true
-                            self.creatAlert(text: "Нет активных подписок!")
+                            
+                            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                            let dvc = storyboard.instantiateViewController(withIdentifier: "presentVC") as! PresentViewController
+                            dvc.activeSubscripeAbsence = true
+                            self.present(dvc, animated: true)
                         }
                         
                   }

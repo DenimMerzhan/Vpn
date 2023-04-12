@@ -79,7 +79,8 @@ class ChangeCountryController: UITableViewController {
     
 //MARK: - Пользователь выбрал ячейку
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) { /// Выбрав ячейку мы сохраняем данные для входа на сервер в UserDefaults
+        
         let currentCountry = country[indexPath.row]
         let dict = ["name":currentCountry.name ,"serverIP":currentCountry.serverIP ,"userName": currentCountry.userName,"password": currentCountry.password,"sharedKey":currentCountry.sharedKey]
         defaults.set(dict, forKey: "vpnData")
@@ -97,7 +98,7 @@ class ChangeCountryController: UITableViewController {
 
 //MARK: - Загрузка данных страны
 
-extension ChangeCountryController {
+extension ChangeCountryController { /// Загружаем данные для подключения к впн с сервера и записывем в массив стран
     
     func loadCountry() {
        

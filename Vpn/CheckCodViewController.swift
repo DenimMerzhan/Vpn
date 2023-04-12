@@ -35,6 +35,7 @@ class CheckCodViewController: UIViewController {
         
         let credentional = PhoneAuthProvider.provider().credential(withVerificationID: verifictaionID, verificationCode: code)
         
+        
         Auth.auth().signIn(with: credentional) { dataResult, error in
             
             if let err = error {
@@ -46,23 +47,26 @@ class CheckCodViewController: UIViewController {
                 print("Ошибка регистрации - \(err)")
                 
             }else {
-                self.showContent()
+                self.performSegue(withIdentifier: "checkCodeToVpn", sender: self)
             }
         }
         
     }
     
-    private func showContent(){
+
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let dvc = storyboard.instantiateViewController(withIdentifier: "VpnID") as! ViewController
+        let dvc = segue.destination as! ViewController
+        
         dvc.currentUser = Users(dataFirstLaunch: 0, subscriptionStatus: false, freeUser: true)
         dvc.phoneNumber = phoneNumber
         defaults.set(false, forKey: "subscriptionPayment")
-        self.present(dvc, animated: true)
     }
-    
 }
+
+
 
 
 
@@ -73,7 +77,8 @@ class CheckCodViewController: UIViewController {
 extension CheckCodViewController: UITextViewDelegate {
     
     
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool { /// Ограничение по количеству символов
+        
         let currentCharacterCount = codeTextView.text.count
         
                 if range.length + range.location > currentCharacterCount {
@@ -85,7 +90,7 @@ extension CheckCodViewController: UITextViewDelegate {
     
     
     
-    func textViewDidChange(_ textView: UITextView) {
+    func textViewDidChange(_ textView: UITextView) { /// Когда текст был изменен
         if codeTextView.text.count == 6 {
             checkCodeUiButton.alpha = 1
             checkCodeUiButton.isEnabled = true /// Логическое значение, указывающее, находится ли элемент управления во включенном состоянии
