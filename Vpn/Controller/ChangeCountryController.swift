@@ -82,7 +82,7 @@ class ChangeCountryController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) { /// Выбрав ячейку мы сохраняем данные для входа на сервер в UserDefaults
         
         let currentCountry = country[indexPath.row]
-        let dict = ["name":currentCountry.name ,"serverIP":currentCountry.serverIP ,"userName": currentCountry.userName,"password": currentCountry.password,"sharedKey":currentCountry.sharedKey]
+        let dict = ["name":currentCountry.name ,"serverIP":currentCountry.serverIP ,"userName": currentCountry.userName,"password": currentCountry.password]
         defaults.set(dict, forKey: "vpnData")
         tableView.reloadData()
         tableView.deselectRow(at: indexPath, animated: true)
@@ -110,9 +110,9 @@ extension ChangeCountryController { /// Загружаем данные для �
                 if let dataArr = QuerySnapshot?.documents {
                     for doc in dataArr {
                         let data = doc.data()
-                        if let name = data["name"] as? String, let serverIP = data["serverIP"] as? String, let password = data["password"] as? String, let sharedKey = data["sharedKey"] as? String, let userName = data["userName"] as? String, let selected = data["selected"] as? Bool {
+                        if let name = data["name"] as? String, let serverIP = data["serverIP"] as? String, let password = data["password"] as? String, let userName = data["userName"] as? String, let selected = data["selected"] as? Bool {
                             
-                            self.country.append(Country(name: name, serverIP: serverIP, userName: userName, password: password, sharedKey: sharedKey, selected: selected))
+                            self.country.append(Country(name: name, serverIP: serverIP, userName: userName, password: password, selected: selected))
                             
                             DispatchQueue.main.async {
                                 self.tableView.reloadData()

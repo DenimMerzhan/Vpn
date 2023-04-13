@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseAuth
 import StoreKit
+import AVVPNService
 
 class MenuViewController: UIViewController, UITableViewDataSource {
     
@@ -69,13 +70,12 @@ class MenuViewController: UIViewController, UITableViewDataSource {
         
     }
     
+    
+    
+//MARK: - кнопка покупки нажата
+    
     @IBAction func buyPremiumPressed(_ sender: UIButton) {
         buyPremium()
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        print("viewDidDisappear")
-        SKPaymentQueue.default().remove(self)
     }
     
 }
@@ -87,10 +87,11 @@ class MenuViewController: UIViewController, UITableViewDataSource {
 
 extension MenuViewController {
     
-    func logOut(){ /// Выходим из учетной записи
+    func logOut(){ /// Выходим из учетной записи и переходим на главный контроллер
         do {
             try Auth.auth().signOut()
-            print("Auth start ")
+            AVVPNService.shared.disconnect()
+            
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let dvc = storyboard.instantiateViewController(withIdentifier: "presentVC") as! PresentViewController
             self.present(dvc, animated: true)
@@ -137,17 +138,27 @@ extension MenuViewController: SKPaymentTransactionObserver {
                     try! Auth.auth().signOut()
                 }
                 
-                SKPaymentQueue.default().finishTransaction(transaction)
-                
+            
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let dvc = storyboard.instantiateViewController(withIdentifier: "VpnID") as! ViewController
                 dvc.currentUser = Users(dataFirstLaunch: 0, subscriptionStatus: true, freeUser: false)
+                
+                AVVPNService.shared.disconnect()
+                
+                SKPaymentQueue.default().remove(self)
+                SKPaymentQueue.default().finishTransaction(transaction)
                 self.present(dvc, animated: true)
             }
                 
             else if transaction.transactionState == .failed {
                     SKPaymentQueue.default().finishTransaction(transaction)
-                }
+                    SKPaymentQueue.default().remove(self)
+            }
+            
+            else if transaction.transactionState == .purchased {
+                print("Обработка платежа")
+                
+            }
             
         }
         

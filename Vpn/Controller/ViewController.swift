@@ -25,7 +25,7 @@ class ViewController: UIViewController {
     
     var pressedVPNButton: Bool = false
     var amountOfDay: String = ""
-
+    var additionalText = ""
     
     
     @IBOutlet weak var currentCountryVpn: UILabel!
@@ -47,7 +47,9 @@ class ViewController: UIViewController {
                     let differencer = NSDate().timeIntervalSince1970 - currentUser!.dataFirstLaunch
             
                     if differencer > 604800 {  /// Если разница составляет больше 7 денй, у меня в секундах, то закрываем доступ
-                        accesUserFalse()
+                        accessUser = false
+                        amountOfDay = "Доступ истек"
+                        additionalText = ""
                     }else {
                         accessUser = true
                         amountOfDay(second: differencer) /// Преобразуем секунды в дни
@@ -59,6 +61,11 @@ class ViewController: UIViewController {
         }
     }
 
+    
+    
+    
+    
+//MARK: - Will Appear
     
     override func viewWillAppear(_ animated: Bool) {
         
@@ -73,11 +80,18 @@ class ViewController: UIViewController {
         
     }
     
+   
+    
+    
+//MARK: - ViewDidLoad
     
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        numberOfDayFreeVersion.text = amountOfDay
+        additionallabel.text = additionalText
         
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeStatus), name: NSNotification.Name.NEVPNStatusDidChange, object: nil) /// Добавляем наблюдателя за впн соединением, в данном случае наш класс VC
         
@@ -87,9 +101,13 @@ class ViewController: UIViewController {
     
     
     
+    
+    
     @IBAction func preferencesPressed(_ sender: UIButton) {
         performSegue(withIdentifier: "vpnToPreferences", sender: self)
     }
+    
+    
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -108,6 +126,9 @@ class ViewController: UIViewController {
     
     
     
+    
+    
+    
     //MARK: - Кнопка подключения нажата
     
     
@@ -117,13 +138,12 @@ class ViewController: UIViewController {
         if accessUser { /// Если доступ есть то разрешаем подключение
             
             if pressedVPNButton {
-                
-                var credentials = AVVPNCredentials.IPSec(server: "91.142.73.170", username: "vpnuser", password: "fj1v5R3qaDPavFgj", shared: "14e70a6b1363b6442e02036719ee9703")
-                
-                
+
                 if let country = defaults.dictionary(forKey: "vpnData")  { /// Если в UserDefaults что то есть
                     
-                    credentials = AVVPNCredentials.IPSec(server: country["serverIP"] as! String , username: country["userName"] as! String, password: country["password"] as! String, shared: country["sharedKey"] as! String)
+                    
+                    let credentials = AVVPNCredentials.IKEv2(server: country["serverIP"] as! String, username: country["userName"] as! String, password: country["password"] as! String, remoteId:country["serverIP"] as! String, localId: country["serverIP"] as! String)
+
                     
                     AVVPNService.shared.connect(credentials: credentials) { error in /// Производим подключение к выбранной стране
                         if error != nil {
@@ -187,12 +207,10 @@ extension ViewController {
             }
             
             else if connection.status == .connecting {
+                currentStatusVpn.numberOfLines = 0
                 currentStatusVpn.text = "Идет подключение к серверам..."
             }
             
-            else {
-                creatAlert(text: "Ошибка подключения: Связанная конфигурация VPN не существует в настройках расширения сети или не включена")
-            }
         }
         
     }
@@ -218,11 +236,7 @@ extension ViewController {
         
     }
     
-    func accesUserFalse(){ /// Отображаем пользователю, что его доступ истек
-        accessUser = false
-        numberOfDayFreeVersion.text = "Доступ истек"
-        additionallabel.isHidden  = true
-    }
+
     
     
     
