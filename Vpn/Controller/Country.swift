@@ -14,7 +14,6 @@ struct Country {
     let serverIP: String
     let userName: String
     let password: String
-    let sharedKey: String
     let selected: Bool
     
     

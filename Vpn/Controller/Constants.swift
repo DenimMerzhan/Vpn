@@ -12,6 +12,7 @@ struct K {
     struct color {
         static let background = "ColorBackgound"
         static let placeholder = "PlacheolderColor"
+        static let button = "ColorButtonYellow"
         
     }
     

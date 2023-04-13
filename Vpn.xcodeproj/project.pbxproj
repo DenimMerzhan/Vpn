@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		9D670012CA5D79C0BCA1638A /* Pods_Vpn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0DBFEDAD926140A075FAF3 /* Pods_Vpn.framework */; };
+		CF29BE1029DEE91C0040FB92 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF29BE0F29DEE91C0040FB92 /* StoreKit.framework */; };
+		CF48831D29E2B0E600702FA0 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF48831C29E2B0E600702FA0 /* RegisterViewController.swift */; };
 		CF5A97BA29D3164D00D4F2F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5A97B929D3164D00D4F2F5 /* AppDelegate.swift */; };
 		CF5A97BC29D3164D00D4F2F5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5A97BB29D3164D00D4F2F5 /* SceneDelegate.swift */; };
 		CF5A97BE29D3164D00D4F2F5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5A97BD29D3164D00D4F2F5 /* ViewController.swift */; };
@@ -17,19 +19,21 @@
 		CF5A97D029D31FD300D4F2F5 /* PresentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5A97CF29D31FD300D4F2F5 /* PresentViewController.swift */; };
 		CF8FB08229D6BCC600993513 /* ChangeCountryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8FB08129D6BCC600993513 /* ChangeCountryController.swift */; };
 		CF8FB08429D6BEF300993513 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8FB08329D6BEF300993513 /* Constants.swift */; };
-		CF8FB08629D6FC5200993513 /* AuthorizationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8FB08529D6FC5200993513 /* AuthorizationController.swift */; };
-		CF8FB08829D6FDDD00993513 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF8FB08729D6FDDD00993513 /* GoogleService-Info.plist */; };
 		CF8FB08A29D708FF00993513 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8FB08929D708FF00993513 /* Country.swift */; };
-		CF91AF0A29DC031B00EAAC01 /* LoadFireBaseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF91AF0929DC031B00EAAC01 /* LoadFireBaseData.swift */; };
 		CF91AF0C29DD4F8300EAAC01 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF91AF0B29DD4F8300EAAC01 /* Users.swift */; };
 		CF91AF1629DDBAAD00EAAC01 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF91AF1529DDBAAD00EAAC01 /* MenuViewController.swift */; };
+		CFAA9DD829E3F68A000B3438 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAA9DD729E3F68A000B3438 /* CustomTextField.swift */; };
+		CFAA9DDA29E43FC7000B3438 /* CheckCodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAA9DD929E43FC7000B3438 /* CheckCodViewController.swift */; };
+		CFAA9DDE29E44776000B3438 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CFAA9DDD29E44776000B3438 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		7A0DBFEDAD926140A075FAF3 /* Pods_Vpn.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Vpn.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A4F6340DB19557E1D90E93B /* Pods-Vpn.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vpn.release.xcconfig"; path = "Target Support Files/Pods-Vpn/Pods-Vpn.release.xcconfig"; sourceTree = "<group>"; };
 		AF94F8E1614E69D09A920D35 /* Pods-Vpn.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vpn.debug.xcconfig"; path = "Target Support Files/Pods-Vpn/Pods-Vpn.debug.xcconfig"; sourceTree = "<group>"; };
+		CF29BE0F29DEE91C0040FB92 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		CF3C1A6F29D5A10F007BD706 /* Vpn.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Vpn.entitlements; sourceTree = "<group>"; };
+		CF48831C29E2B0E600702FA0 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		CF5A97B629D3164D00D4F2F5 /* Vpn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vpn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF5A97B929D3164D00D4F2F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CF5A97BB29D3164D00D4F2F5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -41,12 +45,12 @@
 		CF5A97CF29D31FD300D4F2F5 /* PresentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentViewController.swift; sourceTree = "<group>"; };
 		CF8FB08129D6BCC600993513 /* ChangeCountryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeCountryController.swift; sourceTree = "<group>"; };
 		CF8FB08329D6BEF300993513 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = Vpn/Controller/Constants.swift; sourceTree = SOURCE_ROOT; };
-		CF8FB08529D6FC5200993513 /* AuthorizationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationController.swift; sourceTree = "<group>"; };
-		CF8FB08729D6FDDD00993513 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CF8FB08929D708FF00993513 /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Country.swift; path = Vpn/Controller/Country.swift; sourceTree = SOURCE_ROOT; };
-		CF91AF0929DC031B00EAAC01 /* LoadFireBaseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadFireBaseData.swift; sourceTree = "<group>"; };
 		CF91AF0B29DD4F8300EAAC01 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		CF91AF1529DDBAAD00EAAC01 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		CFAA9DD729E3F68A000B3438 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		CFAA9DD929E43FC7000B3438 /* CheckCodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CheckCodViewController.swift; path = Vpn/CheckCodViewController.swift; sourceTree = SOURCE_ROOT; };
+		CFAA9DDD29E44776000B3438 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +59,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D670012CA5D79C0BCA1638A /* Pods_Vpn.framework in Frameworks */,
+				CF29BE1029DEE91C0040FB92 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,6 +69,7 @@
 		91D99A1360218AAA9132F7A5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CF29BE0F29DEE91C0040FB92 /* StoreKit.framework */,
 				7A0DBFEDAD926140A075FAF3 /* Pods_Vpn.framework */,
 			);
 			name = Frameworks;
@@ -108,7 +114,7 @@
 				CF5A97C229D3164E00D4F2F5 /* Assets.xcassets */,
 				CF5A97C429D3164E00D4F2F5 /* LaunchScreen.storyboard */,
 				CF5A97C729D3164E00D4F2F5 /* Info.plist */,
-				CF8FB08729D6FDDD00993513 /* GoogleService-Info.plist */,
+				CFAA9DDD29E44776000B3438 /* GoogleService-Info.plist */,
 			);
 			path = Vpn;
 			sourceTree = "<group>";
@@ -117,7 +123,8 @@
 			isa = PBXGroup;
 			children = (
 				CF5A97CF29D31FD300D4F2F5 /* PresentViewController.swift */,
-				CF8FB08529D6FC5200993513 /* AuthorizationController.swift */,
+				CF48831C29E2B0E600702FA0 /* RegisterViewController.swift */,
+				CFAA9DD929E43FC7000B3438 /* CheckCodViewController.swift */,
 				CF5A97BD29D3164D00D4F2F5 /* ViewController.swift */,
 				CF8FB08129D6BCC600993513 /* ChangeCountryController.swift */,
 				CF91AF1529DDBAAD00EAAC01 /* MenuViewController.swift */,
@@ -138,8 +145,8 @@
 			children = (
 				CF8FB08329D6BEF300993513 /* Constants.swift */,
 				CF8FB08929D708FF00993513 /* Country.swift */,
-				CF91AF0929DC031B00EAAC01 /* LoadFireBaseData.swift */,
 				CF91AF0B29DD4F8300EAAC01 /* Users.swift */,
+				CFAA9DD729E3F68A000B3438 /* CustomTextField.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -205,7 +212,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CF5A97C629D3164E00D4F2F5 /* LaunchScreen.storyboard in Resources */,
-				CF8FB08829D6FDDD00993513 /* GoogleService-Info.plist in Resources */,
+				CFAA9DDE29E44776000B3438 /* GoogleService-Info.plist in Resources */,
 				CF5A97C329D3164E00D4F2F5 /* Assets.xcassets in Resources */,
 				CF5A97C129D3164D00D4F2F5 /* Main.storyboard in Resources */,
 			);
@@ -260,16 +267,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CF91AF0A29DC031B00EAAC01 /* LoadFireBaseData.swift in Sources */,
+				CFAA9DD829E3F68A000B3438 /* CustomTextField.swift in Sources */,
 				CF5A97BE29D3164D00D4F2F5 /* ViewController.swift in Sources */,
 				CF91AF0C29DD4F8300EAAC01 /* Users.swift in Sources */,
 				CF5A97BA29D3164D00D4F2F5 /* AppDelegate.swift in Sources */,
+				CFAA9DDA29E43FC7000B3438 /* CheckCodViewController.swift in Sources */,
+				CF48831D29E2B0E600702FA0 /* RegisterViewController.swift in Sources */,
 				CF5A97D029D31FD300D4F2F5 /* PresentViewController.swift in Sources */,
 				CF5A97BC29D3164D00D4F2F5 /* SceneDelegate.swift in Sources */,
 				CF8FB08A29D708FF00993513 /* Country.swift in Sources */,
 				CF91AF1629DDBAAD00EAAC01 /* MenuViewController.swift in Sources */,
 				CF8FB08229D6BCC600993513 /* ChangeCountryController.swift in Sources */,
-				CF8FB08629D6FC5200993513 /* AuthorizationController.swift in Sources */,
 				CF8FB08429D6BEF300993513 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -433,7 +441,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.VPNDenimMErzhan.Vpn;
+				PRODUCT_BUNDLE_IDENTIFIER = com.TopVpnDenimMerzhan.Vpn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -464,7 +472,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.VPNDenimMErzhan.Vpn;
+				PRODUCT_BUNDLE_IDENTIFIER = com.TopVpnDenimMerzhan.Vpn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
