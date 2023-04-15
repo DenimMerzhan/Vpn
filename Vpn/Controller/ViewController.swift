@@ -293,6 +293,8 @@ extension ViewController: SKRequestDelegate{
     
     func receiptValidation(){
         
+        Receipt().getReceipt()
+        
         let urlString = "https://sandbox.itunes.apple.com/verifyReceipt" /// Указываем что берем даныне с песочницы
         
         guard let receiptURL = Bundle.main.appStoreReceiptURL,let receiptString =  try?  Data(contentsOf: receiptURL).base64EncodedString()  else { /// 1 Путь к файлу квитанции  2  Пытаемся преобразовать файл   Если вдруг нет пути или нет файла то мы вызываем обновление чека
