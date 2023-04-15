@@ -261,50 +261,21 @@ extension ViewController {
 
 extension ViewController {
     
-    func loadData() {
-        
-        var existingUser = false /// Проверка существует ли пользователь с данным номером телефона в базе
-        
-        db.collection("Users").getDocuments { QuerySnapshot, Error in
-            if let err = Error {
-                print("Ошибка получения данных - \(err)")
-            }
-            
-            for document in QuerySnapshot!.documents {
-               
-                if document.documentID == self.phoneNumber { /// Если текущий пользователь уже был зарегестрирован
+    private func loadData() {
+        Task {
+            if let date = await LoadData().loadDataFreeUser(phoneNumber: phoneNumber) {
+                currentUser = Users(dataFirstLaunch: date, subscriptionStatus: false, freeUser: true)
                 
-                   existingUser = true
-                   let date =  document["dateFirstLaunch"] as! TimeInterval /// Преобразуем данные из FireBase
-                    self.currentUser = Users(dataFirstLaunch: date, subscriptionStatus: false, freeUser: true)
-
-                    
-                    DispatchQueue.main.async { /// Как только посчитано количество дней, мы отоброжаем инфу пользователю
-                        
-                        if self.accessUser {
-                            
-                            self.numberOfDayFreeVersion.text = self.amountOfDay
-                            self.additionallabel.text = "До истечения бесплатного пользования"
-                        }else {
-                            self.numberOfDayFreeVersion.text = "Срок истек"
-                            self.additionallabel.isHidden  = true
-                        }
-                        
-                    }
-                    
+                if accessUser {
+                    numberOfDayFreeVersion.text = self.amountOfDay
+                    additionallabel.text = "До истечения бесплатного пользования"
+                }else {
+                    numberOfDayFreeVersion.text = "Срок истек"
+                    additionallabel.isHidden  = true
                 }
+                
+                
             }
-            
-            if existingUser == false { /// Если такого пользователя не было
-                print("New User")
-                self.db.collection("Users").document(self.phoneNumber).setData(["dateFirstLaunch" : NSDate().timeIntervalSince1970]) { error in
-                    if let  err = error {
-                        print("Ошибка записи данных в обалко - \(err)")
-                    }
-                }
-                self.loadData() /// Загружаем еще раз данные
-            }
-            
         }
     }
 }

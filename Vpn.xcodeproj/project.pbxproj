@@ -22,9 +22,11 @@
 		CF8FB08A29D708FF00993513 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8FB08929D708FF00993513 /* Country.swift */; };
 		CF91AF0C29DD4F8300EAAC01 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF91AF0B29DD4F8300EAAC01 /* Users.swift */; };
 		CF91AF1629DDBAAD00EAAC01 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF91AF1529DDBAAD00EAAC01 /* MenuViewController.swift */; };
+		CFA9938529EAD0A5006554B2 /* Receipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA9938429EAD0A5006554B2 /* Receipt.swift */; };
 		CFAA9DD829E3F68A000B3438 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAA9DD729E3F68A000B3438 /* CustomTextField.swift */; };
 		CFAA9DDA29E43FC7000B3438 /* CheckCodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAA9DD929E43FC7000B3438 /* CheckCodViewController.swift */; };
 		CFAA9DDE29E44776000B3438 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CFAA9DDD29E44776000B3438 /* GoogleService-Info.plist */; };
+		CFBAE27E29E97C9000E316DB /* LoadData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBAE27D29E97C9000E316DB /* LoadData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,9 +50,11 @@
 		CF8FB08929D708FF00993513 /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Country.swift; path = Vpn/Controller/Country.swift; sourceTree = SOURCE_ROOT; };
 		CF91AF0B29DD4F8300EAAC01 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		CF91AF1529DDBAAD00EAAC01 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		CFA9938429EAD0A5006554B2 /* Receipt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Receipt.swift; sourceTree = "<group>"; };
 		CFAA9DD729E3F68A000B3438 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		CFAA9DD929E43FC7000B3438 /* CheckCodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CheckCodViewController.swift; path = Vpn/CheckCodViewController.swift; sourceTree = SOURCE_ROOT; };
 		CFAA9DDD29E44776000B3438 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CFBAE27D29E97C9000E316DB /* LoadData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +151,8 @@
 				CF8FB08929D708FF00993513 /* Country.swift */,
 				CF91AF0B29DD4F8300EAAC01 /* Users.swift */,
 				CFAA9DD729E3F68A000B3438 /* CustomTextField.swift */,
+				CFBAE27D29E97C9000E316DB /* LoadData.swift */,
+				CFA9938429EAD0A5006554B2 /* Receipt.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -267,7 +273,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFBAE27E29E97C9000E316DB /* LoadData.swift in Sources */,
 				CFAA9DD829E3F68A000B3438 /* CustomTextField.swift in Sources */,
+				CFA9938529EAD0A5006554B2 /* Receipt.swift in Sources */,
 				CF5A97BE29D3164D00D4F2F5 /* ViewController.swift in Sources */,
 				CF91AF0C29DD4F8300EAAC01 /* Users.swift in Sources */,
 				CF5A97BA29D3164D00D4F2F5 /* AppDelegate.swift in Sources */,
