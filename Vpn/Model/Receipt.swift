@@ -11,20 +11,13 @@ import StoreKit
 
 struct Receipt {
     
-    
-    func getReceipt() {
-        Task {
-            let reciept = await receiptValidation()
-            print("Квитацния - ", reciept)
-        }
-    }
-    
-    func receiptValidation() async -> Date? {
+        
+    func receiptValidation() async -> (date:Date?,refresh: Bool) {
         
         let urlString = "https://sandbox.itunes.apple.com/verifyReceipt" /// Указываем что берем даныне с песочницы
         
         guard let receiptURL = Bundle.main.appStoreReceiptURL,let receiptString =   try? Data(contentsOf: receiptURL).base64EncodedString()  else { /// 1 Путь к файлу квитанции  2  Пытаемся преобразовать файл   Если вдруг нет пути или нет файла то мы вызываем обновление чека
-            return nil
+            return (nil,true)
                }
         
         
@@ -60,15 +53,15 @@ struct Receipt {
                 
                 
                 if let dateEndSubscription = Formatter.customDate.date(from: subscriptionExpirationDate) { /// Форматиурем нашу строку в дату
-                    print(dateEndSubscription)
-                    return dateEndSubscription
+                    return (dateEndSubscription,false)
                 }
                 }else { /// latest_receipt_info - если данной строки нет значит пользователь никогда не покупал подписку, в таком случае откланяем viewController
                     print("Нет квитанциий")
+                    return (nil,false)
                 }
             }
         
-        return nil
+        return (nil,false)
     }
     
     

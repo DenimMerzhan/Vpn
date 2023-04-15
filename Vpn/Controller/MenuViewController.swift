@@ -115,13 +115,10 @@ extension MenuViewController: SKPaymentTransactionObserver {
     
     func buyPremium(){
         
-        if SKPaymentQueue.canMakePayments() { /// Если включен родительский контроль то покупку совершить нельзя
-            
-            let paymentRequest = SKMutablePayment() /// Создаем запрос на покупку в приложение
-            paymentRequest.productIdentifier = productID
-            SKPaymentQueue.default().add(paymentRequest)
-            
-        }
+        let paymentRequest = SKMutablePayment() /// Создаем запрос на покупку в приложение
+        paymentRequest.productIdentifier = productID
+        SKPaymentQueue.default().add(paymentRequest)
+        
     }
     
     
@@ -138,15 +135,16 @@ extension MenuViewController: SKPaymentTransactionObserver {
                     try! Auth.auth().signOut()
                 }
                 
-            
+                SKPaymentQueue.default().finishTransaction(transaction)
+                SKPaymentQueue.default().remove(self)
+                
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let dvc = storyboard.instantiateViewController(withIdentifier: "VpnID") as! ViewController
                 dvc.currentUser = Users(dataFirstLaunch: 0, subscriptionStatus: true, freeUser: false)
                 
                 AVVPNService.shared.disconnect()
                 
-                SKPaymentQueue.default().remove(self)
-                SKPaymentQueue.default().finishTransaction(transaction)
+                
                 self.present(dvc, animated: true)
             }
                 

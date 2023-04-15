@@ -101,34 +101,14 @@ class ChangeCountryController: UITableViewController {
 extension ChangeCountryController { /// Загружаем данные для подключения к впн с сервера и записывем в массив стран
     
     func loadCountry() {
-       
-        db.collection("Country").getDocuments { QuerySnapshot, Error in
-            
-            if let error = Error {
-                print("Ошибка загрузки данных - \(error)")
-            }else {
-                if let dataArr = QuerySnapshot?.documents {
-                    for doc in dataArr {
-                        let data = doc.data()
-                        if let name = data["name"] as? String, let serverIP = data["serverIP"] as? String, let password = data["password"] as? String, let userName = data["userName"] as? String, let selected = data["selected"] as? Bool {
-                            
-                            self.country.append(Country(name: name, serverIP: serverIP, userName: userName, password: password, selected: selected))
-                            
-                            DispatchQueue.main.async {
-                                self.tableView.reloadData()
-                            }
-                            
-                        }else {
-                            print("Ошибка преобразования данных")
-                        }
-                    }
+            Task{
+                if let countryArr = await LoadData().loadCountry(){
+                    country = countryArr
+                    tableView.reloadData()
                 }
+                
             }
-            
-            
-        }
-           
 
-    }
+        }
     
 }
