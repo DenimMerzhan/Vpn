@@ -17,13 +17,13 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     @IBOutlet weak var phoneNumberTextField: CustomTextField!
     @IBOutlet weak var numberCountryPicker: UIPickerView!
     
-    var registerAuthUser = ""
-    var verfictationID  = ""
-    var phoneNumber = ""
+    private var registerAuthUser = ""
+    private var verfictationID  = ""
+    private var phoneNumber = ""
     
-    var deletePressed =  Bool()
-    var validNumberString = ""
-    var valideNumber = false {
+    private var deletePressed =  Bool()
+    private var validNumberString = ""
+    private var valideNumber = false {
         
         didSet {
             
@@ -157,7 +157,7 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        guard let dvc = segue.destination as? CheckCodViewController else {return}
+        guard let dvc = segue.destination as? CodeReviewController else {return}
     
         dvc.phoneNumber = phoneNumber
         dvc.verifictaionID = verfictationID

@@ -9,16 +9,16 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 
-class CheckCodViewController: UIViewController {
+class CodeReviewController: UIViewController {
 
     @IBOutlet weak var checkCodeUiButton: UIButton!
     @IBOutlet weak var codeTextView: UITextView!
     
     var verifictaionID = String()
     var phoneNumber = String()
-    let db = Firestore.firestore()
+    private let db = Firestore.firestore()
     
-    let defaults = UserDefaults.standard
+    private let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,9 +58,9 @@ class CheckCodViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        let dvc = segue.destination as! ViewController
+        let dvc = segue.destination as! HomeViewController
         
-        dvc.currentUser = Users(dataFirstLaunch: 0, subscriptionStatus: false, freeUser: true)
+        dvc.currentUser = User(dataFirstLaunch: 0, subscriptionStatus: false, freeUser: true)
         dvc.phoneNumber = phoneNumber
         defaults.set(false, forKey: "subscriptionPayment")
     }
@@ -74,7 +74,7 @@ class CheckCodViewController: UIViewController {
 
 //MARK: - UITextViewDelegate
 
-extension CheckCodViewController: UITextViewDelegate {
+extension CodeReviewController: UITextViewDelegate {
     
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool { /// Ограничение по количеству символов

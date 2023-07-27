@@ -12,7 +12,7 @@
 		CF48831D29E2B0E600702FA0 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF48831C29E2B0E600702FA0 /* RegisterViewController.swift */; };
 		CF5A97BA29D3164D00D4F2F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5A97B929D3164D00D4F2F5 /* AppDelegate.swift */; };
 		CF5A97BC29D3164D00D4F2F5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5A97BB29D3164D00D4F2F5 /* SceneDelegate.swift */; };
-		CF5A97BE29D3164D00D4F2F5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5A97BD29D3164D00D4F2F5 /* ViewController.swift */; };
+		CF5A97BE29D3164D00D4F2F5 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5A97BD29D3164D00D4F2F5 /* HomeViewController.swift */; };
 		CF5A97C129D3164D00D4F2F5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF5A97BF29D3164D00D4F2F5 /* Main.storyboard */; };
 		CF5A97C329D3164E00D4F2F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF5A97C229D3164E00D4F2F5 /* Assets.xcassets */; };
 		CF5A97C629D3164E00D4F2F5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF5A97C429D3164E00D4F2F5 /* LaunchScreen.storyboard */; };
@@ -20,11 +20,12 @@
 		CF8FB08229D6BCC600993513 /* ChangeCountryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8FB08129D6BCC600993513 /* ChangeCountryController.swift */; };
 		CF8FB08429D6BEF300993513 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8FB08329D6BEF300993513 /* Constants.swift */; };
 		CF8FB08A29D708FF00993513 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8FB08929D708FF00993513 /* Country.swift */; };
-		CF91AF0C29DD4F8300EAAC01 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF91AF0B29DD4F8300EAAC01 /* Users.swift */; };
+		CF91768B2A716BC400C00358 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF91768A2A716BC400C00358 /* Extension.swift */; };
+		CF91768D2A716EA100C00358 /* SubscriptionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF91768C2A716EA100C00358 /* SubscriptionStatus.swift */; };
+		CF91AF0C29DD4F8300EAAC01 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF91AF0B29DD4F8300EAAC01 /* User.swift */; };
 		CF91AF1629DDBAAD00EAAC01 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF91AF1529DDBAAD00EAAC01 /* MenuViewController.swift */; };
-		CFA9938529EAD0A5006554B2 /* Receipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA9938429EAD0A5006554B2 /* Receipt.swift */; };
 		CFAA9DD829E3F68A000B3438 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAA9DD729E3F68A000B3438 /* CustomTextField.swift */; };
-		CFAA9DDA29E43FC7000B3438 /* CheckCodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAA9DD929E43FC7000B3438 /* CheckCodViewController.swift */; };
+		CFAA9DDA29E43FC7000B3438 /* CodeReviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAA9DD929E43FC7000B3438 /* CodeReviewController.swift */; };
 		CFAA9DDE29E44776000B3438 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CFAA9DDD29E44776000B3438 /* GoogleService-Info.plist */; };
 		CFBAE27E29E97C9000E316DB /* LoadData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBAE27D29E97C9000E316DB /* LoadData.swift */; };
 /* End PBXBuildFile section */
@@ -39,7 +40,7 @@
 		CF5A97B629D3164D00D4F2F5 /* Vpn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vpn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF5A97B929D3164D00D4F2F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CF5A97BB29D3164D00D4F2F5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		CF5A97BD29D3164D00D4F2F5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CF5A97BD29D3164D00D4F2F5 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		CF5A97C029D3164D00D4F2F5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CF5A97C229D3164E00D4F2F5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CF5A97C529D3164E00D4F2F5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -48,11 +49,12 @@
 		CF8FB08129D6BCC600993513 /* ChangeCountryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeCountryController.swift; sourceTree = "<group>"; };
 		CF8FB08329D6BEF300993513 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = Vpn/Controller/Constants.swift; sourceTree = SOURCE_ROOT; };
 		CF8FB08929D708FF00993513 /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Country.swift; path = Vpn/Controller/Country.swift; sourceTree = SOURCE_ROOT; };
-		CF91AF0B29DD4F8300EAAC01 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
+		CF91768A2A716BC400C00358 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		CF91768C2A716EA100C00358 /* SubscriptionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionStatus.swift; sourceTree = "<group>"; };
+		CF91AF0B29DD4F8300EAAC01 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		CF91AF1529DDBAAD00EAAC01 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
-		CFA9938429EAD0A5006554B2 /* Receipt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Receipt.swift; sourceTree = "<group>"; };
 		CFAA9DD729E3F68A000B3438 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
-		CFAA9DD929E43FC7000B3438 /* CheckCodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CheckCodViewController.swift; path = Vpn/CheckCodViewController.swift; sourceTree = SOURCE_ROOT; };
+		CFAA9DD929E43FC7000B3438 /* CodeReviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CodeReviewController.swift; path = Vpn/Controller/Register/CodeReviewController.swift; sourceTree = SOURCE_ROOT; };
 		CFAA9DDD29E44776000B3438 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CFBAE27D29E97C9000E316DB /* LoadData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -112,6 +114,7 @@
 				CF3C1A6F29D5A10F007BD706 /* Vpn.entitlements */,
 				CF5A97B929D3164D00D4F2F5 /* AppDelegate.swift */,
 				CF5A97BB29D3164D00D4F2F5 /* SceneDelegate.swift */,
+				CF9176892A716BA000C00358 /* Extension */,
 				CF5A97D329D3518A00D4F2F5 /* Model */,
 				CF5A97CD29D31F7800D4F2F5 /* Controller */,
 				CF5A97CE29D31F8400D4F2F5 /* View */,
@@ -126,10 +129,9 @@
 		CF5A97CD29D31F7800D4F2F5 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				CF9176882A7168A400C00358 /* Register */,
 				CF5A97CF29D31FD300D4F2F5 /* PresentViewController.swift */,
-				CF48831C29E2B0E600702FA0 /* RegisterViewController.swift */,
-				CFAA9DD929E43FC7000B3438 /* CheckCodViewController.swift */,
-				CF5A97BD29D3164D00D4F2F5 /* ViewController.swift */,
+				CF5A97BD29D3164D00D4F2F5 /* HomeViewController.swift */,
 				CF8FB08129D6BCC600993513 /* ChangeCountryController.swift */,
 				CF91AF1529DDBAAD00EAAC01 /* MenuViewController.swift */,
 			);
@@ -149,12 +151,29 @@
 			children = (
 				CF8FB08329D6BEF300993513 /* Constants.swift */,
 				CF8FB08929D708FF00993513 /* Country.swift */,
-				CF91AF0B29DD4F8300EAAC01 /* Users.swift */,
+				CF91AF0B29DD4F8300EAAC01 /* User.swift */,
+				CF91768C2A716EA100C00358 /* SubscriptionStatus.swift */,
 				CFAA9DD729E3F68A000B3438 /* CustomTextField.swift */,
 				CFBAE27D29E97C9000E316DB /* LoadData.swift */,
-				CFA9938429EAD0A5006554B2 /* Receipt.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		CF9176882A7168A400C00358 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				CFAA9DD929E43FC7000B3438 /* CodeReviewController.swift */,
+				CF48831C29E2B0E600702FA0 /* RegisterViewController.swift */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
+		CF9176892A716BA000C00358 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				CF91768A2A716BC400C00358 /* Extension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,17 +292,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF91768B2A716BC400C00358 /* Extension.swift in Sources */,
 				CFBAE27E29E97C9000E316DB /* LoadData.swift in Sources */,
 				CFAA9DD829E3F68A000B3438 /* CustomTextField.swift in Sources */,
-				CFA9938529EAD0A5006554B2 /* Receipt.swift in Sources */,
-				CF5A97BE29D3164D00D4F2F5 /* ViewController.swift in Sources */,
-				CF91AF0C29DD4F8300EAAC01 /* Users.swift in Sources */,
+				CF5A97BE29D3164D00D4F2F5 /* HomeViewController.swift in Sources */,
+				CF91AF0C29DD4F8300EAAC01 /* User.swift in Sources */,
 				CF5A97BA29D3164D00D4F2F5 /* AppDelegate.swift in Sources */,
-				CFAA9DDA29E43FC7000B3438 /* CheckCodViewController.swift in Sources */,
+				CFAA9DDA29E43FC7000B3438 /* CodeReviewController.swift in Sources */,
 				CF48831D29E2B0E600702FA0 /* RegisterViewController.swift in Sources */,
 				CF5A97D029D31FD300D4F2F5 /* PresentViewController.swift in Sources */,
 				CF5A97BC29D3164D00D4F2F5 /* SceneDelegate.swift in Sources */,
 				CF8FB08A29D708FF00993513 /* Country.swift in Sources */,
+				CF91768D2A716EA100C00358 /* SubscriptionStatus.swift in Sources */,
 				CF91AF1629DDBAAD00EAAC01 /* MenuViewController.swift in Sources */,
 				CF8FB08229D6BCC600993513 /* ChangeCountryController.swift in Sources */,
 				CF8FB08429D6BEF300993513 /* Constants.swift in Sources */,

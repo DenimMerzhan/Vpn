@@ -18,7 +18,6 @@ struct K {
     
     struct image {
         static let checkMark = "doneImage"
-        
     }
 }
 

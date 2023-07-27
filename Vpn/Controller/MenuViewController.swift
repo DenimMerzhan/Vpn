@@ -22,7 +22,7 @@ class MenuViewController: UIViewController, UITableViewDataSource {
     var menuCell = ["Поддержка","Ответы на вопросы", "Пользовательское соглашение","Политика конфиденциальности"]
     let defaults = UserDefaults.standard
     
-    var currentUsers = Users(dataFirstLaunch: 0, subscriptionStatus: false, freeUser: false)
+    var currentUsers = User(dataFirstLaunch: 0, subscriptionStatus: false, freeUser: false)
     
     
     
@@ -113,11 +113,15 @@ extension MenuViewController {
 
 extension MenuViewController: SKPaymentTransactionObserver {
     
-    func buyPremium(){
+    private func buyPremium(){
         
-        let paymentRequest = SKMutablePayment() /// Создаем запрос на покупку в приложение
-        paymentRequest.productIdentifier = productID
-        SKPaymentQueue.default().add(paymentRequest)
+        if SKPaymentQueue.canMakePayments() { /// Если включен родительский контроль то покупку совершить нельзя
+            
+            let paymentRequest = SKMutablePayment() /// Создаем запрос на покупку в приложение
+            paymentRequest.productIdentifier = productID
+            SKPaymentQueue.default().add(paymentRequest)
+            
+        }
         
     }
     
@@ -134,13 +138,14 @@ extension MenuViewController: SKPaymentTransactionObserver {
                 if Auth.auth().currentUser?.uid != nil { ///Если пользователь авторизовна через номер телефона то выходим
                     try! Auth.auth().signOut()
                 }
-                
+                print("Транзакция прошла")
                 SKPaymentQueue.default().finishTransaction(transaction)
                 SKPaymentQueue.default().remove(self)
                 
+                
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let dvc = storyboard.instantiateViewController(withIdentifier: "VpnID") as! ViewController
-                dvc.currentUser = Users(dataFirstLaunch: 0, subscriptionStatus: true, freeUser: false)
+                let dvc = storyboard.instantiateViewController(withIdentifier: "VpnID") as! HomeViewController
+                dvc.currentUser = User(dataFirstLaunch: 0, subscriptionStatus: true, freeUser: false)
                 
                 AVVPNService.shared.disconnect()
                 
@@ -149,11 +154,18 @@ extension MenuViewController: SKPaymentTransactionObserver {
             }
                 
             else if transaction.transactionState == .failed {
+                    print("Failed")
                     SKPaymentQueue.default().finishTransaction(transaction)
                     SKPaymentQueue.default().remove(self)
             }
             
-            else if transaction.transactionState == .purchased {
+            else if transaction.transactionState == .restored {
+                print("Restored")
+                SKPaymentQueue.default().finishTransaction(transaction)
+                
+            }
+            
+            else if transaction.transactionState == .purchasing {
                 print("Обработка платежа")
                 
             }
