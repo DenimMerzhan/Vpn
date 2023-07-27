@@ -16,9 +16,13 @@ class User {
     
     var ID = String()
     var dataFirstLaunch: TimeInterval?
-    var subscriptionStatus =  SubscriptionStatus.notBuy
-    var freeUserStatus = FreeUserStatus.notActivated
-    var selectedCountry = "Russia"
+    var subscriptionStatus =  SubscriptionStatus.notBuy {
+        didSet {
+            freeUserStatus = .blocked
+        }
+    }
+    var freeUserStatus = FreeUserStatus.blocked
+    var selectedCountry: Country?
     
     var acesstToVpn: Bool {
         get {
@@ -67,12 +71,12 @@ class User {
 
 extension User {
     
-    func receiptValidation() async -> (date:Date?,refresh: Bool) { /// Функция для получения даты окончания подписки
+    func refreshReceipt() async ->  Bool { /// Функция для получения даты окончания подписки
         
         let urlString = "https://sandbox.itunes.apple.com/verifyReceipt" /// Указываем что берем даныне с песочницы
         
         guard let receiptURL = Bundle.main.appStoreReceiptURL,let receiptString =   try? Data(contentsOf: receiptURL).base64EncodedString()  else { /// 1 Путь к файлу квитанции  2  Пытаемся преобразовать файл   Если вдруг нет пути или нет файла то мы вызываем обновление чека
-            return (nil,true)
+            return (true)
         }
         
         
@@ -108,15 +112,26 @@ extension User {
                 
                 
                 if let dateEndSubscription = Formatter.customDate.date(from: subscriptionExpirationDate) { /// Форматиурем нашу строку в дату
-                    return (dateEndSubscription,false)
+                    
+                    if Date() > dateEndSubscription { /// Если текущая дата больше даты окончания заканчиваем подписку
+                        User.shared.subscriptionStatus = .ended
+                        print("Now \(dateEndSubscription)")
+                    }
+                    else {
+                        
+                        User.shared.subscriptionStatus = .valid(expirationDate: dateEndSubscription)
+                        print("Yeah \(dateEndSubscription)")
+                    }
+                    
+                    return false
                 }
             }else { /// latest_receipt_info - если данной строки нет значит пользователь никогда не покупал подписку, в таком случае откланяем viewController
                 print("Нет квитанциий")
-                return (nil,false)
+                return false
             }
         }
         
-        return (nil,false)
+        return false
     }
     
 }
@@ -126,7 +141,7 @@ extension User {
 
 extension User {
     
-    func loadMetadata(completion: () -> ()) { /// Загрузка или добавление  бесплатных пользователей
+    func loadMetadata(completion: @escaping () -> ()) { /// Загрузка или добавление  бесплатных пользователей
         
         db.collection("Users").whereField("ID", isEqualTo: ID).getDocuments(completion: { querySnapshot, err in
             
@@ -144,7 +159,7 @@ extension User {
                     }
                 }
                 if let lastSelectedCountry = documentData["lastSelectedCountry"] as? String {
-                    self.selectedCountry = lastSelectedCountry
+                    self.selectedCountry = Country(name: lastSelectedCountry)
                 }
             }
             completion()
@@ -166,4 +181,12 @@ extension User {
     
 }
 
+
+extension User {
+    
+    func userBuyPremium(){
+        
+    }
+    
+}
 

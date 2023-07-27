@@ -20,7 +20,6 @@ class HomeViewController: UIViewController {
     private let db = Firestore.firestore()
     
     var phoneNumber = String()
-    var country = Country(name: User.shared.selectedCountry)
     
     private var pressedVPNButton: Bool = false
     private var amountOfDay: String = ""
@@ -32,63 +31,13 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var buttonVPN: UIButton!
     @IBOutlet weak var numberOfDayFreeVersion: UILabel!
     @IBOutlet weak var additionallabel: UILabel!
-    
-    var currentUser: User? { /// Основная переменная для остлеживания статуса пользователя
         
-        didSet {
-                
-                if currentUser!.subscriptionStatus { /// Если у пользователя активна подписка то открываем доступ
-                    accessUser = true
-                }
-                
-                else if currentUser!.freeUser == true { /// Если у пользователя бесплатный контент
-                    
-                    let differencer = NSDate().timeIntervalSince1970 - currentUser!.dataFirstLaunch
-            
-                    if differencer > 604800 {  /// Если разница составляет больше 7 денй, у меня в секундах, то закрываем доступ
-                        accessUser = false
-                        amountOfDay = "Доступ истек"
-                        additionalText = ""
-                    }else {
-                        accessUser = true
-                        amountOfDay(second: differencer) /// Преобразуем секунды в дни
-                    }
-                    
-                }else if currentUser!.subscriptionStatus == false { /// Если подписка закончилась
-                    accessUser = false
-                }
-        }
-    }
-
-    
-    
-    
-    
-//MARK: - Will Appear
     
     override func viewWillAppear(_ animated: Bool) {
         
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         navigationController?.navigationBar.isHidden = true
-        
-        if currentUser!.freeUser { /// Если пользователь с бесплатной версией загружаем дату окончания промо периода
-            loadData()
-        }else { /// Если нет закгружаем квитанцию
-            receiptValidation()
-        }
-        
-    }
-    
-   
-    
-    
-//MARK: - ViewDidLoad
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        
+
         switch User.shared.subscriptionStatus {
         case .valid(expirationDate: let expirationDate):
             let rusDate = Formatter.formatToRusDate.string(from: expirationDate)
@@ -107,9 +56,20 @@ class HomeViewController: UIViewController {
         case .endend:
             numberOfDayFreeVersion.text = "Срок истек"
             additionallabel.isHidden  = true
-        case .notActivated:
+        case .blocked:
             break
         }
+        
+    }
+    
+   
+    
+    
+//MARK: - ViewDidLoad
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeStatus), name: NSNotification.Name.NEVPNStatusDidChange, object: nil) /// Добавляем наблюдателя за впн соединением, в данном случае наш класс VC
         
@@ -125,12 +85,6 @@ class HomeViewController: UIViewController {
         performSegue(withIdentifier: "vpnToChangeCountry", sender: self)
     }
     
-    
-    
-    
-    
-    
-    
     //MARK: - Кнопка подключения нажата
     
     
@@ -140,10 +94,10 @@ class HomeViewController: UIViewController {
         if User.shared.acesstToVpn { /// Если доступ есть то разрешаем подключение
             
             if pressedVPNButton {
-
-                if let country = self.country  { /// Если в UserDefaults что то есть
+                let country = User.shared.selectedCountry
+                if let serverIP = country?.serverIP, let password = country?.password, let userName = country?.userName  { /// Если в UserDefaults что то есть
                     
-                    let credentials = AVVPNCredentials.IKEv2(server: country["serverIP"] as! String, username: country["userName"] as! String, password: country["password"] as! String, remoteId:country["serverIP"] as! String, localId: country["serverIP"] as! String)
+                    let credentials = AVVPNCredentials.IKEv2(server: serverIP, username: userName, password: password, remoteId:serverIP, localId: serverIP)
                     
                     AVVPNService.shared.connect(credentials: credentials) { error in /// Производим подключение к выбранной стране
                         if error != nil {
@@ -215,6 +169,8 @@ extension HomeViewController {
         
     }
 }
+
+//MARK: -  Создание оповещений
 
 extension HomeViewController {
     

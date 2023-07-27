@@ -14,13 +14,8 @@ class ChangeCountryController: UITableViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var country = [Country]()
-    var currentIndexCountry = Int()
+    var countryNames = [String]()
     let db = Firestore.firestore()
-    let defaults = UserDefaults.standard
-
-    
-    
     
     override func viewWillAppear(_ animated: Bool) {
         
@@ -28,7 +23,6 @@ class ChangeCountryController: UITableViewController {
         searchBar.placeholder = "Поиск"
         searchBar.searchTextField.textColor = .white
         searchBar.backgroundImage = UIImage()
-        
         
         navigationController?.navigationBar.isHidden = false
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -43,72 +37,67 @@ class ChangeCountryController: UITableViewController {
         
     }
     
-
+    
     // MARK: - Table view data source
-
-
+    
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return country.count
+        return countryNames.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "countryCell", for: indexPath)
-        cell.textLabel?.text = country[indexPath.row].name
+        cell.textLabel?.text = countryNames[indexPath.row]
         cell.backgroundColor = UIColor(named: K.color.background)
-        
         cell.textLabel?.textColor = .white
         tableView.rowHeight = 60
         
-        if let currentCountryName = defaults.dictionary(forKey: "vpnData") {
-            if currentCountryName["name"] as! String  == country[indexPath.row].name {
-                cell.accessoryType = .checkmark
-            }else {
-                cell.accessoryType = .none
-            }
-        }
-        
-        
+        if countryNames[indexPath.row] == User.shared.selectedCountry?.name {
+            cell.accessoryType = .checkmark
+        }else {cell.accessoryType = .none}
+                
         return cell
     }
     
     
-    
-    
-    
-//MARK: - Пользователь выбрал ячейку
+
+    //MARK: - Пользователь выбрал ячейку
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) { /// Выбрав ячейку мы сохраняем данные для входа на сервер в UserDefaults
         
-        let currentCountry = country[indexPath.row]
-        let dict = ["name":currentCountry.name ,"serverIP":currentCountry.serverIP ,"userName": currentCountry.userName,"password": currentCountry.password]
-        defaults.set(dict, forKey: "vpnData")
+        let selectedCountryName = countryNames[indexPath.row]
+        User.shared.selectedCountry = Country(name: selectedCountryName)
         tableView.reloadData()
         tableView.deselectRow(at: indexPath, animated: true)
     }
-
-
 }
 
 
-
-
-
-
-//MARK: - Загрузка данных страны
+//MARK: - Загрузка названий стран
 
 extension ChangeCountryController { /// Загружаем данные для подключения к впн с сервера и записывем в массив стран
     
     func loadCountry() {
-            Task{
-                if let countryArr = await LoadData().loadCountry(){
-                    country = countryArr
-                    tableView.reloadData()
+        
+        db.collection("Country").getDocuments { querySnapshot, err in
+            
+            if let error = err {print("Ошибка загрузки названия стран - \(error)")}
+            guard querySnapshot != nil else {return}
+            
+            for document in querySnapshot!.documents {
+                let data = document.data()
+                if let nameCountry = data["name"] as? String {
+                    self.countryNames.append(nameCountry)
                 }
-                
             }
-
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
+        
+    }
     
 }

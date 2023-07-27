@@ -20,22 +20,17 @@ class MenuViewController: UIViewController, UITableViewDataSource {
     
     let productID  = "com.TopVpnDenimMerzhan.Vpn"
     var menuCell = ["Поддержка","Ответы на вопросы", "Пользовательское соглашение","Политика конфиденциальности"]
-    let defaults = UserDefaults.standard
-    
-    var currentUsers = User(dataFirstLaunch: 0, subscriptionStatus: false, freeUser: false)
-    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         SKPaymentQueue.default().add(self)
-        tableView.dataSource = self /// Устанавливаем себя в качестве делегата
+        tableView.dataSource = self
         
-        if currentUsers.freeUser { /// Если пользователь уже залогинен то текст кнопки выйти из аккаунта
-            accountButton.setTitle("Выйти из аккаунта", for: .normal)
-        }else if currentUsers.subscriptionStatus { /// Если у пользователя текущий премиум активен то убираем кнопку купить перимум
-            buttonPremium.isHidden = true
+        switch User.shared.subscriptionStatus {
+        case.valid(expirationDate: _),.ended: buttonPremium.isHidden = true
+        default:break
         }
         
     }
@@ -67,8 +62,8 @@ class MenuViewController: UIViewController, UITableViewDataSource {
             performSegue(withIdentifier: "menuToAuth", sender: self)
         }
         
-        
     }
+    
     
     
     
@@ -79,8 +74,6 @@ class MenuViewController: UIViewController, UITableViewDataSource {
     }
     
 }
-
-
 
 
  //MARK: - LogOut
@@ -102,8 +95,6 @@ extension MenuViewController {
     }
     
 }
-
-
 
 
 
@@ -141,16 +132,10 @@ extension MenuViewController: SKPaymentTransactionObserver {
                 print("Транзакция прошла")
                 SKPaymentQueue.default().finishTransaction(transaction)
                 SKPaymentQueue.default().remove(self)
-                
-                
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let dvc = storyboard.instantiateViewController(withIdentifier: "VpnID") as! HomeViewController
-                dvc.currentUser = User(dataFirstLaunch: 0, subscriptionStatus: true, freeUser: false)
-                
+                Task {
+                    let data = await User.shared.refreshReceipt()
+                }
                 AVVPNService.shared.disconnect()
-                
-                
-                self.present(dvc, animated: true)
             }
                 
             else if transaction.transactionState == .failed {

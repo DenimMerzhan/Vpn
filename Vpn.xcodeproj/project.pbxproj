@@ -27,7 +27,6 @@
 		CFAA9DD829E3F68A000B3438 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAA9DD729E3F68A000B3438 /* CustomTextField.swift */; };
 		CFAA9DDA29E43FC7000B3438 /* CodeReviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAA9DD929E43FC7000B3438 /* CodeReviewController.swift */; };
 		CFAA9DDE29E44776000B3438 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CFAA9DDD29E44776000B3438 /* GoogleService-Info.plist */; };
-		CFBAE27E29E97C9000E316DB /* LoadData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBAE27D29E97C9000E316DB /* LoadData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,7 +55,6 @@
 		CFAA9DD729E3F68A000B3438 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		CFAA9DD929E43FC7000B3438 /* CodeReviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CodeReviewController.swift; path = Vpn/Controller/Register/CodeReviewController.swift; sourceTree = SOURCE_ROOT; };
 		CFAA9DDD29E44776000B3438 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		CFBAE27D29E97C9000E316DB /* LoadData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,7 +152,6 @@
 				CF91AF0B29DD4F8300EAAC01 /* User.swift */,
 				CF91768C2A716EA100C00358 /* SubscriptionStatus.swift */,
 				CFAA9DD729E3F68A000B3438 /* CustomTextField.swift */,
-				CFBAE27D29E97C9000E316DB /* LoadData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -293,7 +290,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CF91768B2A716BC400C00358 /* Extension.swift in Sources */,
-				CFBAE27E29E97C9000E316DB /* LoadData.swift in Sources */,
 				CFAA9DD829E3F68A000B3438 /* CustomTextField.swift in Sources */,
 				CF5A97BE29D3164D00D4F2F5 /* HomeViewController.swift in Sources */,
 				CF91AF0C29DD4F8300EAAC01 /* User.swift in Sources */,
