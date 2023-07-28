@@ -182,11 +182,3 @@ extension User {
 }
 
 
-extension User {
-    
-    func userBuyPremium(){
-        
-    }
-    
-}
-

@@ -17,7 +17,6 @@ class CodeReviewController: UIViewController {
     var verifictaionID = String()
     var phoneNumber = String()
     private let db = Firestore.firestore()
-    
     private let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
@@ -47,22 +46,13 @@ class CodeReviewController: UIViewController {
                 print("Ошибка регистрации - \(err)")
                 
             }else {
-                self.performSegue(withIdentifier: "checkCodeToVpn", sender: self)
+                User.shared.loadMetadata { [weak self] in
+                    self?.performSegue(withIdentifier: "checkCodeToVpn", sender: self)
+                }
+                
             }
         }
         
-    }
-    
-
-    
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        let dvc = segue.destination as! HomeViewController
-        
-        dvc.currentUser = User(dataFirstLaunch: 0, subscriptionStatus: false, freeUser: true)
-        dvc.phoneNumber = phoneNumber
-        defaults.set(false, forKey: "subscriptionPayment")
     }
 }
 

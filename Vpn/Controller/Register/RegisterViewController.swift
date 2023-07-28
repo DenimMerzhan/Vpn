@@ -7,15 +7,15 @@
 
 import UIKit
 import FirebaseAuth
+import FlagPhoneNumber
 
-class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, DeleteButtonPressed {
+class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     
     
 
     @IBOutlet weak var getNumberLabel: UIButton!
-    @IBOutlet weak var phoneNumberTextField: CustomTextField!
-    @IBOutlet weak var numberCountryPicker: UIPickerView!
+    @IBOutlet weak var phoneNumberTextField: FPNTextField!
     
     private var registerAuthUser = ""
     private var verfictationID  = ""
@@ -44,46 +44,9 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     
     override func viewWillAppear(_ animated: Bool) { // Проверяем валидность номера
-        
-        
+    
         navigationItem.backBarButtonItem = UIBarButtonItem(
             title: "Назад", style: .plain, target: nil, action: nil) /// Текст кнопки назад
-        
-        NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: phoneNumberTextField, queue: OperationQueue.main) { (notification) in /// Добавляем наблюдателя который следит за изменениями в ТекстФилде
-            
-            let count = self.phoneNumberTextField.text!.count
-            
-            if count == 1 {
-                self.deletePressed = false
-            }
-            
-            if self.deletePressed == false {
-                
-                if count == 3 {
-                    self.phoneNumberTextField.text = self.phoneNumberTextField.text! + " "
-                }else if count == 7 {
-                    self.phoneNumberTextField.text = self.phoneNumberTextField.text! + "-"
-                }else if count == 10 {
-                    self.phoneNumberTextField.text = self.phoneNumberTextField.text! + "-"
-                }
-            }else{
-                self.deletePressed = false
-            }
-            
-            
-            
-            if count == 13 {
-                self.validNumberString = self.phoneNumberTextField.text!
-                if self.phoneNumberTextField.text!.first == "9" {
-                    self.valideNumber = true
-                }
-                
-            }else if count > 13 {
-                self.phoneNumberTextField.text = self.validNumberString
-            }else {
-                self.valideNumber = false
-            }
-        }
     }
     
     
@@ -93,10 +56,7 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        phoneNumberTextField.deleteButtonDelegate = self
-        numberCountryPicker.delegate = self
         phoneNumberTextField.delegate = self
-        
         phoneNumberTextField.attributedPlaceholder = NSAttributedString(string: "926 254 02 98", attributes: [NSAttributedString.Key
             .foregroundColor: UIColor.white.withAlphaComponent(0.2),
             .font:UIFont.systemFont(ofSize: 20)]) /// Установиили стиль текст филд
@@ -153,8 +113,6 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     
     
-    
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         guard let dvc = segue.destination as? CodeReviewController else {return}
@@ -165,9 +123,7 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     
     
-    
-    
-    
+
     //MARK: - PickerView
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -188,9 +144,6 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
 }
     
-
-
-
 
 // MARK: - TextField
     

@@ -13,7 +13,6 @@ import FirebaseAuth
 
 class PresentViewController: UIViewController {
     
-    private let defaults = UserDefaults.standard
     private let productID  = "com.TopVpnDenimMerzhan.Vpn"
     
     override func viewWillAppear(_ animated: Bool) {
@@ -32,15 +31,13 @@ class PresentViewController: UIViewController {
         
         User.shared.ID = "+79817550000"
         
+        print(Auth.auth().currentUser?.phoneNumber)
+        
         User.shared.loadMetadata { [weak self]  in
             if Auth.auth().currentUser?.uid != nil {  /// Проверяем авторизован наш пользователь в приложении
                 
                 Task {
                     await self?.receiptValidation()
-                    switch User.shared.subscriptionStatus {
-                    case.valid(expirationDate: _),.ended: self?.performSegue(withIdentifier: "goToVpn", sender: self)
-                    default:break
-                    }
                     self?.performSegue(withIdentifier: "goToVpn", sender: self)
                 }
             }

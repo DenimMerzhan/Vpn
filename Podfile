@@ -11,6 +11,7 @@ pod 'AVVPNService', '~> 0.1'
 pod 'FirebaseAuth'
 pod 'FirebaseFirestore'
 pod 'SideMenu'
+pod "FlagPhoneNumber"
 
   # Pods for Vpn
 

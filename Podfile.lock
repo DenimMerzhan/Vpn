@@ -630,6 +630,9 @@ PODS:
     - "gRPC-C++ (~> 1.44.0)"
     - leveldb-library (~> 1.22)
     - nanopb (< 2.30910.0, >= 2.30908.0)
+  - FlagPhoneNumber (0.8.0):
+    - FlagPhoneNumber/libPhoneNumberiOS (= 0.8.0)
+  - FlagPhoneNumber/libPhoneNumberiOS (0.8.0)
   - GoogleUtilities/AppDelegateSwizzler (7.11.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
@@ -717,6 +720,7 @@ DEPENDENCIES:
   - ChameleonFramework/Swift
   - FirebaseAuth
   - FirebaseFirestore
+  - FlagPhoneNumber
   - SideMenu
 
 SPEC REPOS:
@@ -729,6 +733,7 @@ SPEC REPOS:
     - FirebaseCore
     - FirebaseCoreInternal
     - FirebaseFirestore
+    - FlagPhoneNumber
     - GoogleUtilities
     - "gRPC-C++"
     - gRPC-Core
@@ -748,6 +753,7 @@ SPEC CHECKSUMS:
   FirebaseCore: fa80ad16a62d52f67274b5b88304c3a318bbf9a4
   FirebaseCoreInternal: c7cd505e2136811096b225ac388d6254a2622362
   FirebaseFirestore: f91b23a3c71448475d17163baf916d5d20d01609
+  FlagPhoneNumber: 3712455b95f66cb0f2016fef7d9e34cddf8c7f9a
   GoogleUtilities: c2bdc4cf2ce786c4d2e6b3bcfd599a25ca78f06f
   "gRPC-C++": 9675f953ace2b3de7c506039d77be1f2e77a8db2
   gRPC-Core: 943e491cb0d45598b0b0eb9e910c88080369290b
@@ -758,6 +764,6 @@ SPEC CHECKSUMS:
   PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
   SideMenu: f583187d21c5b1dd04c72002be544b555a2627a2
 
-PODFILE CHECKSUM: c78cd8aaf72a1cad067a7278846c41b5bb4ae4a2
+PODFILE CHECKSUM: b4b968629b2c7e6198aae4e6f7940d0461e87b09
 
-COCOAPODS: 1.12.0
+COCOAPODS: 1.12.1

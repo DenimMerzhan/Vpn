@@ -333,10 +333,6 @@
                                     <action selector="getCodePressed:" destination="mBi-4y-Y28" eventType="touchUpInside" id="Fh0-vS-xLX"/>
                                 </connections>
                             </button>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IYM-HV-bsv">
-                                <rect key="frame" x="11" y="330" width="70" height="46"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            </pickerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Введите номер телефона" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fmg-AX-qBE">
                                 <rect key="frame" x="16" y="279" width="267" height="27"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -344,8 +340,8 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="981 755 00 00" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RVE-uG-rqY" customClass="CustomTextField" customModule="Vpn" customModuleProvider="target">
-                                <rect key="frame" x="88" y="330" width="216" height="46"/>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="981 755 00 00" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RVE-uG-rqY" customClass="FPNTextField" customModule="FlagPhoneNumber">
+                                <rect key="frame" x="16" y="329" width="361" height="47"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" name="ColorBackgound"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -358,14 +354,13 @@
                     <navigationItem key="navigationItem" customizationIdentifier="" id="2LH-3d-Rhp"/>
                     <connections>
                         <outlet property="getNumberLabel" destination="mip-K8-sSG" id="cJ1-cM-oWV"/>
-                        <outlet property="numberCountryPicker" destination="IYM-HV-bsv" id="bfM-Uc-t46"/>
-                        <outlet property="phoneNumberTextField" destination="RVE-uG-rqY" id="FdO-xM-liO"/>
+                        <outlet property="phoneNumberTextField" destination="RVE-uG-rqY" id="nrE-QB-e0h"/>
                         <segue destination="iU3-1L-fd6" kind="show" identifier="authToCheckCode" id="1UX-Yb-hdn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OKQ-es-Xau" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1216" y="777"/>
+            <point key="canvasLocation" x="1214.5038167938931" y="776.76056338028172"/>
         </scene>
         <!--Code Review Controller-->
         <scene sceneID="H89-e0-4Ps">
