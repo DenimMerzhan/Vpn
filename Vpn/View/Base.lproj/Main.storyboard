@@ -18,62 +18,80 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="TOP" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vp4-jU-dHr">
-                                <rect key="frame" x="121" y="59" width="151" height="95"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" restorationIdentifier="ButtonStackView" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="3XQ-Nr-Mlt" userLabel="ButtonStackView">
+                                <rect key="frame" x="40" y="579.66666666666663" width="313" height="238.33333333333337"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Alw-rI-TIT">
+                                        <rect key="frame" x="0.0" y="0.0" width="313" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="Cp8-dG-2NV"/>
+                                        </constraints>
+                                        <buttonConfiguration key="configuration" style="gray" title="Авторизация">
+                                            <fontDescription key="titleFontDescription" type="system" pointSize="20"/>
+                                            <color key="baseForegroundColor" systemColor="labelColor"/>
+                                            <color key="baseBackgroundColor" red="1" green="0.88446849279999995" blue="0.33426339290000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <segue destination="mBi-4y-Y28" kind="presentation" id="rH7-ra-C0K"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IFG-hn-pwO">
+                                        <rect key="frame" x="0.0" y="80" width="313" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="5gj-QX-DzP"/>
+                                        </constraints>
+                                        <buttonConfiguration key="configuration" style="gray" title="Регистрация">
+                                            <fontDescription key="titleFontDescription" type="system" pointSize="20"/>
+                                            <color key="baseForegroundColor" systemColor="labelColor"/>
+                                            <color key="baseBackgroundColor" red="1" green="0.88446849279999995" blue="0.33426339290000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <segue destination="mBi-4y-Y28" kind="presentation" id="3au-nV-ha3"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a50-17-CEb">
+                                        <rect key="frame" x="0.0" y="160" width="313" height="34.333333333333343"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Восстановить покупки"/>
+                                        <connections>
+                                            <segue destination="mBi-4y-Y28" kind="presentation" id="flg-K0-jdk"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fJK-Qc-22c">
+                                        <rect key="frame" x="0.0" y="214.33333333333337" width="313" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Политика конфинедциальности">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TOP" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vp4-jU-dHr">
+                                <rect key="frame" x="0.0" y="83" width="393" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="RgV-aA-k7I"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="50"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Alw-rI-TIT">
-                                <rect key="frame" x="62" y="560" width="268" height="65"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <buttonConfiguration key="configuration" style="gray" title="Авторизация">
-                                    <fontDescription key="titleFontDescription" type="system" pointSize="20"/>
-                                    <color key="baseForegroundColor" systemColor="labelColor"/>
-                                    <color key="baseBackgroundColor" red="1" green="0.88446849279999995" blue="0.33426339290000001" alpha="1" colorSpace="calibratedRGB"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <segue destination="mBi-4y-Y28" kind="presentation" id="rH7-ra-C0K"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IFG-hn-pwO">
-                                <rect key="frame" x="62" y="654" width="268" height="65"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <buttonConfiguration key="configuration" style="gray" title="Регистрация">
-                                    <fontDescription key="titleFontDescription" type="system" pointSize="20"/>
-                                    <color key="baseForegroundColor" systemColor="labelColor"/>
-                                    <color key="baseBackgroundColor" red="1" green="0.88446849279999995" blue="0.33426339290000001" alpha="1" colorSpace="calibratedRGB"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <segue destination="mBi-4y-Y28" kind="presentation" id="3au-nV-ha3"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fJK-Qc-22c">
-                                <rect key="frame" x="94" y="785" width="205" height="33"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="Политика конфинедциальности">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a50-17-CEb">
-                                <rect key="frame" x="94" y="742" width="205" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Восстановить покупки"/>
-                                <connections>
-                                    <segue destination="mBi-4y-Y28" kind="presentation" id="flg-K0-jdk"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="bU1-wd-YNy"/>
                         <color key="backgroundColor" name="ColorBackgound"/>
+                        <constraints>
+                            <constraint firstItem="bU1-wd-YNy" firstAttribute="bottom" secondItem="3XQ-Nr-Mlt" secondAttribute="bottom" id="9Rt-wW-KEy"/>
+                            <constraint firstItem="3XQ-Nr-Mlt" firstAttribute="leading" secondItem="bU1-wd-YNy" secondAttribute="leading" constant="40" id="FZC-21-t2G"/>
+                            <constraint firstItem="Vp4-jU-dHr" firstAttribute="leading" secondItem="bU1-wd-YNy" secondAttribute="leading" id="Ulm-7E-chX"/>
+                            <constraint firstItem="bU1-wd-YNy" firstAttribute="trailing" secondItem="3XQ-Nr-Mlt" secondAttribute="trailing" constant="40" id="pLL-kv-8OR"/>
+                            <constraint firstItem="bU1-wd-YNy" firstAttribute="trailing" secondItem="Vp4-jU-dHr" secondAttribute="trailing" id="sZB-vJ-8N3"/>
+                            <constraint firstItem="Vp4-jU-dHr" firstAttribute="top" secondItem="bU1-wd-YNy" secondAttribute="top" constant="-20" id="xze-aX-FbD"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="pqF-KH-yVw"/>
                     <connections>
+                        <outlet property="buttonStackView" destination="3XQ-Nr-Mlt" id="hyM-Sk-6VB"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="goToVpn" id="Hfd-JW-UiA"/>
                     </connections>
                 </viewController>
@@ -261,7 +279,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="changeCountry" id="SHi-gu-MMT" customClass="ChangeCountryController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="singleLineEtched" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" id="96J-y9-0re">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="ColorBackgound"/>
                         <color key="separatorColor" systemColor="labelColor"/>
@@ -318,47 +336,68 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mip-K8-sSG">
-                                <rect key="frame" x="16" y="398" width="361" height="57"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.98431372640000003" green="0.90196073060000004" blue="0.48235297199999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <color key="tintColor" red="0.98431372640000003" green="0.90196073060000004" blue="0.48235297199999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Получить код">
-                                    <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="18"/>
-                                    <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <color key="baseBackgroundColor" red="0.98431372640000003" green="0.90196073060000004" blue="0.48235297199999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <action selector="getCodePressed:" destination="mBi-4y-Y28" eventType="touchUpInside" id="Fh0-vS-xLX"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Введите номер телефона" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fmg-AX-qBE">
-                                <rect key="frame" x="16" y="279" width="267" height="27"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="981 755 00 00" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RVE-uG-rqY" customClass="FPNTextField" customModule="FlagPhoneNumber">
-                                <rect key="frame" x="16" y="329" width="361" height="47"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" name="ColorBackgound"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
-                            </textField>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="CTg-c6-Lm3">
+                                <rect key="frame" x="16" y="256" width="361" height="161.33333333333337"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Введите номер телефона" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fmg-AX-qBE">
+                                        <rect key="frame" x="0.0" y="0.0" width="361" height="26.333333333333332"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="981 755 00 00" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RVE-uG-rqY" customClass="FPNTextField" customModule="FlagPhoneNumber">
+                                        <rect key="frame" x="0.0" y="41.333333333333314" width="361" height="45"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="45" id="Njq-yG-ctL"/>
+                                        </constraints>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HXE-GZ-YdV">
+                                        <rect key="frame" x="0.0" y="101.33333333333331" width="361" height="60"/>
+                                        <color key="backgroundColor" name="ColorButtonYellow"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="R13-eP-5oS"/>
+                                        </constraints>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Получить код">
+                                            <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="18"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="fetchCodeTapped:" destination="mBi-4y-Y28" eventType="touchUpInside" id="Ici-Y1-hdV"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="q9G-GR-GdH"/>
                         <color key="backgroundColor" name="ColorBackgound"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="CTg-c6-Lm3" firstAttribute="leading" secondItem="q9G-GR-GdH" secondAttribute="leading" constant="16" id="6oA-WB-WeV"/>
+                            <constraint firstItem="q9G-GR-GdH" firstAttribute="trailing" secondItem="CTg-c6-Lm3" secondAttribute="trailing" constant="16" id="6vd-9e-iur"/>
+                            <constraint firstItem="CTg-c6-Lm3" firstAttribute="centerY" secondItem="q9G-GR-GdH" secondAttribute="centerY" multiplier="0.8" id="A2X-Ok-UmI"/>
+                        </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="dcV-Xe-SXb" appends="YES" id="E1M-9E-9FD"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" customizationIdentifier="" id="2LH-3d-Rhp"/>
                     <connections>
-                        <outlet property="getNumberLabel" destination="mip-K8-sSG" id="cJ1-cM-oWV"/>
+                        <outlet property="fetchCode" destination="HXE-GZ-YdV" id="Ba9-24-SQC"/>
                         <outlet property="phoneNumberTextField" destination="RVE-uG-rqY" id="nrE-QB-e0h"/>
                         <segue destination="iU3-1L-fd6" kind="show" identifier="authToCheckCode" id="1UX-Yb-hdn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OKQ-es-Xau" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="dcV-Xe-SXb">
+                    <connections>
+                        <action selector="tapOnScreen:" destination="mBi-4y-Y28" id="ZPe-5a-J9q"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1214.5038167938931" y="776.76056338028172"/>
         </scene>
@@ -370,57 +409,57 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iv6-X0-7NK">
-                                <rect key="frame" x="125" y="776" width="148" height="38"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Регистрация">
-                                    <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="20"/>
-                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <action selector="authPressed:" destination="iU3-1L-fd6" eventType="touchUpInside" id="ZXp-tN-acp"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cOI-Gu-mZ1">
-                                <rect key="frame" x="16" y="398" width="361" height="57"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" name="ColorButtonYellow"/>
-                                <color key="tintColor" name="ColorButtonYellow"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Проверить код">
-                                    <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="18"/>
-                                    <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <color key="baseBackgroundColor" red="0.98431372640000003" green="0.90196073060000004" blue="0.48235297199999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <action selector="checkCodePressed:" destination="iU3-1L-fd6" eventType="touchUpInside" id="QJp-Fg-dT2"/>
-                                </connections>
-                            </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="M2o-Ob-0fL">
-                                <rect key="frame" x="16" y="323" width="361" height="49"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" name="ColorBackgound"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="phonePad"/>
-                            </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Введите проверочный код" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vPc-FX-Yug">
-                                <rect key="frame" x="60" y="288" width="279" height="27"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="rSe-O5-mQv">
+                                <rect key="frame" x="16" y="248.66666666666663" width="361" height="176.33333333333337"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Введите проверочный код" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vPc-FX-Yug">
+                                        <rect key="frame" x="0.0" y="0.0" width="361" height="26.333333333333332"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="M2o-Ob-0fL">
+                                        <rect key="frame" x="0.0" y="41.333333333333343" width="361" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="mr1-rG-d3E"/>
+                                        </constraints>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="phonePad"/>
+                                    </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cOI-Gu-mZ1">
+                                        <rect key="frame" x="0.0" y="116.33333333333334" width="361" height="60"/>
+                                        <color key="backgroundColor" name="ColorButtonYellow"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="4rN-Uf-c8A"/>
+                                        </constraints>
+                                        <color key="tintColor" name="ColorButtonYellow"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Проверить код">
+                                            <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="18"/>
+                                            <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="baseBackgroundColor" red="0.98431372640000003" green="0.90196073060000004" blue="0.48235297199999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="checkCodePressed:" destination="iU3-1L-fd6" eventType="touchUpInside" id="QJp-Fg-dT2"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="tks-dv-4IU"/>
                         <color key="backgroundColor" name="ColorBackgound"/>
+                        <constraints>
+                            <constraint firstItem="rSe-O5-mQv" firstAttribute="centerY" secondItem="tks-dv-4IU" secondAttribute="centerY" multiplier="0.8" id="4d2-yu-DFg"/>
+                            <constraint firstItem="tks-dv-4IU" firstAttribute="trailing" secondItem="rSe-O5-mQv" secondAttribute="trailing" constant="16" id="5Kz-F9-32x"/>
+                            <constraint firstItem="rSe-O5-mQv" firstAttribute="leading" secondItem="2iE-pV-HEk" secondAttribute="leading" constant="16" id="cwC-lb-xvA"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="d1F-Nh-EQK"/>
                     <connections>
-                        <outlet property="checkCodeUiButton" destination="cOI-Gu-mZ1" id="3io-qd-vKh"/>
+                        <outlet property="checkCodeButton" destination="cOI-Gu-mZ1" id="3io-qd-vKh"/>
                         <outlet property="codeTextView" destination="M2o-Ob-0fL" id="Tod-V7-jHC"/>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="checkCodeToVpn" id="SyC-sP-FQd"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="ShowContentVC" id="SyC-sP-FQd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WVO-W4-vcR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -449,8 +488,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="hga-QA-uw2"/>
-        <segue reference="Hfd-JW-UiA"/>
+        <segue reference="rH7-ra-C0K"/>
+        <segue reference="SyC-sP-FQd"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="VpnDIsconnected" width="108.66666412353516" height="120"/>

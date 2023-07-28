@@ -11,19 +11,19 @@ import FirebaseFirestore
 
 class CodeReviewController: UIViewController {
 
-    @IBOutlet weak var checkCodeUiButton: UIButton!
+    @IBOutlet weak var checkCodeButton: UIButton!
     @IBOutlet weak var codeTextView: UITextView!
     
     var verifictaionID = String()
-    var phoneNumber = String()
+    var phoneNumber: String!
     private let db = Firestore.firestore()
     private let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        checkCodeUiButton.alpha = 0.2
-        
+        checkCodeButton.alpha = 0.2
+        checkCodeButton.isEnabled = false
         codeTextView.delegate = self
     }
 
@@ -35,19 +35,21 @@ class CodeReviewController: UIViewController {
         let credentional = PhoneAuthProvider.provider().credential(withVerificationID: verifictaionID, verificationCode: code)
         
         
-        Auth.auth().signIn(with: credentional) { dataResult, error in
+        Auth.auth().signIn(with: credentional) { [weak self] dataResult, error in
             
             if let err = error {
                 
                 let ac = UIAlertController(title: err.localizedDescription, message: nil, preferredStyle: .alert)
                 let cancel = UIAlertAction(title: "Отмена", style: .cancel)
                 ac.addAction(cancel)
-                self.present(ac, animated: true)
+                self?.present(ac, animated: true)
                 print("Ошибка регистрации - \(err)")
                 
             }else {
+                
+                User.shared.ID = self?.phoneNumber ?? ""
                 User.shared.loadMetadata { [weak self] in
-                    self?.performSegue(withIdentifier: "checkCodeToVpn", sender: self)
+                    self?.performSegue(withIdentifier: "ShowContentVC", sender: self)
                 }
                 
             }
@@ -55,9 +57,6 @@ class CodeReviewController: UIViewController {
         
     }
 }
-
-
-
 
 
 
@@ -82,11 +81,11 @@ extension CodeReviewController: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) { /// Когда текст был изменен
         if codeTextView.text.count == 6 {
-            checkCodeUiButton.alpha = 1
-            checkCodeUiButton.isEnabled = true /// Логическое значение, указывающее, находится ли элемент управления во включенном состоянии
+            checkCodeButton.alpha = 1
+            checkCodeButton.isEnabled = true /// Логическое значение, указывающее, находится ли элемент управления во включенном состоянии
         }else {
-            checkCodeUiButton.alpha = 0.2
-            checkCodeUiButton.isEnabled = false
+            checkCodeButton.alpha = 0.2
+            checkCodeButton.isEnabled = false
         }
     }
 

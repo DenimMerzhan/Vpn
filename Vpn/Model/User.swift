@@ -71,12 +71,13 @@ class User {
 
 extension User {
     
-    func refreshReceipt() async ->  Bool { /// Функция для получения даты окончания подписки
+    func refreshReceipt(completion: @escaping (_ needToUpdateReceipt: Bool) -> ()) { /// Функция для получения даты окончания подписки
         
         let urlString = "https://sandbox.itunes.apple.com/verifyReceipt" /// Указываем что берем даныне с песочницы
         
         guard let receiptURL = Bundle.main.appStoreReceiptURL,let receiptString =   try? Data(contentsOf: receiptURL).base64EncodedString()  else { /// 1 Путь к файлу квитанции  2  Пытаемся преобразовать файл   Если вдруг нет пути или нет файла то мы вызываем обновление чека
-            return (true)
+            completion(true)
+            return
         }
         
         
@@ -99,39 +100,39 @@ extension User {
         request.httpBody = httpBody /// Данные, отправляемые в виде тела сообщения запроса, например, для HTTP-запроса POST.
         
         
-        let newData = try! await URLSession.shared.data(for: request)
-        
-        let data = newData.0
-        if let jsonData = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:Any] {  /// Преобразуем файл Json в словарь
+        let newData = URLSession.shared.dataTask(with: request) { newData, urlResponse, err in
             
+            guard let data = newData else {return}
+            if let error = err {
+                print("Ошибка получения квитанции - \(error)")
+            }
             
-            if let dataArr = jsonData["latest_receipt_info"] as? [[String: Any]] { /// Далее преобразуем в архив словарей если там есть  latest_receipt_info
+            if let jsonData = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:Any] {  /// Преобразуем файл Json в словарь
                 
                 
-                let subscriptionExpirationDate = dataArr[0]["expires_date"] as! String // Берем последний массив и от туда дату окончания подписки
-                
-                
-                if let dateEndSubscription = Formatter.customDate.date(from: subscriptionExpirationDate) { /// Форматиурем нашу строку в дату
+                if let dataArr = jsonData["latest_receipt_info"] as? [[String: Any]] { /// Далее преобразуем в архив словарей если там есть  latest_receipt_info
                     
-                    if Date() > dateEndSubscription { /// Если текущая дата больше даты окончания заканчиваем подписку
-                        User.shared.subscriptionStatus = .ended
-                        print("Now \(dateEndSubscription)")
-                    }
-                    else {
+                    
+                    let subscriptionExpirationDate = dataArr[0]["expires_date"] as! String // Берем последний массив и от туда дату окончания подписки
+                    
+                    
+                    if let dateEndSubscription = Formatter.customDate.date(from: subscriptionExpirationDate) { /// Форматиурем нашу строку в дату
                         
-                        User.shared.subscriptionStatus = .valid(expirationDate: dateEndSubscription)
-                        print("Yeah \(dateEndSubscription)")
+                        if Date() > dateEndSubscription { /// Если текущая дата больше даты окончания заканчиваем подписку
+                            User.shared.subscriptionStatus = .ended
+                            print("Now \(dateEndSubscription)")
+                        }
+                        else {
+                            
+                            User.shared.subscriptionStatus = .valid(expirationDate: dateEndSubscription)
+                            print("Yeah \(dateEndSubscription)")
+                        }
                     }
-                    
-                    return false
+                }else { /// latest_receipt_info - если данной строки нет значит пользователь никогда не покупал подписку, в таком случае откланяем viewController
+                    print("Квитанция о подписке пользователя отсутствует")
                 }
-            }else { /// latest_receipt_info - если данной строки нет значит пользователь никогда не покупал подписку, в таком случае откланяем viewController
-                print("Нет квитанциий")
-                return false
             }
         }
-        
-        return false
     }
     
 }

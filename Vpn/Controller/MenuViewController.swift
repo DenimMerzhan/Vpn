@@ -133,7 +133,7 @@ extension MenuViewController: SKPaymentTransactionObserver {
                 SKPaymentQueue.default().finishTransaction(transaction)
                 SKPaymentQueue.default().remove(self)
                 Task {
-                    let data = await User.shared.refreshReceipt()
+                    User.shared.refreshReceipt(completion:)
                 }
                 AVVPNService.shared.disconnect()
             }

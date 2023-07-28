@@ -24,6 +24,10 @@ class ChangeCountryController: UITableViewController {
         searchBar.searchTextField.textColor = .white
         searchBar.backgroundImage = UIImage()
         
+        let navBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 200))
+        navBar.prefersLargeTitles = true
+        
+        
         navigationController?.navigationBar.isHidden = false
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage() /// Убираем полоску

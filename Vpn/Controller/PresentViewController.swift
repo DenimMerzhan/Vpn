@@ -12,10 +12,15 @@ import FirebaseAuth
 
 
 class PresentViewController: UIViewController {
+
+    
+    
+    @IBOutlet weak var buttonStackView: UIStackView!
     
     private let productID  = "com.TopVpnDenimMerzhan.Vpn"
     
     override func viewWillAppear(_ animated: Bool) {
+        
         
         navigationItem.backBarButtonItem = UIBarButtonItem(
             title: "Назад", style: .plain, target: nil, action: nil) /// Текст кнопки назад
@@ -27,43 +32,41 @@ class PresentViewController: UIViewController {
     
     
     override func viewDidLoad() {
-        super.viewDidLoad()
         
+        super.viewDidLoad()
         User.shared.ID = "+79817550000"
         
-        print(Auth.auth().currentUser?.phoneNumber)
-        
-        User.shared.loadMetadata { [weak self]  in
-            if Auth.auth().currentUser?.uid != nil {  /// Проверяем авторизован наш пользователь в приложении
+        if Auth.auth().currentUser?.uid != nil { /// Проверяем авторизован наш пользователь в приложении
+            startAnimating()
+            User.shared.loadMetadata { [weak self]  in
                 
-                Task {
-                    await self?.receiptValidation()
-                    self?.performSegue(withIdentifier: "goToVpn", sender: self)
+                User.shared.refreshReceipt { [weak self] needToUpdateReceipt in
+                    if needToUpdateReceipt {self?.refrreshReceipt()}
                 }
+                self?.performSegue(withIdentifier: "goToVpn", sender: self)
             }
         }
     }
     
     
     @IBAction func resotorePressed(_ sender: UIButton) { /// Кнопка восстановления нажата
-        Task {
-            await receiptValidation()
+        
+        User.shared.refreshReceipt { [weak self] needToUpdateReceipt in
+            if needToUpdateReceipt {self?.refrreshReceipt()}
+            
             switch User.shared.subscriptionStatus {
-            case.valid(expirationDate: _),.notBuy: self.performSegue(withIdentifier: "goToVpn", sender: self)
+            case.valid(expirationDate: _),.notBuy: self?.performSegue(withIdentifier: "goToVpn", sender: self)
             default:break
             }
         }
+        
     }
 }
 
+
+//MARK: - Обновление чека
+
 extension PresentViewController: SKRequestDelegate{
-    
-    private func receiptValidation() async {
-        let dataSubsc = await User.shared.refreshReceipt()
-        if dataSubsc { /// Если чека нету, то мы его обновим
-            refrreshReceipt()
-        }
-    }
     
     private func refrreshReceipt(){ /// Функция которая обновляет чек, вызываем когда чека нету
         let request = SKReceiptRefreshRequest(receiptProperties: nil)
@@ -74,8 +77,20 @@ extension PresentViewController: SKRequestDelegate{
     
     private func requestDidFinish(_ request: SKRequest) async {
         if request is SKReceiptRefreshRequest { /// Если чек есть вызваем еще раз функцию проверки чека
-            await receiptValidation()
+            
+            User.shared.refreshReceipt { [weak self] needToUpdateReceipt in
+                if needToUpdateReceipt {self?.refrreshReceipt()}
+            }
         }
+    }
+}
+
+//MARK: -  Запуск анимации при загрузке данных о пользователе
+
+extension PresentViewController {
+    
+    func startAnimating(){
+        buttonStackView.isHidden = true
     }
     
 }
