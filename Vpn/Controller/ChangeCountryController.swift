@@ -24,10 +24,6 @@ class ChangeCountryController: UITableViewController {
         searchBar.searchTextField.textColor = .white
         searchBar.backgroundImage = UIImage()
         
-        let navBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 200))
-        navBar.prefersLargeTitles = true
-        
-        
         navigationController?.navigationBar.isHidden = false
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage() /// Убираем полоску
@@ -54,7 +50,7 @@ class ChangeCountryController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "countryCell", for: indexPath)
         cell.textLabel?.text = countryNames[indexPath.row]
-        cell.backgroundColor = UIColor(named: K.color.background)
+        cell.backgroundColor = .clear
         cell.textLabel?.textColor = .white
         tableView.rowHeight = 60
         

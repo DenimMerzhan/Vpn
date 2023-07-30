@@ -14,12 +14,11 @@ class RegisterViewController: UIViewController {
     
     @IBOutlet weak var fetchCode: UIButton!
     @IBOutlet weak var phoneNumberTextField: FPNTextField!
+    @IBOutlet weak var loadIndicator: UIActivityIndicatorView!
     
     var phoneNumber: String?
     var verfictationID: String!
     var listController = FPNCountryListViewController(style: .grouped)
-
-    
     
     override func viewWillAppear(_ animated: Bool) { // Проверяем валидность номера
         
@@ -27,12 +26,13 @@ class RegisterViewController: UIViewController {
             title: "Назад", style: .plain, target: nil, action: nil) /// Текст кнопки назад
     }
     
-    
     //MARK: -  Настройка пикера и текстфилда
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        loadIndicator.isHidden = true
         
         phoneNumberTextField.setFlag(countryCode: .RU)
         phoneNumberTextField.delegate = self
@@ -58,6 +58,8 @@ class RegisterViewController: UIViewController {
     
     @IBAction func fetchCodeTapped(_ sender: UIButton) {
         guard phoneNumber != nil else {return}
+        loadIndicator.isHidden = false
+        loadIndicator.startAnimating()
         
         PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber!, uiDelegate: nil) { verivicationId, error in
             if let err = error {
@@ -70,14 +72,13 @@ class RegisterViewController: UIViewController {
                 
             }
         }
-
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         guard let dvc = segue.destination as? CodeReviewController else {return}
         guard phoneNumber != nil else {return}
+        phoneNumber?.removeAll(where: {$0 == " "})
         dvc.phoneNumber = phoneNumber!
         dvc.verifictaionID = verfictationID
     }

@@ -32,7 +32,7 @@
                                             <color key="baseBackgroundColor" red="1" green="0.88446849279999995" blue="0.33426339290000001" alpha="1" colorSpace="calibratedRGB"/>
                                         </buttonConfiguration>
                                         <connections>
-                                            <segue destination="mBi-4y-Y28" kind="presentation" id="rH7-ra-C0K"/>
+                                            <segue destination="mBi-4y-Y28" kind="show" id="rH7-ra-C0K"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IFG-hn-pwO">
@@ -79,7 +79,7 @@
                             </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="bU1-wd-YNy"/>
-                        <color key="backgroundColor" name="ColorBackgound"/>
+                        <color key="backgroundColor" name="BackgroundColor"/>
                         <constraints>
                             <constraint firstItem="bU1-wd-YNy" firstAttribute="bottom" secondItem="3XQ-Nr-Mlt" secondAttribute="bottom" id="9Rt-wW-KEy"/>
                             <constraint firstItem="3XQ-Nr-Mlt" firstAttribute="leading" secondItem="bU1-wd-YNy" secondAttribute="leading" constant="40" id="FZC-21-t2G"/>
@@ -92,17 +92,36 @@
                     <navigationItem key="navigationItem" id="pqF-KH-yVw"/>
                     <connections>
                         <outlet property="buttonStackView" destination="3XQ-Nr-Mlt" id="hyM-Sk-6VB"/>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="goToVpn" id="Hfd-JW-UiA"/>
+                        <segue destination="UB0-mR-oUK" kind="show" identifier="goToAnimate" id="fwG-eg-h5Y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zRm-bI-0no" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="615" y="-2"/>
         </scene>
+        <!--AnimateController-->
+        <scene sceneID="3D1-In-7p0">
+            <objects>
+                <viewController id="UB0-mR-oUK" userLabel="AnimateController" customClass="LoadAnimateViewController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dYh-BP-HsU">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="GpK-TJ-ECC"/>
+                        <color key="backgroundColor" name="BackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="kId-HX-CdP"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="animateToHomeController" id="OSf-h5-D1e"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pwo-8e-421" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2350" y="-2"/>
+        </scene>
         <!--VPN-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="VpnID" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="HomeViewController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeController" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="HomeViewController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -174,7 +193,7 @@
                             </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" name="ColorBackgound"/>
+                        <color key="backgroundColor" name="BackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" title="VPN" style="editor" id="GCh-oo-T65"/>
                     <connections>
@@ -213,7 +232,7 @@
                                 <buttonConfiguration key="configuration" style="filled" title="Купить премиум">
                                     <fontDescription key="titleFontDescription" type="system" pointSize="18"/>
                                     <color key="baseForegroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <color key="baseBackgroundColor" red="0.98431372640000003" green="0.90196073060000004" blue="0.48235297199999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <color key="baseBackgroundColor" name="ButtonColor"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="buyPremiumPressed:" destination="e91-Sj-btM" eventType="touchUpInside" id="rc4-T2-Nlt"/>
@@ -260,14 +279,13 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="CbB-V3-D1h"/>
-                        <color key="backgroundColor" name="ColorBackgound"/>
+                        <color key="backgroundColor" name="BackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="MUX-CA-8Ga"/>
                     <connections>
                         <outlet property="accountButton" destination="Dfb-JT-2w1" id="1Aw-I9-4Ws"/>
                         <outlet property="buttonPremium" destination="auz-Bx-zeH" id="VTq-4U-yuf"/>
                         <outlet property="tableView" destination="uJa-i6-np4" id="qcu-Pu-LYu"/>
-                        <segue destination="mBi-4y-Y28" kind="show" identifier="menuToAuth" id="hga-QA-uw2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ubb-Of-sUn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -279,9 +297,9 @@
             <objects>
                 <tableViewController storyboardIdentifier="changeCountry" id="SHi-gu-MMT" customClass="ChangeCountryController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="singleLineEtched" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" id="96J-y9-0re">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" name="ColorBackgound"/>
+                        <color key="backgroundColor" name="BackgroundColor"/>
                         <color key="separatorColor" systemColor="labelColor"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" translucent="NO" id="79Q-rT-rKn">
                             <rect key="frame" x="0.0" y="0.0" width="393" height="44"/>
@@ -333,11 +351,11 @@
             <objects>
                 <viewController id="mBi-4y-Y28" customClass="RegisterViewController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6PR-hj-G0u">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="CTg-c6-Lm3">
-                                <rect key="frame" x="16" y="256" width="361" height="161.33333333333337"/>
+                                <rect key="frame" x="16" y="287.66666666666669" width="361" height="161.33333333333331"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Введите номер телефона" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fmg-AX-qBE">
                                         <rect key="frame" x="0.0" y="0.0" width="361" height="26.333333333333332"/>
@@ -372,14 +390,24 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="7us-SO-8I4" userLabel="LoadIndicator">
+                                <rect key="frame" x="96.666666666666686" y="499" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="iyd-jx-T6n"/>
+                                    <constraint firstAttribute="height" constant="200" id="u0s-1y-9Xm"/>
+                                </constraints>
+                                <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="q9G-GR-GdH"/>
-                        <color key="backgroundColor" name="ColorBackgound"/>
+                        <color key="backgroundColor" name="BackgroundColor"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="CTg-c6-Lm3" firstAttribute="leading" secondItem="q9G-GR-GdH" secondAttribute="leading" constant="16" id="6oA-WB-WeV"/>
                             <constraint firstItem="q9G-GR-GdH" firstAttribute="trailing" secondItem="CTg-c6-Lm3" secondAttribute="trailing" constant="16" id="6vd-9e-iur"/>
                             <constraint firstItem="CTg-c6-Lm3" firstAttribute="centerY" secondItem="q9G-GR-GdH" secondAttribute="centerY" multiplier="0.8" id="A2X-Ok-UmI"/>
+                            <constraint firstItem="7us-SO-8I4" firstAttribute="centerX" secondItem="q9G-GR-GdH" secondAttribute="centerX" id="gmc-XU-wwO"/>
+                            <constraint firstItem="7us-SO-8I4" firstAttribute="top" secondItem="CTg-c6-Lm3" secondAttribute="bottom" constant="50" id="zjN-vM-8FL"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="dcV-Xe-SXb" appends="YES" id="E1M-9E-9FD"/>
@@ -388,6 +416,7 @@
                     <navigationItem key="navigationItem" customizationIdentifier="" id="2LH-3d-Rhp"/>
                     <connections>
                         <outlet property="fetchCode" destination="HXE-GZ-YdV" id="Ba9-24-SQC"/>
+                        <outlet property="loadIndicator" destination="7us-SO-8I4" id="39p-z8-lcb"/>
                         <outlet property="phoneNumberTextField" destination="RVE-uG-rqY" id="nrE-QB-e0h"/>
                         <segue destination="iU3-1L-fd6" kind="show" identifier="authToCheckCode" id="1UX-Yb-hdn"/>
                     </connections>
@@ -406,11 +435,11 @@
             <objects>
                 <viewController storyboardIdentifier="CodeValidVC" id="iU3-1L-fd6" customClass="CodeReviewController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2iE-pV-HEk">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="rSe-O5-mQv">
-                                <rect key="frame" x="16" y="248.66666666666663" width="361" height="176.33333333333337"/>
+                                <rect key="frame" x="16" y="280.33333333333331" width="361" height="176.33333333333331"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Введите проверочный код" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vPc-FX-Yug">
                                         <rect key="frame" x="0.0" y="0.0" width="361" height="26.333333333333332"/>
@@ -419,7 +448,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="M2o-Ob-0fL">
-                                        <rect key="frame" x="0.0" y="41.333333333333343" width="361" height="60"/>
+                                        <rect key="frame" x="0.0" y="41.333333333333371" width="361" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="mr1-rG-d3E"/>
                                         </constraints>
@@ -428,7 +457,7 @@
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="phonePad"/>
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cOI-Gu-mZ1">
-                                        <rect key="frame" x="0.0" y="116.33333333333334" width="361" height="60"/>
+                                        <rect key="frame" x="0.0" y="116.33333333333337" width="361" height="60"/>
                                         <color key="backgroundColor" name="ColorButtonYellow"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="4rN-Uf-c8A"/>
@@ -446,20 +475,31 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="R4m-J3-oRU">
+                                <rect key="frame" x="96.666666666666686" y="506.66666666666674" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="2Wd-fR-psz"/>
+                                    <constraint firstAttribute="height" constant="200" id="KEM-N8-XnM"/>
+                                </constraints>
+                                <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="tks-dv-4IU"/>
-                        <color key="backgroundColor" name="ColorBackgound"/>
+                        <color key="backgroundColor" name="BackgroundColor"/>
                         <constraints>
                             <constraint firstItem="rSe-O5-mQv" firstAttribute="centerY" secondItem="tks-dv-4IU" secondAttribute="centerY" multiplier="0.8" id="4d2-yu-DFg"/>
                             <constraint firstItem="tks-dv-4IU" firstAttribute="trailing" secondItem="rSe-O5-mQv" secondAttribute="trailing" constant="16" id="5Kz-F9-32x"/>
+                            <constraint firstItem="R4m-J3-oRU" firstAttribute="top" secondItem="rSe-O5-mQv" secondAttribute="bottom" constant="50" id="WG6-pQ-6fC"/>
                             <constraint firstItem="rSe-O5-mQv" firstAttribute="leading" secondItem="2iE-pV-HEk" secondAttribute="leading" constant="16" id="cwC-lb-xvA"/>
+                            <constraint firstItem="R4m-J3-oRU" firstAttribute="centerX" secondItem="tks-dv-4IU" secondAttribute="centerX" id="e4M-2a-9vW"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="d1F-Nh-EQK"/>
                     <connections>
                         <outlet property="checkCodeButton" destination="cOI-Gu-mZ1" id="3io-qd-vKh"/>
                         <outlet property="codeTextView" destination="M2o-Ob-0fL" id="Tod-V7-jHC"/>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="ShowContentVC" id="SyC-sP-FQd"/>
+                        <outlet property="loadIndicator" destination="R4m-J3-oRU" id="NZo-ua-uLA"/>
+                        <segue destination="UB0-mR-oUK" kind="show" identifier="authToAnimate" id="h9G-fd-isS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WVO-W4-vcR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -489,12 +529,18 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="rH7-ra-C0K"/>
-        <segue reference="SyC-sP-FQd"/>
+        <segue reference="h9G-fd-isS"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="VpnDIsconnected" width="108.66666412353516" height="120"/>
         <image name="gearshape" catalog="system" width="128" height="123"/>
         <image name="link" catalog="system" width="128" height="124"/>
+        <namedColor name="BackgroundColor">
+            <color red="0.18799999356269836" green="0.24300000071525574" blue="0.3059999942779541" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="ButtonColor">
+            <color red="0.98400002717971802" green="0.90200001001358032" blue="0.48199999332427979" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
         <namedColor name="ColorBackgound">
             <color red="0.18799999356269836" green="0.24300000071525574" blue="0.3059999942779541" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>

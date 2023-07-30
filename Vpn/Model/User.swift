@@ -128,13 +128,13 @@ extension User {
                             print("Yeah \(dateEndSubscription)")
                         }
                     }
-                }else { /// latest_receipt_info - если данной строки нет значит пользователь никогда не покупал подписку, в таком случае откланяем viewController
+                }else { /// latest_receipt_info - если данной строки нет значит пользователь никогда не покупал подписку
                     print("Квитанция о подписке пользователя отсутствует")
                 }
             }
         }
+        completion(false)
     }
-    
 }
 
 
@@ -167,19 +167,7 @@ extension User {
             if let error = err {print("Ошибка получения дата окончания прбного периода - \(error)")}
         })
     }
-    
-    //        if existingUser == false { /// Если новый пользователь
-    //            do {
-    //                try await db.collection("Users").document(phoneNumber).setData(["dateFirstLaunch":NSDate().timeIntervalSince1970])
-    //                print("OldUser")
-    //                return NSDate().timeIntervalSince1970
-    //            }catch{
-    //                print("Ошибка сохранения данных")
-    //            }
-    //        }
-    //
-    //        return nil
-    
 }
+
 
 

@@ -27,6 +27,7 @@ class MenuViewController: UIViewController, UITableViewDataSource {
         
         SKPaymentQueue.default().add(self)
         tableView.dataSource = self
+        tableView.backgroundColor = .clear
         
         switch User.shared.subscriptionStatus {
         case.valid(expirationDate: _),.ended: buttonPremium.isHidden = true
@@ -34,8 +35,6 @@ class MenuViewController: UIViewController, UITableViewDataSource {
         }
         
     }
-    
-    
     
     
     //MARK: - TableView

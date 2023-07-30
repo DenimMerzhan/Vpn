@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9D670012CA5D79C0BCA1638A /* Pods_Vpn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0DBFEDAD926140A075FAF3 /* Pods_Vpn.framework */; };
-		CF29BE1029DEE91C0040FB92 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF29BE0F29DEE91C0040FB92 /* StoreKit.framework */; };
+		38CBE908CF47E253628EF649 /* Pods_Vpn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0DBFEDAD926140A075FAF3 /* Pods_Vpn.framework */; };
 		CF48831D29E2B0E600702FA0 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF48831C29E2B0E600702FA0 /* RegisterViewController.swift */; };
 		CF5A97BA29D3164D00D4F2F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5A97B929D3164D00D4F2F5 /* AppDelegate.swift */; };
 		CF5A97BC29D3164D00D4F2F5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5A97BB29D3164D00D4F2F5 /* SceneDelegate.swift */; };
@@ -24,6 +23,8 @@
 		CF91768D2A716EA100C00358 /* SubscriptionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF91768C2A716EA100C00358 /* SubscriptionStatus.swift */; };
 		CF91AF0C29DD4F8300EAAC01 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF91AF0B29DD4F8300EAAC01 /* User.swift */; };
 		CF91AF1629DDBAAD00EAAC01 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF91AF1529DDBAAD00EAAC01 /* MenuViewController.swift */; };
+		CFA56F892A764EA1000B55B7 /* animation_lkp59xl7.json in Resources */ = {isa = PBXBuildFile; fileRef = CFA56F882A764EA1000B55B7 /* animation_lkp59xl7.json */; };
+		CFA56F8B2A764FAA000B55B7 /* LoadAnimateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA56F8A2A764FAA000B55B7 /* LoadAnimateViewController.swift */; };
 		CFAA9DDA29E43FC7000B3438 /* CodeReviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAA9DD929E43FC7000B3438 /* CodeReviewController.swift */; };
 		CFAA9DDE29E44776000B3438 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CFAA9DDD29E44776000B3438 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
@@ -51,17 +52,18 @@
 		CF91768C2A716EA100C00358 /* SubscriptionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionStatus.swift; sourceTree = "<group>"; };
 		CF91AF0B29DD4F8300EAAC01 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		CF91AF1529DDBAAD00EAAC01 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		CFA56F882A764EA1000B55B7 /* animation_lkp59xl7.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = animation_lkp59xl7.json; sourceTree = "<group>"; };
+		CFA56F8A2A764FAA000B55B7 /* LoadAnimateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadAnimateViewController.swift; sourceTree = "<group>"; };
 		CFAA9DD929E43FC7000B3438 /* CodeReviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CodeReviewController.swift; path = Vpn/Controller/Register/CodeReviewController.swift; sourceTree = SOURCE_ROOT; };
 		CFAA9DDD29E44776000B3438 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		CF5A97B329D3164D00D4F2F5 /* Frameworks */ = {
+		40B24E223875366CEBCDA9AC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D670012CA5D79C0BCA1638A /* Pods_Vpn.framework in Frameworks */,
-				CF29BE1029DEE91C0040FB92 /* StoreKit.framework in Frameworks */,
+				38CBE908CF47E253628EF649 /* Pods_Vpn.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				CF3C1A6F29D5A10F007BD706 /* Vpn.entitlements */,
+				CFA56F882A764EA1000B55B7 /* animation_lkp59xl7.json */,
 				CF5A97B929D3164D00D4F2F5 /* AppDelegate.swift */,
 				CF5A97BB29D3164D00D4F2F5 /* SceneDelegate.swift */,
 				CF9176892A716BA000C00358 /* Extension */,
@@ -127,6 +130,7 @@
 			children = (
 				CF9176882A7168A400C00358 /* Register */,
 				CF5A97CF29D31FD300D4F2F5 /* PresentViewController.swift */,
+				CFA56F8A2A764FAA000B55B7 /* LoadAnimateViewController.swift */,
 				CF5A97BD29D3164D00D4F2F5 /* HomeViewController.swift */,
 				CF8FB08129D6BCC600993513 /* ChangeCountryController.swift */,
 				CF91AF1529DDBAAD00EAAC01 /* MenuViewController.swift */,
@@ -179,9 +183,9 @@
 			buildPhases = (
 				EB5D0498436F6B01AB8A1F40 /* [CP] Check Pods Manifest.lock */,
 				CF5A97B229D3164D00D4F2F5 /* Sources */,
-				CF5A97B329D3164D00D4F2F5 /* Frameworks */,
 				CF5A97B429D3164D00D4F2F5 /* Resources */,
 				0C5ED0875B451244013FF054 /* [CP] Embed Pods Frameworks */,
+				40B24E223875366CEBCDA9AC /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -233,6 +237,7 @@
 				CF5A97C629D3164E00D4F2F5 /* LaunchScreen.storyboard in Resources */,
 				CFAA9DDE29E44776000B3438 /* GoogleService-Info.plist in Resources */,
 				CF5A97C329D3164E00D4F2F5 /* Assets.xcassets in Resources */,
+				CFA56F892A764EA1000B55B7 /* animation_lkp59xl7.json in Resources */,
 				CF5A97C129D3164D00D4F2F5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -288,6 +293,7 @@
 			files = (
 				CF91768B2A716BC400C00358 /* Extension.swift in Sources */,
 				CF5A97BE29D3164D00D4F2F5 /* HomeViewController.swift in Sources */,
+				CFA56F8B2A764FAA000B55B7 /* LoadAnimateViewController.swift in Sources */,
 				CF91AF0C29DD4F8300EAAC01 /* User.swift in Sources */,
 				CF5A97BA29D3164D00D4F2F5 /* AppDelegate.swift in Sources */,
 				CFAA9DDA29E43FC7000B3438 /* CodeReviewController.swift in Sources */,

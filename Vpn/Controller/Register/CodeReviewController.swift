@@ -13,15 +13,17 @@ class CodeReviewController: UIViewController {
 
     @IBOutlet weak var checkCodeButton: UIButton!
     @IBOutlet weak var codeTextView: UITextView!
+    @IBOutlet weak var loadIndicator: UIActivityIndicatorView!
     
     var verifictaionID = String()
     var phoneNumber: String!
+    
     private let db = Firestore.firestore()
-    private let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        loadIndicator.isHidden = true
         checkCodeButton.alpha = 0.2
         checkCodeButton.isEnabled = false
         codeTextView.delegate = self
@@ -33,7 +35,9 @@ class CodeReviewController: UIViewController {
         guard let code = codeTextView.text else {return} /// Если не можем получить то выходим из метода
         
         let credentional = PhoneAuthProvider.provider().credential(withVerificationID: verifictaionID, verificationCode: code)
-        
+        loadIndicator.isHidden = false
+        loadIndicator.startAnimating()
+        codeTextView.endEditing(true)
         
         Auth.auth().signIn(with: credentional) { [weak self] dataResult, error in
             
@@ -46,12 +50,13 @@ class CodeReviewController: UIViewController {
                 print("Ошибка регистрации - \(err)")
                 
             }else {
-                
-                User.shared.ID = self?.phoneNumber ?? ""
-                User.shared.loadMetadata { [weak self] in
-                    self?.performSegue(withIdentifier: "ShowContentVC", sender: self)
-                }
-                
+                guard let phoneNumber = self?.phoneNumber else {return}
+                User.shared.ID = phoneNumber
+                self?.db.collection("Users").document(phoneNumber).setData(["dateActivationTrial" : Date().timeIntervalSince1970],completion: { err in
+                    if let error = err {
+                        print("Ошибка создания нового пользователя - \(error)")
+                    }else {self?.performSegue(withIdentifier: "authToAnimate", sender: self)}
+                })
             }
         }
         

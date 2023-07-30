@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import ChameleonFramework
 import AVVPNService
 import NetworkExtension
 import FirebaseAuth
