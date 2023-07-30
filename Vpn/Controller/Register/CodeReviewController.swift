@@ -52,7 +52,8 @@ class CodeReviewController: UIViewController {
             }else {
                 guard let phoneNumber = self?.phoneNumber else {return}
                 User.shared.ID = phoneNumber
-                self?.db.collection("Users").document(phoneNumber).setData(["dateActivationTrial" : Date().timeIntervalSince1970],completion: { err in
+                self?.db.collection("Users").document(phoneNumber).setData(["dateActivationTrial" : Date().timeIntervalSince1970,
+                    "ID": phoneNumber],completion: { err in
                     if let error = err {
                         print("Ошибка создания нового пользователя - \(error)")
                     }else {self?.performSegue(withIdentifier: "authToAnimate", sender: self)}

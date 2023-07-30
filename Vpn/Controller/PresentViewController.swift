@@ -28,7 +28,8 @@ class PresentViewController: UIViewController {
         SKRequest().delegate = self
         
         if Auth.auth().currentUser?.uid != nil { /// Проверяем авторизован наш пользователь в приложении
-            User.shared.ID =  Auth.auth().currentUser!.uid
+            guard let phoneNumber = Auth.auth().currentUser!.phoneNumber else {return}
+            User.shared.ID =  phoneNumber
             performSegue(withIdentifier: "goToAnimate", sender: self)
         }
     }

@@ -14,15 +14,19 @@ class ChangeCountryController: UITableViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
+    lazy var loadIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.frame.size = CGSize(width: 100, height: 100)
+        indicator.color = .white
+        indicator.center = view.center
+        indicator.startAnimating()
+        return indicator
+    }()
+    
     var countryNames = [String]()
     let db = Firestore.firestore()
     
     override func viewWillAppear(_ animated: Bool) {
-        
-        searchBar.searchTextField.backgroundColor = UIColor(named: K.color.placeholder) /// Настраиваем строку поиска
-        searchBar.placeholder = "Поиск"
-        searchBar.searchTextField.textColor = .white
-        searchBar.backgroundImage = UIImage()
         
         navigationController?.navigationBar.isHidden = false
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -33,8 +37,18 @@ class ChangeCountryController: UITableViewController {
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true /// большой НавБар
         }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         loadCountry()
         
+        searchBar.searchTextField.backgroundColor = UIColor(named: K.color.placeholder) /// Настраиваем строку поиска
+        searchBar.placeholder = "Поиск"
+        searchBar.searchTextField.textColor = .white
+        searchBar.backgroundImage = UIImage()
+        
+        view.addSubview(loadIndicator)
     }
     
     
@@ -93,8 +107,9 @@ extension ChangeCountryController { /// Загружаем данные для �
                 }
             }
             
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+            DispatchQueue.main.async { [weak self] in
+                self?.loadIndicator.stopAnimating()
+                self?.tableView.reloadData()
             }
         }
         
