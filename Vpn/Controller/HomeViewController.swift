@@ -32,47 +32,20 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var additionallabel: UILabel!
         
     
-    override func viewWillAppear(_ animated: Bool) {
-        
-        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-        navigationController?.navigationBar.isHidden = true
-
-        switch User.shared.subscriptionStatus {
-        case .valid(expirationDate: let expirationDate):
-            let rusDate = Formatter.formatToRusDate.string(from: expirationDate)
-            additionallabel.text  = "Премиум Активен до \(rusDate)"
-        case .ended:
-            numberOfDayFreeVersion.text = ""
-            additionallabel.text  = "Срок премиум аккаунта истек"
-        case .notBuy:
-            break
-        }
-        
-        switch User.shared.freeUserStatus {
-        case .valid(expirationDate: _):
-            numberOfDayFreeVersion.text = User.shared.amountOfDayEndTrialPeriod()
-            additionallabel.text = "До истечения бесплатного пользования"
-        case .endend:
-            numberOfDayFreeVersion.text = "Срок истек"
-            additionallabel.isHidden  = true
-        case .blocked:
-            break
-        }
-        
-    }
-    
-    
-//MARK: - ViewDidLoad
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeStatus), name: NSNotification.Name.NEVPNStatusDidChange, object: nil) /// Добавляем наблюдателя за впн соединением, в данном случае наш класс VC
         
         currentStatusVpn.text = "VPN отключен"
-        
+        checkUserStatus()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        navigationController?.navigationBar.isHidden = true
+    }
+    
     
     @IBAction func preferencesPressed(_ sender: UIButton) {
         performSegue(withIdentifier: "vpnToPreferences", sender: self)
@@ -82,6 +55,11 @@ class HomeViewController: UIViewController {
         performSegue(withIdentifier: "vpnToChangeCountry", sender: self)
     }
     
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let menuVC = segue.destination as? MenuViewController else {return}
+        menuVC.delegate = self
+    }
     //MARK: - Кнопка подключения нажата
     
     
@@ -126,6 +104,39 @@ class HomeViewController: UIViewController {
     
 }
 
+//MARK: -  Проверка статуса пользователя
+
+extension HomeViewController: MenuControllerDelegate {
+    
+    func userBuyPremium() {
+        checkUserStatus()
+    }
+    
+    func checkUserStatus(){
+        
+        switch User.shared.subscriptionStatus {
+        case .valid(expirationDate: let expirationDate):
+            let rusDate = Formatter.formatToRusDate.string(from: expirationDate)
+            additionallabel.text  = "Премиум Активен до \(rusDate)"
+        case .ended:
+            numberOfDayFreeVersion.text = ""
+            additionallabel.text  = "Срок премиум аккаунта истек"
+        case .notBuy:
+            break
+        }
+        
+        switch User.shared.freeUserStatus {
+        case .valid(expirationDate: _):
+            numberOfDayFreeVersion.text = User.shared.amountOfDayEndTrialPeriod()
+            additionallabel.text = "До истечения бесплатного пользования"
+        case .endend:
+            numberOfDayFreeVersion.text = "Срок истек"
+            additionallabel.isHidden  = true
+        case .blocked:
+            break
+        }
+    }
+}
 
 
 //MARK: - Отслеживание ВПН соединения

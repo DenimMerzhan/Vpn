@@ -7,6 +7,7 @@
 
 import UIKit
 import AVVPNService
+import StoreKit
 
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -22,6 +23,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func sceneDidDisconnect(_ scene: UIScene) { /// Когда пользователь закрывает приложение мы меняем данные на фейковые что бы он не смог подключиться через меню настроек
+        
+        
+        let currentQueue: SKPaymentQueue = SKPaymentQueue.default() /// Завершаем все транзакции что бы они не выполнялись снова
+        for transaction in currentQueue.transactions {
+            currentQueue.finishTransaction(transaction)
+        }
         
         var credentials = AVVPNCredentials.IPSec(server: "0", username: "Fake", password: "Fake", shared: "Fake")
         AVVPNService.shared.disconnect()

@@ -8,7 +8,6 @@
 import Foundation
 
 
-
 enum SubscriptionStatus{
     case valid(expirationDate: Date)
     case ended

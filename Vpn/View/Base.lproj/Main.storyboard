@@ -266,9 +266,11 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dfb-JT-2w1">
-                                <rect key="frame" x="110" y="714" width="174" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dfb-JT-2w1">
+                                <rect key="frame" x="0.0" y="709" width="393" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="ZZv-Tv-Wks"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Выйти из аккаунта">
                                     <color key="baseBackgroundColor" name="ColorBackgound"/>
@@ -277,14 +279,40 @@
                                     <action selector="regristerPressed:" destination="e91-Sj-btM" eventType="touchUpInside" id="kB0-2n-PRO"/>
                                 </connections>
                             </button>
+                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="e0z-yk-BYb" userLabel="LoadStackView">
+                                <rect key="frame" x="10" y="647.66666666666663" width="373" height="61.333333333333371"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="EJe-WX-DJH">
+                                        <rect key="frame" x="0.0" y="0.0" width="373" height="37"/>
+                                    </activityIndicatorView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Идет подготовка к покупке" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XAQ-2r-4uf" customClass="LoadLabel" customModule="Vpn" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="47" width="373" height="14.333333333333336"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="CbB-V3-D1h"/>
                         <color key="backgroundColor" name="BackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="CbB-V3-D1h" firstAttribute="trailing" secondItem="e0z-yk-BYb" secondAttribute="trailing" constant="10" id="3gH-DX-sYm"/>
+                            <constraint firstItem="e0z-yk-BYb" firstAttribute="leading" secondItem="CbB-V3-D1h" secondAttribute="leading" constant="10" id="bSf-hz-jle"/>
+                            <constraint firstItem="CbB-V3-D1h" firstAttribute="trailing" secondItem="Dfb-JT-2w1" secondAttribute="trailing" id="bqi-br-zcg"/>
+                            <constraint firstItem="CbB-V3-D1h" firstAttribute="bottom" secondItem="Dfb-JT-2w1" secondAttribute="bottom" constant="34" id="mEj-eA-OE4"/>
+                            <constraint firstItem="Dfb-JT-2w1" firstAttribute="leading" secondItem="CbB-V3-D1h" secondAttribute="leading" id="oPJ-4y-9NK"/>
+                            <constraint firstItem="Dfb-JT-2w1" firstAttribute="top" secondItem="e0z-yk-BYb" secondAttribute="bottom" id="uCH-sV-A7o"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="MUX-CA-8Ga"/>
                     <connections>
                         <outlet property="accountButton" destination="Dfb-JT-2w1" id="1Aw-I9-4Ws"/>
-                        <outlet property="buttonPremium" destination="auz-Bx-zeH" id="VTq-4U-yuf"/>
+                        <outlet property="loadIndicator" destination="EJe-WX-DJH" id="sKp-s5-zZH"/>
+                        <outlet property="loadStackView" destination="e0z-yk-BYb" id="ehf-kN-SpK"/>
+                        <outlet property="logOutButton" destination="Dfb-JT-2w1" id="QTW-9d-KnI"/>
+                        <outlet property="premiumButton" destination="auz-Bx-zeH" id="VTq-4U-yuf"/>
+                        <outlet property="statusLoad" destination="XAQ-2r-4uf" id="fdl-V5-eWe"/>
                         <outlet property="tableView" destination="uJa-i6-np4" id="qcu-Pu-LYu"/>
                     </connections>
                 </viewController>

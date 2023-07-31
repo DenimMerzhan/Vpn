@@ -19,7 +19,7 @@ class User {
     var subscriptionStatus =  SubscriptionStatus.notBuy {
         didSet {
             switch subscriptionStatus {
-            case .valid(expirationDate: _): freeUserStatus = .blocked
+            case .valid(expirationDate: _),.ended: freeUserStatus = .blocked
             default:break
             }
         }
@@ -86,7 +86,6 @@ extension User {
         
         
         let url = URL(string: urlString)!
-        
         let requestData : [String : Any] = ["receipt-data" : receiptString, /// Создаем словарь
                                             "password" : "11f70af409dc42dfadee27090ff87b66", /// пароль это секретный ключ
                                             "exclude-old-transactions" : false] /// Исключать старые транзакции нет
@@ -97,14 +96,11 @@ extension User {
         var request = URLRequest(url: url) /// Запрос загрузки URL, который не зависит от протокола или схемы URL.
         request.httpMethod = "POST" /// POST — означает что некоторые данные должны быть помещены на сервер.
         
-        
         request.setValue("Application/json", forHTTPHeaderField: "Content-Type") /// Задает значение для поля заголовка. Field Имя поля заголовка для установки. В соответствии с HTTP RFC имена полей заголовков HTTP нечувствительны к регистру.
-        
         
         request.httpBody = httpBody /// Данные, отправляемые в виде тела сообщения запроса, например, для HTTP-запроса POST.
         
-        
-        URLSession.shared.dataTask(with: request) { newData, urlResponse, err in
+        let task = URLSession.shared.dataTask(with: request) { newData, urlResponse, err in
             
             guard let data = newData else {return}
             if let error = err {
@@ -136,8 +132,9 @@ extension User {
                     print("Квитанция о подписке пользователя отсутствует")
                 }
             }
+            completion(false)
         }
-        completion(false)
+        task.resume() ///  Недавно инициализированные задачи начинаются в приостановленном состоянии, поэтому вам нужно вызвать этот метод, чтобы запустить задачу.
     }
 }
 

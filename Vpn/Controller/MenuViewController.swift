@@ -10,17 +10,27 @@ import FirebaseAuth
 import StoreKit
 import AVVPNService
 
+
+protocol MenuControllerDelegate {
+    func userBuyPremium()
+}
+
 class MenuViewController: UIViewController, UITableViewDataSource {
     
     
     
-    @IBOutlet weak var buttonPremium: UIButton!
+    @IBOutlet weak var logOutButton: UIButton!
+    @IBOutlet weak var premiumButton: UIButton!
     @IBOutlet weak var accountButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var loadStackView: UIStackView!
+    @IBOutlet weak var loadIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var statusLoad: LoadLabel!
+    
     let productID  = "com.TopVpnDenimMerzhan.Vpn"
     var menuCell = ["Поддержка","Ответы на вопросы", "Пользовательское соглашение","Политика конфиденциальности"]
-    
+    var delegate: MenuControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,14 +38,16 @@ class MenuViewController: UIViewController, UITableViewDataSource {
         SKPaymentQueue.default().add(self)
         tableView.dataSource = self
         tableView.backgroundColor = .clear
-        
         switch User.shared.subscriptionStatus {
-        case.valid(expirationDate: _),.ended: buttonPremium.isHidden = true
+        case.valid(expirationDate: _): premiumButton.setTitle("Премиум активирован", for: .normal)
         default:break
         }
         
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        SKPaymentQueue.default().remove(self)
+    }
     
     //MARK: - TableView
     
@@ -66,16 +78,21 @@ class MenuViewController: UIViewController, UITableViewDataSource {
     
     
     
-//MARK: - кнопка покупки нажата
+    //MARK: - кнопка покупки нажата
     
     @IBAction func buyPremiumPressed(_ sender: UIButton) {
         buyPremium()
+        
+        logOutButton.isHidden = true
+        loadStackView.isHidden = false
+        loadIndicator.startAnimating()
+        statusLoad.createTextAnimate(textToAdd: "Идет подготовка к покупке")
     }
     
 }
 
 
- //MARK: - LogOut
+//MARK: - LogOut
 
 extension MenuViewController {
     
@@ -110,14 +127,13 @@ extension MenuViewController: SKPaymentTransactionObserver {
             let paymentRequest = SKMutablePayment() /// Создаем запрос на покупку в приложение
             paymentRequest.productIdentifier = productID
             SKPaymentQueue.default().add(paymentRequest)
+            self.isModalInPresentation = true /// не даем пользователю закрыть контроллер
             
         }
         
     }
     
-    
-    
-//MARK: -  Отслеживание транзакции
+    //MARK: -  Отслеживание транзакции
     
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         
@@ -125,26 +141,33 @@ extension MenuViewController: SKPaymentTransactionObserver {
             
             if transaction.transactionState == .purchased {
                 
-                if Auth.auth().currentUser?.uid != nil { ///Если пользователь авторизовна через номер телефона то выходим
-                    try! Auth.auth().signOut()
-                }
                 print("Транзакция прошла")
                 SKPaymentQueue.default().finishTransaction(transaction)
-                SKPaymentQueue.default().remove(self)
-                Task {
-                    User.shared.refreshReceipt(completion:)
+                premiumButton.titleLabel?.text = "Премиум активирован"
+                if statusLoad.timer?.isValid == false {
+                    statusLoad.createTextAnimate(textToAdd: "Идет настройка аккаунта")
+                }
+                User.shared.refreshReceipt { [weak self] needToUpdateReceipt in
+                    DispatchQueue.main.async {
+                        self?.isModalInPresentation = false
+                        self?.loadIndicator.stopAnimating()
+                        self?.loadStackView.isHidden = true
+                        self?.logOutButton.isHidden = false
+                        self?.delegate?.userBuyPremium()
+                    }
                 }
                 AVVPNService.shared.disconnect()
             }
-                
+            
             else if transaction.transactionState == .failed {
-                    print("Failed")
-                    SKPaymentQueue.default().finishTransaction(transaction)
-                    SKPaymentQueue.default().remove(self)
+                print("Failed")
+                self.isModalInPresentation = false
+                SKPaymentQueue.default().finishTransaction(transaction)
             }
             
             else if transaction.transactionState == .restored {
                 print("Restored")
+                self.isModalInPresentation = false
                 SKPaymentQueue.default().finishTransaction(transaction)
                 
             }
@@ -153,9 +176,13 @@ extension MenuViewController: SKPaymentTransactionObserver {
                 print("Обработка платежа")
                 
             }
-            
         }
-        
-        
     }
 }
+
+
+
+
+
+    
+

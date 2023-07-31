@@ -12,8 +12,7 @@ import StoreKit
 class LoadAnimateViewController: UIViewController {
     
     var animation = LottieAnimationView(name: "animation_lkp59xl7")
-    var statusLoadLabel = UILabel()
-    var timer: Timer?
+    var statusLoad = LoadLabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +20,7 @@ class LoadAnimateViewController: UIViewController {
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         navigationController?.navigationBar.isHidden = true
         setupAnimation()
-        textAnimation(textToAdd: "Идет загрузка информации о пользователе...")
+        statusLoad.createTextAnimate(textToAdd: "Идет загрузка информации о пользователе...")
         SKRequest().delegate = self
         loadUserData()
         
@@ -40,14 +39,14 @@ class LoadAnimateViewController: UIViewController {
                         self?.loadUserData()
                         return
                     }
-                    self?.performSegue(withIdentifier: "animateToHomeController", sender: self)
+                    DispatchQueue.main.async {
+                        self?.performSegue(withIdentifier: "animateToHomeController", sender: self)
+                    }
                 }
             }else { /// Если нет пишем о том что должно быть подключение к интернету и повторяем действие
                 
-                if let timer = self?.timer {
-                    if timer.isValid == false {
-                        self?.textAnimation(textToAdd: "Требуется подключение к интернету")
-                    }
+                if self?.statusLoad.timer?.isValid == false {
+                    self?.statusLoad.createTextAnimate(textToAdd: "Требуется подключение к интернету")
                 }
                 self?.loadUserData()
             }
@@ -60,7 +59,7 @@ class LoadAnimateViewController: UIViewController {
 //MARK: - Анимация загрузки
 
 extension LoadAnimateViewController {
-
+    
     func setupAnimation(){
         
         animation.loopMode = .loop
@@ -69,38 +68,38 @@ extension LoadAnimateViewController {
         animation.center = view.center
         animation.play()
         
-        statusLoadLabel.frame = CGRect(x: 0, y: 0, width: view.frame.width / 2, height: 200)
-        statusLoadLabel.font = .systemFont(ofSize: 10)
-        statusLoadLabel.textColor = .white
-        statusLoadLabel.textAlignment = .center
-        statusLoadLabel.numberOfLines = 3
-        statusLoadLabel.lineBreakMode = .byWordWrapping
-        statusLoadLabel.center.x = animation.frame.width / 2
-        statusLoadLabel.center.y = animation.frame.height / 2
-        animation.addSubview(statusLoadLabel)
+        statusLoad.frame = CGRect(x: 0, y: 0, width: view.frame.width / 2, height: 200)
+        statusLoad.font = .systemFont(ofSize: 10)
+        statusLoad.textColor = .white
+        statusLoad.textAlignment = .center
+        statusLoad.numberOfLines = 3
+        statusLoad.lineBreakMode = .byWordWrapping
+        statusLoad.center.x = animation.frame.width / 2
+        statusLoad.center.y = animation.frame.height / 2
+        animation.addSubview(statusLoad)
         
         view.addSubview(animation)
         
         
     }
-    //MARK: -  Анимация текста
-    
-    func textAnimation(textToAdd: String){
-        
-        let textArr = textToAdd.map({String($0)})
-        statusLoadLabel.text = ""
-        var i = 0
-        let statusLoadLabel = self.statusLoadLabel
-        
-        timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { timer in
-            if i >= textArr.count {
-                timer.invalidate()
-                return
-            }
-           statusLoadLabel.text = statusLoadLabel.text! +  textArr[i]
-           i += 1
-        }
-    }
+    //    //MARK: -  Анимация текста
+    //
+    //    func textAnimation(textToAdd: String){
+    //
+    //        let textArr = textToAdd.map({String($0)})
+    //        statusLoadLabel.text = ""
+    //        var i = 0
+    //        let statusLoadLabel = self.statusLoadLabel
+    //
+    //        timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { timer in
+    //            if i >= textArr.count {
+    //                timer.invalidate()
+    //                return
+    //            }
+    //           statusLoadLabel.text = statusLoadLabel.text! +  textArr[i]
+    //           i += 1
+    //        }
+    //    }
 }
 
 
