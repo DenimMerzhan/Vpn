@@ -25,7 +25,7 @@ class PresentViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        SKRequest().delegate = self
+        
         
         if Auth.auth().currentUser?.uid != nil { /// Проверяем авторизован наш пользователь в приложении
             guard let phoneNumber = Auth.auth().currentUser!.phoneNumber else {return}
@@ -37,26 +37,6 @@ class PresentViewController: UIViewController {
 }
 
 
-//MARK: - Обновление чека
-
-extension PresentViewController: SKRequestDelegate{
-    
-    private func refrreshReceipt(){ /// Функция которая обновляет чек, вызываем когда чека нету
-        let request = SKReceiptRefreshRequest(receiptProperties: nil)
-        request.delegate = self
-        request.start() /// Отправляет запрос в Apple App Store. Результаты запроса отправляются делегату запроса.
-    }
-    
-    
-    private func requestDidFinish(_ request: SKRequest) async {
-        if request is SKReceiptRefreshRequest { /// Если чек есть вызваем еще раз функцию проверки чека
-            
-            User.shared.refreshReceipt { [weak self] needToUpdateReceipt in
-                if needToUpdateReceipt {self?.refrreshReceipt()}
-            }
-        }
-    }
-}
 
 
 

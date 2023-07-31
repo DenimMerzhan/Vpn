@@ -27,8 +27,7 @@ class Country {
     
     func loadData()  { /// Загрузка стран и их данных для подключения к впн
         
-       
-        db.collection("Country").getDocuments { querySnapshot, err in
+        db.collection("Country").whereField("name", isEqualTo: name).getDocuments { querySnapshot, err in
             
             guard querySnapshot != nil else {return}
             

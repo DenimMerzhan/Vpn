@@ -13,47 +13,67 @@ class LoadAnimateViewController: UIViewController {
     
     var animation = LottieAnimationView(name: "animation_lkp59xl7")
     var statusLoadLabel = UILabel()
-    let statusText = "Идет загрузка информации о пользователе...".map({String($0)})
+    var timer: Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         navigationController?.navigationBar.isHidden = true
         setupAnimation()
-        textAnimation()
+        textAnimation(textToAdd: "Идет загрузка информации о пользователе...")
         SKRequest().delegate = self
+        loadUserData()
         
-        User.shared.loadMetadata { [weak self]  in
+        
+    }
+    //MARK: -  Загрузка данных о пользователе
+    
+    func loadUserData(){
+        
+        User.shared.loadMetadata { [weak self] success in
             
-            User.shared.refreshReceipt { [weak self] needToUpdateReceipt in
-                if needToUpdateReceipt {
-                    self?.refrreshReceipt()
-                    User.shared.refreshReceipt { needToUpdateReceipt in
-                        self?.performSegue(withIdentifier: "animateToHomeController", sender: self)
+            if success { /// Если данные загрузились успешно то пытаемся загрузить квитанцию
+                User.shared.refreshReceipt { needToUpdateReceipt in
+                    if needToUpdateReceipt {
+                        self?.refrreshReceipt()
+                        self?.loadUserData()
+                        return
                     }
-                    return
+                    self?.performSegue(withIdentifier: "animateToHomeController", sender: self)
                 }
-                self?.performSegue(withIdentifier: "animateToHomeController", sender: self)
+            }else { /// Если нет пишем о том что должно быть подключение к интернету и повторяем действие
+                
+                if let timer = self?.timer {
+                    if timer.isValid == false {
+                        self?.textAnimation(textToAdd: "Требуется подключение к интернету")
+                    }
+                }
+                self?.loadUserData()
             }
         }
     }
     
-    //MARK: - Анимация загрузки
-    
+}
+
+
+//MARK: - Анимация загрузки
+
+extension LoadAnimateViewController {
+
     func setupAnimation(){
         
         animation.loopMode = .loop
-        animation.frame = CGRect(x: 0, y: 0, width: 700, height: 700)
+        animation.frame = view.bounds
         animation.contentMode = .scaleAspectFill
         animation.center = view.center
         animation.play()
         
-        statusLoadLabel.frame = CGRect(x: 0, y: 0, width: 150, height: 200)
+        statusLoadLabel.frame = CGRect(x: 0, y: 0, width: view.frame.width / 2, height: 200)
         statusLoadLabel.font = .systemFont(ofSize: 10)
         statusLoadLabel.textColor = .white
         statusLoadLabel.textAlignment = .center
-        statusLoadLabel.numberOfLines = 2
+        statusLoadLabel.numberOfLines = 3
         statusLoadLabel.lineBreakMode = .byWordWrapping
         statusLoadLabel.center.x = animation.frame.width / 2
         statusLoadLabel.center.y = animation.frame.height / 2
@@ -65,26 +85,23 @@ class LoadAnimateViewController: UIViewController {
     }
     //MARK: -  Анимация текста
     
-    func textAnimation(){
+    func textAnimation(textToAdd: String){
         
+        let textArr = textToAdd.map({String($0)})
         statusLoadLabel.text = ""
         var i = 0
-        let statusText = self.statusText
         let statusLoadLabel = self.statusLoadLabel
         
-       Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { timer in
-            if i >= statusText.count {
+        timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { timer in
+            if i >= textArr.count {
                 timer.invalidate()
                 return
             }
-           statusLoadLabel.text = statusLoadLabel.text! +  statusText[i]
+           statusLoadLabel.text = statusLoadLabel.text! +  textArr[i]
            i += 1
         }
-        
     }
-
 }
-
 
 
 //MARK: - Обновление чека

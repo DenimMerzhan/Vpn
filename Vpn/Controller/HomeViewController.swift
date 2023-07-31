@@ -61,8 +61,6 @@ class HomeViewController: UIViewController {
         
     }
     
-   
-    
     
 //MARK: - ViewDidLoad
     
@@ -94,7 +92,7 @@ class HomeViewController: UIViewController {
             
             if pressedVPNButton {
                 let country = User.shared.selectedCountry
-                if let serverIP = country?.serverIP, let password = country?.password, let userName = country?.userName  { /// Если в UserDefaults что то есть
+                if let serverIP = country?.serverIP, let password = country?.password, let userName = country?.userName  {
                     
                     let credentials = AVVPNCredentials.IKEv2(server: serverIP, username: userName, password: password, remoteId:serverIP, localId: serverIP)
                     
@@ -142,12 +140,9 @@ extension HomeViewController {
             if connection.status == .connected {
                 currentStatusVpn.text = "Подключение выполнено!"
                 
-                if let country = defaults.dictionary(forKey: "vpnData")  { /// Если в UserDefaults что то есть то оброжаем текущую страну
-                    currentCountryVpn.text = "Текущая страна: \(country["name"] as! String)"
-                }else {
-                    currentCountryVpn.text = "Текущая страна: Россия"
+                if let nameCountry = User.shared.selectedCountry?.name {
+                    currentStatusVpn.text = "Текущая страна: \(nameCountry)"
                 }
-                
                 buttonVPN.setImage(UIImage(named: "VPNConnected"), for: [])
                 
             }

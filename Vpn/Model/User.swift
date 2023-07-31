@@ -18,7 +18,10 @@ class User {
     var dataFirstLaunch: TimeInterval?
     var subscriptionStatus =  SubscriptionStatus.notBuy {
         didSet {
-            freeUserStatus = .blocked
+            switch subscriptionStatus {
+            case .valid(expirationDate: _): freeUserStatus = .blocked
+            default:break
+            }
         }
     }
     var freeUserStatus = FreeUserStatus.blocked
@@ -43,7 +46,7 @@ class User {
     
     private init() {}
     
-    
+    //MARK: - Подсчет даты окончания бесплатного пользования
     
     func amountOfDayEndTrialPeriod() -> String { /// Подсчитываем сколько дней осталось до конца бесплатного периода
         
@@ -51,13 +54,14 @@ class User {
         
         if case let FreeUserStatus.valid(expirationDate) = freeUserStatus {
             let expirationDateSecond = expirationDate.timeIntervalSince1970
-            let diff = expirationDateSecond / 86400 - Date().timeIntervalSince1970
+            let diff = Int((expirationDateSecond - Date().timeIntervalSince1970) / 86400) /// 86400 - Количество секунд в дне
+            
             if diff > 4 || diff == 0 {
-                amountOfDay = "\(String(diff)) дней"
+                amountOfDay = String(diff) + " дней"
             }else if diff > 1 {
-                amountOfDay = "\(String(diff)) дня"
+                amountOfDay = String(diff) + " дня"
             }else {
-                amountOfDay = "\(String(diff)) день"
+                amountOfDay = String(diff) +  " день"
             }
         }
         return amountOfDay
@@ -100,7 +104,7 @@ extension User {
         request.httpBody = httpBody /// Данные, отправляемые в виде тела сообщения запроса, например, для HTTP-запроса POST.
         
         
-        let newData = URLSession.shared.dataTask(with: request) { newData, urlResponse, err in
+        URLSession.shared.dataTask(with: request) { newData, urlResponse, err in
             
             guard let data = newData else {return}
             if let error = err {
@@ -138,15 +142,19 @@ extension User {
 }
 
 
-//MARK: -  Получение даты окончания пробного периода
+//MARK: -  Загрузка метаданных о пользователе
 
 extension User {
     
-    func loadMetadata(completion: @escaping () -> ()) { /// Загрузка или добавление  бесплатных пользователей
+    func loadMetadata(completion: @escaping (Bool) -> ()) { /// Загрузка или добавление  бесплатных пользователей
         
         db.collection("Users").whereField("ID", isEqualTo: ID).getDocuments(completion: { querySnapshot, err in
             
             guard querySnapshot != nil else {return}
+            if querySnapshot!.metadata.isFromCache { /// Если данные из кэша значит пользователь не подключен к интернету
+                completion(false)
+                return
+            }
             
             if let documentData = querySnapshot!.documents.first?.data() {
                 
@@ -155,7 +163,7 @@ extension User {
                     let differenceBetwenToday = Date().timeIntervalSince1970 - dateFirstLaunch
                     if differenceBetwenToday > 86400 {self.freeUserStatus = .endend}
                     else {
-                        let expirationDate = Date(timeIntervalSince1970: 604800 - differenceBetwenToday)
+                        let expirationDate = Date(timeIntervalSince1970: dateFirstLaunch + 604800)
                         self.freeUserStatus = .valid(expirationDate: expirationDate)
                     }
                 }
@@ -163,8 +171,11 @@ extension User {
                     self.selectedCountry = Country(name: lastSelectedCountry)
                 }
             }
-            completion()
-            if let error = err {print("Ошибка получения дата окончания прбного периода - \(error)")}
+            completion(true)
+            if let error = err {
+                print("Ошибка получения дата окончания прбного периода - \(error)")
+                completion(false)
+            }
         })
     }
 }
