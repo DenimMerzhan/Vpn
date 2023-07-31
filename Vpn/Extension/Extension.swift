@@ -33,24 +33,3 @@ extension Formatter {
     }()
 }
 
-
-//extension UILabel {
-//    
-//    func createTextAnimate(textToAdd: String){
-//        
-//        let textArr = textToAdd.map({String($0)})
-//        self.text = ""
-//        var i = 0
-//        
-//        Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { [weak self] timer in
-//            if i >= textArr.count {
-//                timer.invalidate()
-//                return
-//            }
-//            guard let textLabel = self?.text else {return}
-//           self?.text = textLabel +  textArr[i]
-//           i += 1
-//        }
-//    }
-//    
-//}

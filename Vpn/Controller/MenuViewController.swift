@@ -36,13 +36,19 @@ class MenuViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         
         SKPaymentQueue.default().add(self)
+        
         tableView.dataSource = self
-        tableView.backgroundColor = .clear
+        tableView.backgroundColor = .white
+        tableView.layer.cornerRadius = 10
+        tableView.clipsToBounds = true
+        
         switch User.shared.subscriptionStatus {
-        case.valid(expirationDate: _): premiumButton.setTitle("Премиум активирован", for: .normal)
+        case.valid(expirationDate: _): premiumButton.setTitle("Подписка активирована", for: .normal)
+            premiumButton.isUserInteractionEnabled = false
+        case .ended: premiumButton.setTitle("Продлить подписку", for: .normal)
         default:break
         }
-        
+        premiumButton.sizeToFit()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -66,15 +72,20 @@ class MenuViewController: UIViewController, UITableViewDataSource {
     //MARK: -  Регистрация нажата
     
     @IBAction func regristerPressed(_ sender: UIButton) {
-        
         if Auth.auth().currentUser?.uid != nil {
-            logOut()
-        }else {
-            performSegue(withIdentifier: "menuToAuth", sender: self)
+            do {
+                try Auth.auth().signOut()
+                AVVPNService.shared.disconnect()
+                
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let dvc = storyboard.instantiateViewController(withIdentifier: "presentVC") as! PresentViewController
+                self.present(dvc, animated: true)
+                
+            }catch {
+                print("Ошибка выхода из учетной записи - \(error)")
+            }
         }
-        
     }
-    
     
     
     
@@ -91,30 +102,6 @@ class MenuViewController: UIViewController, UITableViewDataSource {
     
 }
 
-
-//MARK: - LogOut
-
-extension MenuViewController {
-    
-    func logOut(){ /// Выходим из учетной записи и переходим на главный контроллер
-        do {
-            try Auth.auth().signOut()
-            AVVPNService.shared.disconnect()
-            
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let dvc = storyboard.instantiateViewController(withIdentifier: "presentVC") as! PresentViewController
-            self.present(dvc, animated: true)
-            
-        }catch {
-            print("Ошибка выхода из учетной записи - \(error)")
-        }
-    }
-    
-}
-
-
-
-
 //MARK: - Покупка премиум
 
 
@@ -127,6 +114,7 @@ extension MenuViewController: SKPaymentTransactionObserver {
             let paymentRequest = SKMutablePayment() /// Создаем запрос на покупку в приложение
             paymentRequest.productIdentifier = productID
             SKPaymentQueue.default().add(paymentRequest)
+            premiumButton.isUserInteractionEnabled = false
             self.isModalInPresentation = true /// не даем пользователю закрыть контроллер
             
         }
@@ -142,17 +130,18 @@ extension MenuViewController: SKPaymentTransactionObserver {
             if transaction.transactionState == .purchased {
                 
                 print("Транзакция прошла")
+                
                 SKPaymentQueue.default().finishTransaction(transaction)
-                premiumButton.titleLabel?.text = "Премиум активирован"
+                
+                premiumButton.setTitle("Подписка активирована", for: .normal)
+                premiumButton.sizeToFit()
+                
                 if statusLoad.timer?.isValid == false {
                     statusLoad.createTextAnimate(textToAdd: "Идет настройка аккаунта")
                 }
                 User.shared.refreshReceipt { [weak self] needToUpdateReceipt in
                     DispatchQueue.main.async {
-                        self?.isModalInPresentation = false
-                        self?.loadIndicator.stopAnimating()
-                        self?.loadStackView.isHidden = true
-                        self?.logOutButton.isHidden = false
+                        self?.restoreVCForDefault()
                         self?.delegate?.userBuyPremium()
                     }
                 }
@@ -161,13 +150,14 @@ extension MenuViewController: SKPaymentTransactionObserver {
             
             else if transaction.transactionState == .failed {
                 print("Failed")
-                self.isModalInPresentation = false
+                premiumButton.isUserInteractionEnabled = true
+                restoreVCForDefault()
                 SKPaymentQueue.default().finishTransaction(transaction)
             }
             
             else if transaction.transactionState == .restored {
                 print("Restored")
-                self.isModalInPresentation = false
+                premiumButton.isUserInteractionEnabled = true
                 SKPaymentQueue.default().finishTransaction(transaction)
                 
             }
@@ -181,7 +171,16 @@ extension MenuViewController: SKPaymentTransactionObserver {
 }
 
 
-
+extension MenuViewController {
+    
+    func restoreVCForDefault(){
+        isModalInPresentation = false
+        loadIndicator.stopAnimating()
+        loadStackView.isHidden = true
+        logOutButton.isHidden = false
+    }
+    
+}
 
 
     
