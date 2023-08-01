@@ -24,6 +24,7 @@ class MenuViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var accountButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var heightTableViewConstrains: NSLayoutConstraint!
     @IBOutlet weak var loadStackView: UIStackView!
     @IBOutlet weak var loadIndicator: UIActivityIndicatorView!
     @IBOutlet weak var statusLoad: LoadLabel!
@@ -37,8 +38,8 @@ class MenuViewController: UIViewController, UITableViewDataSource {
         
         SKPaymentQueue.default().add(self)
         
+        tableView.isScrollEnabled = false
         tableView.dataSource = self
-        tableView.backgroundColor = .white
         tableView.layer.cornerRadius = 10
         tableView.clipsToBounds = true
         
@@ -55,6 +56,10 @@ class MenuViewController: UIViewController, UITableViewDataSource {
         SKPaymentQueue.default().remove(self)
     }
     
+    override func viewWillLayoutSubviews() {
+        heightTableViewConstrains.constant = tableView.contentSize.height
+    }
+    
     //MARK: - TableView
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -69,9 +74,9 @@ class MenuViewController: UIViewController, UITableViewDataSource {
     }
     
     
-    //MARK: -  Регистрация нажата
+    //MARK: -  Выход из аккаунта
     
-    @IBAction func regristerPressed(_ sender: UIButton) {
+    @IBAction func logOutPressed(_ sender: UIButton) {
         if Auth.auth().currentUser?.uid != nil {
             do {
                 try Auth.auth().signOut()
@@ -169,6 +174,7 @@ extension MenuViewController: SKPaymentTransactionObserver {
         }
     }
 }
+
 
 
 extension MenuViewController {

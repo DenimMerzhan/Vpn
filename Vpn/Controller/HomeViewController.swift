@@ -48,13 +48,8 @@ class HomeViewController: UIViewController {
     
     
     @IBAction func preferencesPressed(_ sender: UIButton) {
-        performSegue(withIdentifier: "vpnToPreferences", sender: self)
+        performSegue(withIdentifier: "homeVCToPreferences", sender: self)
     }
-    
-    @IBAction func changeCountryPresed(_ sender: UIButton) {
-        performSegue(withIdentifier: "vpnToChangeCountry", sender: self)
-    }
-    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let menuVC = segue.destination as? MenuViewController else {return}

@@ -32,7 +32,7 @@
                                             <color key="baseBackgroundColor" red="1" green="0.88446849279999995" blue="0.33426339290000001" alpha="1" colorSpace="calibratedRGB"/>
                                         </buttonConfiguration>
                                         <connections>
-                                            <segue destination="mBi-4y-Y28" kind="show" id="rH7-ra-C0K"/>
+                                            <segue destination="mBi-4y-Y28" kind="presentation" id="rH7-ra-C0K"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IFG-hn-pwO">
@@ -69,7 +69,7 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TOP" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vp4-jU-dHr">
-                                <rect key="frame" x="0.0" y="83" width="393" height="100"/>
+                                <rect key="frame" x="0.0" y="103" width="393" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="RgV-aA-k7I"/>
                                 </constraints>
@@ -86,7 +86,7 @@
                             <constraint firstItem="Vp4-jU-dHr" firstAttribute="leading" secondItem="bU1-wd-YNy" secondAttribute="leading" id="Ulm-7E-chX"/>
                             <constraint firstItem="bU1-wd-YNy" firstAttribute="trailing" secondItem="3XQ-Nr-Mlt" secondAttribute="trailing" constant="40" id="pLL-kv-8OR"/>
                             <constraint firstItem="bU1-wd-YNy" firstAttribute="trailing" secondItem="Vp4-jU-dHr" secondAttribute="trailing" id="sZB-vJ-8N3"/>
-                            <constraint firstItem="Vp4-jU-dHr" firstAttribute="top" secondItem="bU1-wd-YNy" secondAttribute="top" constant="-20" id="xze-aX-FbD"/>
+                            <constraint firstItem="Vp4-jU-dHr" firstAttribute="top" secondItem="bU1-wd-YNy" secondAttribute="top" id="xze-aX-FbD"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="pqF-KH-yVw"/>
@@ -118,10 +118,10 @@
             </objects>
             <point key="canvasLocation" x="2350" y="-2"/>
         </scene>
-        <!--VPN-->
+        <!--HomeController-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="HomeController" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="HomeViewController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeController" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" userLabel="HomeController" customClass="HomeViewController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -147,10 +147,10 @@
                                     <color key="baseBackgroundColor" name="ColorBackgound"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="changeCountryPresed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6op-8o-7wG"/>
+                                    <segue destination="SHi-gu-MMT" kind="show" id="qs7-oA-31u"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jXK-wZ-tWY">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jXK-wZ-tWY" userLabel="Preferences">
                                 <rect key="frame" x="16" y="59" width="51" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" name="ColorBackgound"/>
@@ -160,7 +160,7 @@
                                     <color key="baseBackgroundColor" name="ColorBackgound"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="preferencesPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lct-eG-dn2"/>
+                                    <action selector="preferencesPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HqL-pR-y1R"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="VPN отключен" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z3t-7P-vuX">
@@ -202,8 +202,7 @@
                         <outlet property="currentCountryVpn" destination="eim-Ff-q91" id="owE-aH-YuK"/>
                         <outlet property="currentStatusVpn" destination="Z3t-7P-vuX" id="YSV-XJ-geM"/>
                         <outlet property="numberOfDayFreeVersion" destination="vKt-y0-Wib" id="son-dh-6mX"/>
-                        <segue destination="e91-Sj-btM" kind="presentation" identifier="vpnToPreferences" id="J8f-lX-5o0"/>
-                        <segue destination="SHi-gu-MMT" kind="show" identifier="vpnToChangeCountry" id="fhh-zH-QMI"/>
+                        <segue destination="e91-Sj-btM" kind="presentation" identifier="homeVCToPreferences" id="DOp-W8-kAf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -248,8 +247,11 @@
                                 </subviews>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="uJa-i6-np4">
-                                <rect key="frame" x="16" y="298" width="361" height="299.66666666666674"/>
+                                <rect key="frame" x="16" y="298" width="361" height="200"/>
                                 <color key="backgroundColor" name="ColorBackgound"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="n6t-9k-mmI"/>
+                                </constraints>
                                 <color key="sectionIndexColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="sectionIndexBackgroundColor" name="PlacheolderColor"/>
                                 <prototypes>
@@ -307,7 +309,6 @@
                         <constraints>
                             <constraint firstItem="CbB-V3-D1h" firstAttribute="trailing" secondItem="e0z-yk-BYb" secondAttribute="trailing" constant="10" id="3gH-DX-sYm"/>
                             <constraint firstItem="CbB-V3-D1h" firstAttribute="trailing" secondItem="FKz-G1-BFO" secondAttribute="trailing" constant="16" id="Ceo-4z-ydB"/>
-                            <constraint firstItem="e0z-yk-BYb" firstAttribute="top" secondItem="uJa-i6-np4" secondAttribute="bottom" constant="50" id="FBA-bJ-N80"/>
                             <constraint firstItem="FKz-G1-BFO" firstAttribute="top" secondItem="CbB-V3-D1h" secondAttribute="top" constant="50" id="LKy-Q0-2lX"/>
                             <constraint firstItem="uJa-i6-np4" firstAttribute="leading" secondItem="CbB-V3-D1h" secondAttribute="leading" constant="16" id="THR-Kb-HOw"/>
                             <constraint firstItem="uJa-i6-np4" firstAttribute="top" secondItem="FKz-G1-BFO" secondAttribute="bottom" constant="50" id="W4R-0m-18P"/>
@@ -323,6 +324,7 @@
                     <navigationItem key="navigationItem" id="MUX-CA-8Ga"/>
                     <connections>
                         <outlet property="accountButton" destination="Dfb-JT-2w1" id="1Aw-I9-4Ws"/>
+                        <outlet property="heightTableViewConstrains" destination="n6t-9k-mmI" id="2It-QG-xnj"/>
                         <outlet property="loadIndicator" destination="EJe-WX-DJH" id="sKp-s5-zZH"/>
                         <outlet property="loadStackView" destination="e0z-yk-BYb" id="ehf-kN-SpK"/>
                         <outlet property="logOutButton" destination="Dfb-JT-2w1" id="QTW-9d-KnI"/>
@@ -340,7 +342,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="changeCountry" id="SHi-gu-MMT" customClass="ChangeCountryController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="singleLineEtched" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" id="96J-y9-0re">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="BackgroundColor"/>
                         <color key="separatorColor" systemColor="labelColor"/>
@@ -387,18 +389,18 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SAQ-xt-mgs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5599" y="-439"/>
+            <point key="canvasLocation" x="5599" y="-435"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="VBT-hB-fcU">
             <objects>
                 <viewController id="mBi-4y-Y28" customClass="RegisterViewController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6PR-hj-G0u">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="CTg-c6-Lm3">
-                                <rect key="frame" x="16" y="287.66666666666669" width="361" height="161.33333333333331"/>
+                                <rect key="frame" x="16" y="256" width="361" height="161.33333333333337"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Введите номер телефона" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fmg-AX-qBE">
                                         <rect key="frame" x="0.0" y="0.0" width="361" height="26.333333333333332"/>
@@ -434,7 +436,7 @@
                                 </subviews>
                             </stackView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="7us-SO-8I4" userLabel="LoadIndicator">
-                                <rect key="frame" x="96.666666666666686" y="499" width="200" height="200"/>
+                                <rect key="frame" x="96.666666666666686" y="467.33333333333326" width="200" height="200"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="iyd-jx-T6n"/>
                                     <constraint firstAttribute="height" constant="200" id="u0s-1y-9Xm"/>
@@ -478,11 +480,11 @@
             <objects>
                 <viewController storyboardIdentifier="CodeValidVC" id="iU3-1L-fd6" customClass="CodeReviewController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2iE-pV-HEk">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="rSe-O5-mQv">
-                                <rect key="frame" x="16" y="280.33333333333331" width="361" height="176.33333333333331"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="rSe-O5-mQv" userLabel="ButtonStackView">
+                                <rect key="frame" x="16" y="248.66666666666663" width="361" height="176.33333333333337"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Введите проверочный код" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vPc-FX-Yug">
                                         <rect key="frame" x="0.0" y="0.0" width="361" height="26.333333333333332"/>
@@ -491,7 +493,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="M2o-Ob-0fL">
-                                        <rect key="frame" x="0.0" y="41.333333333333371" width="361" height="60"/>
+                                        <rect key="frame" x="0.0" y="41.333333333333343" width="361" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="mr1-rG-d3E"/>
                                         </constraints>
@@ -500,17 +502,16 @@
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="phonePad"/>
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cOI-Gu-mZ1">
-                                        <rect key="frame" x="0.0" y="116.33333333333337" width="361" height="60"/>
+                                        <rect key="frame" x="0.0" y="116.33333333333334" width="361" height="60"/>
                                         <color key="backgroundColor" name="ColorButtonYellow"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="4rN-Uf-c8A"/>
                                         </constraints>
                                         <color key="tintColor" name="ColorButtonYellow"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" title="Проверить код">
+                                        <buttonConfiguration key="configuration" style="plain" title="Проверить код">
                                             <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="18"/>
                                             <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <color key="baseBackgroundColor" red="0.98431372640000003" green="0.90196073060000004" blue="0.48235297199999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </buttonConfiguration>
                                         <connections>
                                             <action selector="checkCodePressed:" destination="iU3-1L-fd6" eventType="touchUpInside" id="QJp-Fg-dT2"/>
@@ -518,23 +519,50 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="R4m-J3-oRU">
-                                <rect key="frame" x="96.666666666666686" y="506.66666666666674" width="200" height="200"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="2Wd-fR-psz"/>
-                                    <constraint firstAttribute="height" constant="200" id="KEM-N8-XnM"/>
-                                </constraints>
-                                <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </activityIndicatorView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="aIj-fx-WOR" userLabel="LoadStackView">
+                                <rect key="frame" x="16" y="454.99999999999994" width="361" height="241.33333333333331"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="xVE-aX-KDY" userLabel="ResendCode">
+                                        <rect key="frame" x="43" y="0.0" width="275" height="34.333333333333336"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V0u-Qu-zNm">
+                                                <rect key="frame" x="0.0" y="0.0" width="254" height="34.333333333333336"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Выслать код повторно через"/>
+                                                <connections>
+                                                    <action selector="resendCodePressed:" destination="iU3-1L-fd6" eventType="touchUpInside" id="0pe-BV-aad"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="60" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dhu-nv-9b2">
+                                                <rect key="frame" x="254" y="6.9999999999999982" width="21" height="20.333333333333329"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="R4m-J3-oRU">
+                                        <rect key="frame" x="80.666666666666686" y="41.333333333333314" width="200" height="200"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="200" id="2Wd-fR-psz"/>
+                                            <constraint firstAttribute="height" constant="200" id="KEM-N8-XnM"/>
+                                        </constraints>
+                                        <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="tks-dv-4IU"/>
                         <color key="backgroundColor" name="BackgroundColor"/>
                         <constraints>
                             <constraint firstItem="rSe-O5-mQv" firstAttribute="centerY" secondItem="tks-dv-4IU" secondAttribute="centerY" multiplier="0.8" id="4d2-yu-DFg"/>
                             <constraint firstItem="tks-dv-4IU" firstAttribute="trailing" secondItem="rSe-O5-mQv" secondAttribute="trailing" constant="16" id="5Kz-F9-32x"/>
-                            <constraint firstItem="R4m-J3-oRU" firstAttribute="top" secondItem="rSe-O5-mQv" secondAttribute="bottom" constant="50" id="WG6-pQ-6fC"/>
+                            <constraint firstItem="tks-dv-4IU" firstAttribute="trailing" secondItem="aIj-fx-WOR" secondAttribute="trailing" constant="16" id="I07-nI-Ql6"/>
+                            <constraint firstItem="aIj-fx-WOR" firstAttribute="top" secondItem="rSe-O5-mQv" secondAttribute="bottom" constant="30" id="LXl-ts-anS"/>
                             <constraint firstItem="rSe-O5-mQv" firstAttribute="leading" secondItem="2iE-pV-HEk" secondAttribute="leading" constant="16" id="cwC-lb-xvA"/>
-                            <constraint firstItem="R4m-J3-oRU" firstAttribute="centerX" secondItem="tks-dv-4IU" secondAttribute="centerX" id="e4M-2a-9vW"/>
+                            <constraint firstItem="aIj-fx-WOR" firstAttribute="leading" secondItem="tks-dv-4IU" secondAttribute="leading" constant="16" id="dLe-6d-VP1"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="d1F-Nh-EQK"/>
@@ -542,12 +570,15 @@
                         <outlet property="checkCodeButton" destination="cOI-Gu-mZ1" id="3io-qd-vKh"/>
                         <outlet property="codeTextView" destination="M2o-Ob-0fL" id="Tod-V7-jHC"/>
                         <outlet property="loadIndicator" destination="R4m-J3-oRU" id="NZo-ua-uLA"/>
-                        <segue destination="UB0-mR-oUK" kind="show" identifier="authToAnimate" id="h9G-fd-isS"/>
+                        <outlet property="loadStackView" destination="aIj-fx-WOR" id="5O7-nJ-5yq"/>
+                        <outlet property="resendCode" destination="V0u-Qu-zNm" id="the-19-jxh"/>
+                        <outlet property="timerToResend" destination="Dhu-nv-9b2" id="9vO-rf-iKR"/>
+                        <segue destination="UB0-mR-oUK" kind="presentation" identifier="authToAnimate" modalPresentationStyle="fullScreen" id="h9G-fd-isS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WVO-W4-vcR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2440" y="777"/>
+            <point key="canvasLocation" x="2438.9312977099235" y="776.76056338028172"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="fFv-f2-0lM">
@@ -571,7 +602,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="rH7-ra-C0K"/>
+        <segue reference="flg-K0-jdk"/>
         <segue reference="h9G-fd-isS"/>
     </inferredMetricsTieBreakers>
     <resources>

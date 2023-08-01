@@ -13,14 +13,15 @@ import FirebaseFirestore
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         FirebaseApp.configure()
         _ = Firestore.firestore()
         
-        window?.overrideUserInterfaceStyle = .light
+        UIApplication.shared.windows.forEach { window in
+            window.overrideUserInterfaceStyle = .light
+        }
         
         return true
     }

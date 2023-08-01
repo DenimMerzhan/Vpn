@@ -20,19 +20,14 @@ class RegisterViewController: UIViewController {
     var verfictationID: String!
     var listController = FPNCountryListViewController(style: .grouped)
     
-    override func viewWillAppear(_ animated: Bool) { // Проверяем валидность номера
-        
-        navigationItem.backBarButtonItem = UIBarButtonItem(
-            title: "Назад", style: .plain, target: nil, action: nil) /// Текст кнопки назад
-    }
-    
-    //MARK: -  Настройка пикера и текстфилда
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         loadIndicator.isHidden = true
+        
+        fetchCode.alpha = 0.2
+        fetchCode.isEnabled = false
         
         phoneNumberTextField.setFlag(countryCode: .RU)
         phoneNumberTextField.delegate = self
@@ -101,7 +96,7 @@ extension RegisterViewController: FPNTextFieldDelegate {
             phoneNumber = textField.getFormattedPhoneNumber(format: .International)
         }else {
             fetchCode.alpha = 0.2
-            fetchCode.isEnabled = true
+            fetchCode.isEnabled = false
         }
     }
     

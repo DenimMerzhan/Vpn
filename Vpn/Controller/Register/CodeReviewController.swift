@@ -15,6 +15,10 @@ class CodeReviewController: UIViewController {
     @IBOutlet weak var codeTextView: UITextView!
     @IBOutlet weak var loadIndicator: UIActivityIndicatorView!
     
+    @IBOutlet weak var resendCode: UIButton!
+    @IBOutlet weak var timerToResend: UILabel!
+    @IBOutlet weak var loadStackView: UIStackView!
+    
     var verifictaionID = String()
     var phoneNumber: String!
     
@@ -23,10 +27,10 @@ class CodeReviewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadIndicator.isHidden = true
-        checkCodeButton.alpha = 0.2
-        checkCodeButton.isEnabled = false
+        startTimer()
         codeTextView.delegate = self
+        loadIndicator.isHidden = true
+        
     }
 
     
@@ -38,6 +42,7 @@ class CodeReviewController: UIViewController {
         loadIndicator.isHidden = false
         loadIndicator.startAnimating()
         codeTextView.endEditing(true)
+        checkCodeButton.isEnabled = false
         
         Auth.auth().signIn(with: credentional) { [weak self] dataResult, error in
             
@@ -62,8 +67,42 @@ class CodeReviewController: UIViewController {
         }
         
     }
+    
+    
+    @IBAction func resendCodePressed(_ sender: UIButton) {
+        
+        startTimer()
+        codeTextView.endEditing(true)
+        codeTextView.text = ""
+        PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber!, uiDelegate: nil) { verivicationId, error in
+            if let err = error {
+                print("Ошибка авторизации - \(err)")
+            }
+        }
+    }
 }
 
+
+extension CodeReviewController {
+    
+    func startTimer(){
+        
+        resendCode.titleLabel?.alpha = 0.2
+        resendCode.isEnabled = false
+        timerToResend.isHidden = false
+        var i = 10
+        
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
+            self?.timerToResend.text = String(i)
+            i -= 1
+            if i < 0 {
+                self?.resendCode.isEnabled = true
+                self?.timerToResend.isHidden = true
+                timer.invalidate()
+            }
+        }
+    }
+}
 
 
 
@@ -95,5 +134,4 @@ extension CodeReviewController: UITextViewDelegate {
         }
     }
 
-        
     }
