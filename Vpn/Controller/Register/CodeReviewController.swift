@@ -10,7 +10,7 @@ import FirebaseAuth
 import FirebaseFirestore
 
 class CodeReviewController: UIViewController {
-
+    
     @IBOutlet weak var checkCodeButton: UIButton!
     @IBOutlet weak var codeTextView: UITextView!
     @IBOutlet weak var loadIndicator: UIActivityIndicatorView!
@@ -32,13 +32,14 @@ class CodeReviewController: UIViewController {
         loadIndicator.isHidden = true
         
     }
-
+    
     
     @IBAction func checkCodePressed(_ sender: UIButton) {
         
         guard let code = codeTextView.text else {return} /// Если не можем получить то выходим из метода
         
         let credentional = PhoneAuthProvider.provider().credential(withVerificationID: verifictaionID, verificationCode: code)
+        
         loadIndicator.isHidden = false
         loadIndicator.startAnimating()
         codeTextView.endEditing(true)
@@ -48,17 +49,22 @@ class CodeReviewController: UIViewController {
             
             if let err = error {
                 
+                self?.loadIndicator.stopAnimating()
+                self?.checkCodeButton.isEnabled = true
+                
                 let ac = UIAlertController(title: err.localizedDescription, message: nil, preferredStyle: .alert)
                 let cancel = UIAlertAction(title: "Отмена", style: .cancel)
                 ac.addAction(cancel)
                 self?.present(ac, animated: true)
-                print("Ошибка регистрации - \(err)")
+                print("Ошибка авторизации - \(err.localizedDescription)")
                 
             }else {
+                
                 guard let phoneNumber = self?.phoneNumber else {return}
                 User.shared.ID = phoneNumber
+                
                 self?.db.collection("Users").document(phoneNumber).setData(["dateActivationTrial" : Date().timeIntervalSince1970,
-                    "ID": phoneNumber],completion: { err in
+                                                                            "ID": phoneNumber],completion: { err in
                     if let error = err {
                         print("Ошибка создания нового пользователя - \(error)")
                     }else {self?.performSegue(withIdentifier: "authToAnimate", sender: self)}
@@ -66,6 +72,10 @@ class CodeReviewController: UIViewController {
             }
         }
         
+    }
+    
+    @IBAction func tapOnScreen(_ sender: UITapGestureRecognizer) {
+        codeTextView.endEditing(true)
     }
     
     
@@ -76,30 +86,33 @@ class CodeReviewController: UIViewController {
         codeTextView.text = ""
         PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber!, uiDelegate: nil) { verivicationId, error in
             if let err = error {
-                print("Ошибка авторизации - \(err)")
+                print("Ошибка получения кода - \(err.localizedDescription)")
             }
         }
     }
 }
 
+//MARK: -  Таймер для отправки нового кода
 
 extension CodeReviewController {
     
     func startTimer(){
         
         resendCode.titleLabel?.alpha = 0.2
-        resendCode.isEnabled = false
+        resendCode.isUserInteractionEnabled = false
         timerToResend.isHidden = false
-        var i = 10
+        timerToResend.text = "60"
+        var i = 60
         
         Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
-            self?.timerToResend.text = String(i)
             i -= 1
             if i < 0 {
-                self?.resendCode.isEnabled = true
                 self?.timerToResend.isHidden = true
+                self?.resendCode.titleLabel?.alpha = 1
+                self?.resendCode.isUserInteractionEnabled = true
                 timer.invalidate()
             }
+            self?.timerToResend.text = String(i)
         }
     }
 }
@@ -115,12 +128,12 @@ extension CodeReviewController: UITextViewDelegate {
         
         let currentCharacterCount = codeTextView.text.count
         
-                if range.length + range.location > currentCharacterCount {
-                    return false
-                }
+        if range.length + range.location > currentCharacterCount {
+            return false
+        }
         let newLenght = currentCharacterCount + text.count  - range.length
         return newLenght <= 6
-            }
+    }
     
     
     
@@ -133,5 +146,5 @@ extension CodeReviewController: UITextViewDelegate {
             checkCodeButton.isEnabled = false
         }
     }
-
-    }
+    
+}

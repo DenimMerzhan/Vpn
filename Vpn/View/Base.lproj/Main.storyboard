@@ -520,13 +520,13 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="aIj-fx-WOR" userLabel="LoadStackView">
-                                <rect key="frame" x="16" y="454.99999999999994" width="361" height="241.33333333333331"/>
+                                <rect key="frame" x="16" y="455" width="361" height="257"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="xVE-aX-KDY" userLabel="ResendCode">
-                                        <rect key="frame" x="43" y="0.0" width="275" height="34.333333333333336"/>
+                                        <rect key="frame" x="28.666666666666657" y="0.0" width="304" height="50"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V0u-Qu-zNm">
-                                                <rect key="frame" x="0.0" y="0.0" width="254" height="34.333333333333336"/>
+                                                <rect key="frame" x="0.0" y="7.6666666666666856" width="254" height="34.333333333333336"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Выслать код повторно через"/>
@@ -534,8 +534,8 @@
                                                     <action selector="resendCodePressed:" destination="iU3-1L-fd6" eventType="touchUpInside" id="0pe-BV-aad"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="60" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dhu-nv-9b2">
-                                                <rect key="frame" x="254" y="6.9999999999999982" width="21" height="20.333333333333329"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dhu-nv-9b2">
+                                                <rect key="frame" x="254" y="0.0" width="50" height="50"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -544,7 +544,7 @@
                                         </subviews>
                                     </stackView>
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="R4m-J3-oRU">
-                                        <rect key="frame" x="80.666666666666686" y="41.333333333333314" width="200" height="200"/>
+                                        <rect key="frame" x="80.666666666666686" y="57" width="200" height="200"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="2Wd-fR-psz"/>
                                             <constraint firstAttribute="height" constant="200" id="KEM-N8-XnM"/>
@@ -556,6 +556,7 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="tks-dv-4IU"/>
                         <color key="backgroundColor" name="BackgroundColor"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="rSe-O5-mQv" firstAttribute="centerY" secondItem="tks-dv-4IU" secondAttribute="centerY" multiplier="0.8" id="4d2-yu-DFg"/>
                             <constraint firstItem="tks-dv-4IU" firstAttribute="trailing" secondItem="rSe-O5-mQv" secondAttribute="trailing" constant="16" id="5Kz-F9-32x"/>
@@ -564,6 +565,9 @@
                             <constraint firstItem="rSe-O5-mQv" firstAttribute="leading" secondItem="2iE-pV-HEk" secondAttribute="leading" constant="16" id="cwC-lb-xvA"/>
                             <constraint firstItem="aIj-fx-WOR" firstAttribute="leading" secondItem="tks-dv-4IU" secondAttribute="leading" constant="16" id="dLe-6d-VP1"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="XMQ-Gt-cui" appends="YES" id="94V-NJ-Afa"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="d1F-Nh-EQK"/>
                     <connections>
@@ -577,6 +581,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WVO-W4-vcR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="XMQ-Gt-cui">
+                    <connections>
+                        <action selector="tapOnScreen:" destination="iU3-1L-fd6" id="g1I-Ag-UW1"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2438.9312977099235" y="776.76056338028172"/>
         </scene>

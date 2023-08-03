@@ -30,15 +30,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             currentQueue.finishTransaction(transaction)
         }
         
-        var credentials = AVVPNCredentials.IPSec(server: "0", username: "Fake", password: "Fake", shared: "Fake")
+        let credentials = AVVPNCredentials.IPSec(server: "0", username: "Fake", password: "Fake", shared: "Fake")
         AVVPNService.shared.disconnect()
         AVVPNService.shared.connect(credentials: credentials) { error in /// Производим подключение к выбранной стране
             if error != nil {
                 print("Ошибка подключения: \(error!)")
             }
-            
-            print("sceneDidDisconnect")
         }
+        print("sceneDidDisconnect")
+    }
         
         func sceneDidBecomeActive(_ scene: UIScene) {
             // Called when the scene has moved from an inactive state to an active state.
@@ -64,4 +64,3 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
     }
     
-}

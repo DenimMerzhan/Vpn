@@ -75,7 +75,7 @@ class User {
 
 extension User {
     
-    func refreshReceipt(completion: @escaping (_ needToUpdateReceipt: Bool) -> ()) { /// Функция для получения даты окончания подписки
+    func getReceipt(completion: @escaping (_ needToUpdateReceipt: Bool) -> ()) { /// Функция для получения даты окончания подписки
         
         let urlString = "https://sandbox.itunes.apple.com/verifyReceipt" /// Указываем что берем даныне с песочницы
         

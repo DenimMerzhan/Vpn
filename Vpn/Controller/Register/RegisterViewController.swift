@@ -56,14 +56,16 @@ class RegisterViewController: UIViewController {
         loadIndicator.isHidden = false
         loadIndicator.startAnimating()
         
-        PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber!, uiDelegate: nil) { verivicationId, error in
+        PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber!, uiDelegate: nil) { [weak self] verivicationId, error in
             if let err = error {
                 print("Ошибка авторизации - \(err)")
             }
             else {
                 guard verivicationId != nil else {return}
-                self.verfictationID = verivicationId!
-                self.performSegue(withIdentifier: "authToCheckCode", sender: self)
+                self?.verfictationID = verivicationId!
+                self?.performSegue(withIdentifier: "authToCheckCode", sender: self)
+                self?.loadIndicator.stopAnimating()
+                self?.loadIndicator.isHidden = true
                 
             }
         }

@@ -15,7 +15,7 @@ protocol MenuControllerDelegate {
     func userBuyPremium()
 }
 
-class MenuViewController: UIViewController, UITableViewDataSource {
+class MenuViewController: UIViewController {
     
     
     
@@ -30,26 +30,12 @@ class MenuViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var statusLoad: LoadLabel!
     
     let productID  = "com.TopVpnDenimMerzhan.Vpn"
-    var menuCell = ["Поддержка","Ответы на вопросы", "Пользовательское соглашение","Политика конфиденциальности"]
+    var menuCategories = [MenuCategory]()
     var delegate: MenuControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        SKPaymentQueue.default().add(self)
-        
-        tableView.isScrollEnabled = false
-        tableView.dataSource = self
-        tableView.layer.cornerRadius = 10
-        tableView.clipsToBounds = true
-        
-        switch User.shared.subscriptionStatus {
-        case.valid(expirationDate: _): premiumButton.setTitle("Подписка активирована", for: .normal)
-            premiumButton.isUserInteractionEnabled = false
-        case .ended: premiumButton.setTitle("Продлить подписку", for: .normal)
-        default:break
-        }
-        premiumButton.sizeToFit()
+        startSetup()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -58,19 +44,6 @@ class MenuViewController: UIViewController, UITableViewDataSource {
     
     override func viewWillLayoutSubviews() {
         heightTableViewConstrains.constant = tableView.contentSize.height
-    }
-    
-    //MARK: - TableView
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return menuCell.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCell", for: indexPath)
-        cell.textLabel?.text = menuCell[indexPath.row]
-        cell.textLabel?.textColor = .white
-        return cell
     }
     
     
@@ -93,7 +66,6 @@ class MenuViewController: UIViewController, UITableViewDataSource {
     }
     
     
-    
     //MARK: - кнопка покупки нажата
     
     @IBAction func buyPremiumPressed(_ sender: UIButton) {
@@ -106,6 +78,87 @@ class MenuViewController: UIViewController, UITableViewDataSource {
     }
     
 }
+
+
+
+//MARK: - TableView
+
+extension MenuViewController: UITableViewDataSource,UITableViewDelegate {
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return menuCategories.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCell", for: indexPath) as! MenuCell
+        
+        let isSelected = menuCategories[indexPath.row].isSelected
+        
+        if isSelected {
+            cell.arrow.image = UIImage(named: "ArrowUp")?.withTintColor(.white, renderingMode: .alwaysOriginal)
+            cell.dropMenu.isHidden = false
+        }else {
+            cell.arrow.image = UIImage(named: "ArrowDown")?.withTintColor(.white, renderingMode: .alwaysOriginal)
+            cell.dropMenu.isHidden = true
+        }
+        
+        cell.descriptionCell.text = menuCategories[indexPath.row].description
+        cell.nameCategory.text = menuCategories[indexPath.row].name
+        cell.descriptionCell.sizeToFit()
+        return cell
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        menuCategories[indexPath.row].isSelected = !menuCategories[indexPath.row].isSelected
+        
+        for i in 0...menuCategories.count - 1 {
+            if i == indexPath.row {continue}
+            menuCategories[i].isSelected = false
+        }
+        tableView.reloadData()
+        tableView.layoutIfNeeded()
+        self.heightTableViewConstrains.constant = self.tableView.contentSize.height
+        
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if menuCategories[indexPath.row].isSelected {return 150}
+        return 50
+    }
+    
+}
+
+
+extension MenuViewController {
+    func startSetup(){
+        
+        menuCategories.append(MenuCategory(name: "Поддержка",description: "Для поддержки пишите к нам на почту torVPNgmail.com"))
+        menuCategories.append(MenuCategory(name: "Ответы на вопросы",description: "Все вопросы вы можете задать на нашу почту torVPNgmail.com"))
+        menuCategories.append(MenuCategory(name: "Пользовательское соглашение",description: "Данное пользовательское соглашение можно скачать по ссылке"))
+        menuCategories.append(MenuCategory(name: "Политика конфиденциальности",description: "Политика конфиденциальности..."))
+        
+        SKPaymentQueue.default().add(self)
+        
+        tableView.isScrollEnabled = false
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.layer.cornerRadius = 10
+        tableView.clipsToBounds = true
+        tableView.register(UINib(nibName: "MenuCell", bundle: nil), forCellReuseIdentifier: "MenuCell")
+        
+        switch User.shared.subscriptionStatus {
+        case.valid(expirationDate: _): premiumButton.setTitle("Подписка активирована", for: .normal)
+            premiumButton.isUserInteractionEnabled = false
+        case .ended: premiumButton.setTitle("Продлить подписку", for: .normal)
+        default:break
+        }
+        premiumButton.sizeToFit()
+    }
+}
+
 
 //MARK: - Покупка премиум
 
@@ -144,7 +197,7 @@ extension MenuViewController: SKPaymentTransactionObserver {
                 if statusLoad.timer?.isValid == false {
                     statusLoad.createTextAnimate(textToAdd: "Идет настройка аккаунта")
                 }
-                User.shared.refreshReceipt { [weak self] needToUpdateReceipt in
+                User.shared.getReceipt { [weak self] needToUpdateReceipt in
                     DispatchQueue.main.async {
                         self?.restoreVCForDefault()
                         self?.delegate?.userBuyPremium()
@@ -189,5 +242,5 @@ extension MenuViewController {
 }
 
 
-    
+
 

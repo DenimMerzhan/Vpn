@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MenuCell" rowHeight="185" id="KGk-i7-Jjw" customClass="MenuCell" customModule="Vpn" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="185"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="185"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="WZH-Zi-vi5">
+                        <rect key="frame" x="15" y="0.0" width="305" height="185"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B1E-nv-M6e">
+                                <rect key="frame" x="0.0" y="0.0" width="305" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="bty-Od-ldF"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V4d-xO-4nX" userLabel="DropMenu">
+                                <rect key="frame" x="0.0" y="50" width="305" height="135"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i0I-UU-9Hk" userLabel="Description">
+                                        <rect key="frame" x="0.0" y="0.0" width="305" height="18"/>
+                                        <color key="backgroundColor" name="PlacheolderColor"/>
+                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="i0I-UU-9Hk" firstAttribute="top" secondItem="V4d-xO-4nX" secondAttribute="top" id="4GM-tj-bxc"/>
+                                    <constraint firstItem="i0I-UU-9Hk" firstAttribute="leading" secondItem="V4d-xO-4nX" secondAttribute="leading" id="RGz-Fr-xHf"/>
+                                    <constraint firstAttribute="trailing" secondItem="i0I-UU-9Hk" secondAttribute="trailing" id="yFq-Bn-41a"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <color key="backgroundColor" name="PlacheolderColor"/>
+                <constraints>
+                    <constraint firstItem="WZH-Zi-vi5" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="CJA-W4-Opr"/>
+                    <constraint firstAttribute="bottom" secondItem="WZH-Zi-vi5" secondAttribute="bottom" id="DMX-cz-jhX"/>
+                    <constraint firstAttribute="trailing" secondItem="WZH-Zi-vi5" secondAttribute="trailing" id="O6h-do-yvC"/>
+                    <constraint firstItem="WZH-Zi-vi5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="mEc-TN-JvN"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="descriptionCell" destination="i0I-UU-9Hk" id="vHi-II-nR0"/>
+                <outlet property="dropMenu" destination="V4d-xO-4nX" id="r6X-zx-ooE"/>
+                <outlet property="nameCategory" destination="B1E-nv-M6e" id="Cr7-71-GYW"/>
+            </connections>
+            <point key="canvasLocation" x="4.5801526717557248" y="69.366197183098592"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <namedColor name="PlacheolderColor">
+            <color red="0.2199999988079071" green="0.28200000524520874" blue="0.36100000143051147" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+    </resources>
+</document>

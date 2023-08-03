@@ -33,7 +33,7 @@ class LoadAnimateViewController: UIViewController {
         User.shared.loadMetadata { [weak self] success in
             
             if success { /// Если данные загрузились успешно то пытаемся загрузить квитанцию
-                User.shared.refreshReceipt { needToUpdateReceipt in
+                User.shared.getReceipt { needToUpdateReceipt in
                     if needToUpdateReceipt {
                         self?.refrreshReceipt()
                         self?.loadUserData()
@@ -117,7 +117,7 @@ extension LoadAnimateViewController: SKRequestDelegate{
     private func requestDidFinish(_ request: SKRequest) async {
         if request is SKReceiptRefreshRequest { /// Если чек есть вызваем еще раз функцию проверки чека
             
-            User.shared.refreshReceipt { [weak self] needToUpdateReceipt in
+            User.shared.getReceipt { [weak self] needToUpdateReceipt in
                 if needToUpdateReceipt {self?.refrreshReceipt()}
             }
         }
