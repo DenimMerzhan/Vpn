@@ -59,16 +59,15 @@ class CodeReviewController: UIViewController {
                 print("Ошибка авторизации - \(err.localizedDescription)")
                 
             }else {
-                
                 guard let phoneNumber = self?.phoneNumber else {return}
                 User.shared.ID = phoneNumber
-                
-                self?.db.collection("Users").document(phoneNumber).setData(["dateActivationTrial" : Date().timeIntervalSince1970,
-                                                                            "ID": phoneNumber],completion: { err in
-                    if let error = err {
-                        print("Ошибка создания нового пользователя - \(error)")
-                    }else {self?.performSegue(withIdentifier: "authToAnimate", sender: self)}
-                })
+                User.shared.checkIsExistUser { [weak self] isExistUser in
+                    if isExistUser {
+                        self?.performSegue(withIdentifier: "authToAnimate", sender: self)
+                    }else {
+                        self?.createNewUser()
+                    }
+                }
             }
         }
         
@@ -145,6 +144,21 @@ extension CodeReviewController: UITextViewDelegate {
             checkCodeButton.alpha = 0.2
             checkCodeButton.isEnabled = false
         }
+    }
+    
+}
+
+//MARK: -  Создание нового пользователя
+
+extension CodeReviewController {
+    
+    func createNewUser(){
+        db.collection("Users").document(phoneNumber).setData(["dateActivationTrial" : Date().timeIntervalSince1970,
+            "ID": phoneNumber!],completion: { err in
+            if let error = err {
+                print("Ошибка создания нового пользователя - \(error)")
+            }else {self.performSegue(withIdentifier: "authToAnimate", sender: self)}
+        })
     }
     
 }

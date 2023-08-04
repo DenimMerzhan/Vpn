@@ -143,11 +143,13 @@ extension User {
 
 extension User {
     
-    func loadMetadata(completion: @escaping (Bool) -> ()) { /// Загрузка или добавление  бесплатных пользователей
+    func loadMetadata(completion: @escaping (_ Success:Bool) -> ()) { /// Загрузка или добавление  бесплатных пользователей
         
         db.collection("Users").whereField("ID", isEqualTo: ID).getDocuments(completion: { querySnapshot, err in
             
+
             guard querySnapshot != nil else {return}
+            
             if querySnapshot!.metadata.isFromCache { /// Если данные из кэша значит пользователь не подключен к интернету
                 completion(false)
                 return
@@ -167,15 +169,30 @@ extension User {
                 if let lastSelectedCountry = documentData["lastSelectedCountry"] as? String {
                     self.selectedCountry = Country(name: lastSelectedCountry)
                 }
+                completion(true)
             }
-            completion(true)
             if let error = err {
-                print("Ошибка получения дата окончания прбного периода - \(error)")
+                print("Ошибка получения дата окончания пробного периода - \(error)")
                 completion(false)
             }
         })
     }
+    
+    
+    func checkIsExistUser(completion: @escaping(_ isExistUser: Bool) ->() ){
+        
+        db.collection("Users").whereField("ID", isEqualTo: ID).getDocuments { QuerySnapshot, Error in
+            
+            guard QuerySnapshot != nil else {
+                completion(false)
+                return
+            }
+            if QuerySnapshot!.isEmpty {
+                completion(false)
+            }else {
+                completion(true)
+            }
+        }
+    }
 }
-
-
 

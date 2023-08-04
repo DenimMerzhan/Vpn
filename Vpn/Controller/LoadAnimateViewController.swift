@@ -13,6 +13,7 @@ class LoadAnimateViewController: UIViewController {
     
     var animation = LottieAnimationView(name: "animation_lkp59xl7")
     var statusLoad = LoadLabel()
+    var reauthorizationTimer: Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,13 +31,12 @@ class LoadAnimateViewController: UIViewController {
     
     func loadUserData(){
         
-        User.shared.loadMetadata { [weak self] success in
+        User.shared.loadMetadata { [weak self] success  in
             
             if success { /// Если данные загрузились успешно то пытаемся загрузить квитанцию
                 User.shared.getReceipt { needToUpdateReceipt in
-                    if needToUpdateReceipt {
+                    if needToUpdateReceipt { /// Если чека нет то обновляем его
                         self?.refrreshReceipt()
-                        self?.loadUserData()
                         return
                     }
                     DispatchQueue.main.async {
@@ -82,26 +82,7 @@ extension LoadAnimateViewController {
         
         
     }
-    //    //MARK: -  Анимация текста
-    //
-    //    func textAnimation(textToAdd: String){
-    //
-    //        let textArr = textToAdd.map({String($0)})
-    //        statusLoadLabel.text = ""
-    //        var i = 0
-    //        let statusLoadLabel = self.statusLoadLabel
-    //
-    //        timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { timer in
-    //            if i >= textArr.count {
-    //                timer.invalidate()
-    //                return
-    //            }
-    //           statusLoadLabel.text = statusLoadLabel.text! +  textArr[i]
-    //           i += 1
-    //        }
-    //    }
 }
-
 
 //MARK: - Обновление чека
 
@@ -113,12 +94,19 @@ extension LoadAnimateViewController: SKRequestDelegate{
         request.start() /// Отправляет запрос в Apple App Store. Результаты запроса отправляются делегату запроса.
     }
     
+    func request(_ request: SKRequest, didFailWithError error: Error) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) { [weak self] in
+            self?.refrreshReceipt()
+        }
+    }
     
-    private func requestDidFinish(_ request: SKRequest) async {
+    private func requestDidFinish(_ request: SKRequest) async { /// Сообщает делегату, что запрос выполнен.
+        print("Oh")
         if request is SKReceiptRefreshRequest { /// Если чек есть вызваем еще раз функцию проверки чека
-            
             User.shared.getReceipt { [weak self] needToUpdateReceipt in
-                if needToUpdateReceipt {self?.refrreshReceipt()}
+                DispatchQueue.main.async {
+                    self?.performSegue(withIdentifier: "animateToHomeController", sender: self)
+                }
             }
         }
     }

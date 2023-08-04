@@ -58,7 +58,7 @@ class RegisterViewController: UIViewController {
         
         PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber!, uiDelegate: nil) { [weak self] verivicationId, error in
             if let err = error {
-                print("Ошибка авторизации - \(err)")
+                print("Ошибка авторизации - \(err.localizedDescription)")
             }
             else {
                 guard verivicationId != nil else {return}
