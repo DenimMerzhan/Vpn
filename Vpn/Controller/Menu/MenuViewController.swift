@@ -21,7 +21,6 @@ class MenuViewController: UIViewController {
     
     @IBOutlet weak var logOutButton: UIButton!
     @IBOutlet weak var premiumButton: UIButton!
-    @IBOutlet weak var accountButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var heightTableViewConstrains: NSLayoutConstraint!
@@ -47,24 +46,24 @@ class MenuViewController: UIViewController {
     }
     
     
+    
     //MARK: -  Выход из аккаунта
     
     @IBAction func logOutPressed(_ sender: UIButton) {
-        if Auth.auth().currentUser?.uid != nil {
-            do {
-                try Auth.auth().signOut()
-                AVVPNService.shared.disconnect()
-                
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let dvc = storyboard.instantiateViewController(withIdentifier: "presentVC") as! PresentViewController
-                self.present(dvc, animated: true)
-                
-            }catch {
-                print("Ошибка выхода из учетной записи - \(error)")
+            if Auth.auth().currentUser?.uid != nil {
+                do {
+                    try Auth.auth().signOut()
+                    AVVPNService.shared.disconnect()
+                    
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    guard let dvc = storyboard.instantiateViewController(withIdentifier: "presentVC") as?  PresentViewController else {return}
+                    self.present(dvc, animated: true)
+                    
+                }catch {
+                    print("Ошибка выхода из учетной записи - \(error)")
+                }
             }
-        }
     }
-    
     
     //MARK: - кнопка покупки нажата
     

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		38CBE908CF47E253628EF649 /* Pods_Vpn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0DBFEDAD926140A075FAF3 /* Pods_Vpn.framework */; };
+		CF4828952A7D1E7D00A7BF4F /* PrivacyPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4828942A7D1E7D00A7BF4F /* PrivacyPolicyViewController.swift */; };
 		CF48831D29E2B0E600702FA0 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF48831C29E2B0E600702FA0 /* RegisterViewController.swift */; };
 		CF5A97BA29D3164D00D4F2F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5A97B929D3164D00D4F2F5 /* AppDelegate.swift */; };
 		CF5A97BC29D3164D00D4F2F5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5A97BB29D3164D00D4F2F5 /* SceneDelegate.swift */; };
@@ -39,6 +40,7 @@
 		AF94F8E1614E69D09A920D35 /* Pods-Vpn.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vpn.debug.xcconfig"; path = "Target Support Files/Pods-Vpn/Pods-Vpn.debug.xcconfig"; sourceTree = "<group>"; };
 		CF29BE0F29DEE91C0040FB92 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		CF3C1A6F29D5A10F007BD706 /* Vpn.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Vpn.entitlements; sourceTree = "<group>"; };
+		CF4828942A7D1E7D00A7BF4F /* PrivacyPolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyViewController.swift; sourceTree = "<group>"; };
 		CF48831C29E2B0E600702FA0 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		CF5A97B629D3164D00D4F2F5 /* Vpn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vpn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF5A97B929D3164D00D4F2F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -96,6 +98,15 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		CF4828912A7D1DFD00A7BF4F /* Present */ = {
+			isa = PBXGroup;
+			children = (
+				CF4828942A7D1E7D00A7BF4F /* PrivacyPolicyViewController.swift */,
+				CF5A97CF29D31FD300D4F2F5 /* PresentViewController.swift */,
+			);
+			path = Present;
+			sourceTree = "<group>";
+		};
 		CF5A97AD29D3164D00D4F2F5 = {
 			isa = PBXGroup;
 			children = (
@@ -137,11 +148,11 @@
 			isa = PBXGroup;
 			children = (
 				CF9176882A7168A400C00358 /* Register */,
-				CF5A97CF29D31FD300D4F2F5 /* PresentViewController.swift */,
+				CF81B99E2A7BA3CD00C10B66 /* Menu */,
+				CF4828912A7D1DFD00A7BF4F /* Present */,
 				CFA56F8A2A764FAA000B55B7 /* LoadAnimateViewController.swift */,
 				CF5A97BD29D3164D00D4F2F5 /* HomeViewController.swift */,
 				CF8FB08129D6BCC600993513 /* ChangeCountryController.swift */,
-				CF81B99E2A7BA3CD00C10B66 /* Menu */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -327,6 +338,7 @@
 				CF91768D2A716EA100C00358 /* SubscriptionStatus.swift in Sources */,
 				CF91AF1629DDBAAD00EAAC01 /* MenuViewController.swift in Sources */,
 				CF8FB08229D6BCC600993513 /* ChangeCountryController.swift in Sources */,
+				CF4828952A7D1E7D00A7BF4F /* PrivacyPolicyViewController.swift in Sources */,
 				CF81B9A32A7BA40F00C10B66 /* MenuCell.swift in Sources */,
 				CF8FB08429D6BEF300993513 /* Constants.swift in Sources */,
 			);

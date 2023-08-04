@@ -10,10 +10,56 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Privacy Policy View Controller-->
+        <scene sceneID="72E-rM-L8W">
+            <objects>
+                <viewController storyboardIdentifier="PrivacyPolicy" id="VVg-N1-8dd" customClass="PrivacyPolicyViewController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hC2-NR-12g">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Политика конфиденциальности" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3jO-22-g7C">
+                                <rect key="frame" x="16" y="159" width="361" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="sAA-bO-8b1"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="lSO-nk-FLK">
+                                <rect key="frame" x="15" y="239" width="362" height="494"/>
+                                <string key="text">TOP Vpn  придерживается однозначной политики компании: строжайшее соблюдение защиты данных и бескомпромиссная защита конфиденциальности пользователей.
+
+При использовании TOP VPN мы ничего не знаем о данных вашего трафика, таких как история просмотров, назначение трафика, содержание данных и предпочтения поиска.
+
+Более того у нас НЕТ журналов, привязанных к вашему IP-адресу, отметке времени подключения или продолжительности сеанса. </string>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="xQp-T9-hiz"/>
+                        <color key="backgroundColor" name="BackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="lSO-nk-FLK" firstAttribute="top" secondItem="3jO-22-g7C" secondAttribute="bottom" constant="50" id="GOf-ca-mQz"/>
+                            <constraint firstItem="lSO-nk-FLK" firstAttribute="leading" secondItem="xQp-T9-hiz" secondAttribute="leading" constant="15" id="I2z-PW-1mV"/>
+                            <constraint firstItem="xQp-T9-hiz" firstAttribute="trailing" secondItem="3jO-22-g7C" secondAttribute="trailing" constant="16" id="cOj-P1-Qa3"/>
+                            <constraint firstItem="3jO-22-g7C" firstAttribute="top" secondItem="hC2-NR-12g" secondAttribute="topMargin" constant="100" id="hmP-97-QFy"/>
+                            <constraint firstItem="xQp-T9-hiz" firstAttribute="bottom" secondItem="lSO-nk-FLK" secondAttribute="bottom" constant="50" id="nJq-5U-uIS"/>
+                            <constraint firstItem="xQp-T9-hiz" firstAttribute="trailing" secondItem="lSO-nk-FLK" secondAttribute="trailing" constant="16" id="wPX-qR-Bi3"/>
+                            <constraint firstItem="3jO-22-g7C" firstAttribute="leading" secondItem="xQp-T9-hiz" secondAttribute="leading" constant="16" id="x3k-iw-YPm"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1QC-z4-AAS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="615" y="-732"/>
+        </scene>
         <!--Present View Controller-->
         <scene sceneID="I42-Es-4QW">
             <objects>
-                <viewController storyboardIdentifier="presentVC" modalPresentationStyle="fullScreen" id="DbE-8n-9BO" customClass="PresentViewController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="presentVC" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="DbE-8n-9BO" customClass="PresentViewController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="i8d-Xj-Z3L">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -65,6 +111,9 @@
                                         <state key="normal" title="Политика конфинедциальности">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <segue destination="VVg-N1-8dd" kind="presentation" id="13Q-h8-CUa"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -276,7 +325,7 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dfb-JT-2w1">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dfb-JT-2w1" userLabel="LogOutButton">
                                 <rect key="frame" x="0.0" y="709" width="393" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="ZZv-Tv-Wks"/>
@@ -286,7 +335,7 @@
                                     <color key="baseBackgroundColor" name="ColorBackgound"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="regristerPressed:" destination="e91-Sj-btM" eventType="touchUpInside" id="kB0-2n-PRO"/>
+                                    <action selector="logOutPressed:" destination="e91-Sj-btM" eventType="touchUpInside" id="HhS-al-mhu"/>
                                 </connections>
                             </button>
                             <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="e0z-yk-BYb" userLabel="LoadStackView">
@@ -323,7 +372,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="MUX-CA-8Ga"/>
                     <connections>
-                        <outlet property="accountButton" destination="Dfb-JT-2w1" id="1Aw-I9-4Ws"/>
                         <outlet property="heightTableViewConstrains" destination="n6t-9k-mmI" id="2It-QG-xnj"/>
                         <outlet property="loadIndicator" destination="EJe-WX-DJH" id="sKp-s5-zZH"/>
                         <outlet property="loadStackView" destination="e0z-yk-BYb" id="ehf-kN-SpK"/>
@@ -342,7 +390,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="changeCountry" id="SHi-gu-MMT" customClass="ChangeCountryController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="singleLineEtched" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" id="96J-y9-0re">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="BackgroundColor"/>
                         <color key="separatorColor" systemColor="labelColor"/>
@@ -612,7 +660,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="flg-K0-jdk"/>
-        <segue reference="h9G-fd-isS"/>
+        <segue reference="fwG-eg-h5Y"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="VpnDIsconnected" width="108.66666412353516" height="120"/>
