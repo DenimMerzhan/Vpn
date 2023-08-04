@@ -45,8 +45,6 @@ class MenuViewController: UIViewController {
         heightTableViewConstrains.constant = tableView.contentSize.height
     }
     
-    
-    
     //MARK: -  Выход из аккаунта
     
     @IBAction func logOutPressed(_ sender: UIButton) {
@@ -134,10 +132,10 @@ extension MenuViewController: UITableViewDataSource,UITableViewDelegate {
 extension MenuViewController {
     func startSetup(){
         
-        menuCategories.append(MenuCategory(name: "Поддержка",description: "Для поддержки пишите к нам на почту torVPNgmail.com"))
-        menuCategories.append(MenuCategory(name: "Ответы на вопросы",description: "Все вопросы вы можете задать на нашу почту torVPNgmail.com"))
-        menuCategories.append(MenuCategory(name: "Пользовательское соглашение",description: "Данное пользовательское соглашение можно скачать по ссылке"))
-        menuCategories.append(MenuCategory(name: "Политика конфиденциальности",description: "Политика конфиденциальности..."))
+        menuCategories.append(MenuCategory(name: "Поддержка",description: "Для поддержки пишите к нам на почту topvpn@inbox.ru"))
+        menuCategories.append(MenuCategory(name: "Ответы на вопросы",description: "Все вопросы вы можете задать на нашу почту topvpn@inbox.ru"))
+        menuCategories.append(MenuCategory(name: "Пользовательское соглашение",description: ""))
+        menuCategories.append(MenuCategory(name: "Политика конфиденциальности",description: ""))
         
         SKPaymentQueue.default().add(self)
         
