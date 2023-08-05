@@ -183,10 +183,8 @@ extension User {
         
         db.collection("Users").whereField("ID", isEqualTo: ID).getDocuments { QuerySnapshot, Error in
             
-            guard QuerySnapshot != nil else {
-                completion(false)
-                return
-            }
+            guard QuerySnapshot != nil else {return}
+            
             if QuerySnapshot!.isEmpty {
                 completion(false)
             }else {

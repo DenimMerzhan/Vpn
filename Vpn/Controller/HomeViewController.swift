@@ -86,12 +86,12 @@ class HomeViewController: UIViewController {
         }else { /// Если нету доступа уведомляем пользователя
             
             switch User.shared.subscriptionStatus {
-            case .ended: createAlert(text: "Ваш срок премиум аккаунта истек. Вы можете его продлить в разделе настроек")
+            case .ended: createAlert(text: "Ваш срок подписки истек. Вы можете его продлить в разделе настроек")
             default:break
             }
             
             switch User.shared.freeUserStatus {
-            case.endend:createAlert(text: "Ваш срок бесплатного пользования истек. Вы можете купить премиум аккаунт для его продления")
+            case.endend:createAlert(text: "Ваш срок бесплатного пользования истек. Вы можете активировать платную подписку для доступа к услугам")
             default:break
             }
         }
@@ -112,10 +112,11 @@ extension HomeViewController: MenuControllerDelegate {
         switch User.shared.subscriptionStatus {
         case .valid(expirationDate: let expirationDate):
             let rusDate = Formatter.formatToRusDate.string(from: expirationDate)
-            additionallabel.text  = "Премиум Активен до \(rusDate)"
+            additionallabel.text  = "Подписка активна до \(rusDate)"
+            numberOfDayFreeVersion.text = ""
         case .ended:
             numberOfDayFreeVersion.text = ""
-            additionallabel.text  = "Срок премиум аккаунта истек"
+            additionallabel.text  = "Срок подписки истек"
         case .notBuy:
             break
         }
@@ -125,8 +126,8 @@ extension HomeViewController: MenuControllerDelegate {
             numberOfDayFreeVersion.text = User.shared.amountOfDayEndTrialPeriod()
             additionallabel.text = "До истечения бесплатного пользования"
         case .endend:
-            numberOfDayFreeVersion.text = "Срок истек"
-            additionallabel.isHidden  = true
+            numberOfDayFreeVersion.text = ""
+            additionallabel.text = "Срок бесплатного пользования истек"
         case .blocked:
             break
         }

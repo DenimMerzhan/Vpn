@@ -59,6 +59,7 @@ class CodeReviewController: UIViewController {
                 print("Ошибка авторизации - \(err.localizedDescription)")
                 
             }else {
+                
                 guard let phoneNumber = self?.phoneNumber else {return}
                 User.shared.ID = phoneNumber
                 User.shared.checkIsExistUser { [weak self] isExistUser in

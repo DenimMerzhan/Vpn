@@ -26,7 +26,7 @@ extension Formatter {
     static let formatToRusDate: DateFormatter = {
         
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd MMMM"
+        formatter.dateFormat = "d MMMM"
         formatter.locale = Locale(identifier: "ru_Ru")
         
         return formatter
