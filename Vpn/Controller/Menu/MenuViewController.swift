@@ -191,7 +191,7 @@ extension MenuViewController: SKPaymentTransactionObserver {
             SKPaymentQueue.default().add(paymentRequest)
             premiumButton.isUserInteractionEnabled = false
             self.isModalInPresentation = true /// не даем пользователю закрыть контроллер
-            
+    
         }
         
     }
