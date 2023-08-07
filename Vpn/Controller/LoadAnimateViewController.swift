@@ -22,7 +22,6 @@ class LoadAnimateViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
         setupAnimation()
         statusLoad.createTextAnimate(textToAdd: "Идет загрузка информации о пользователе...")
-        SKRequest().delegate = self
         loadUserData()
         
         
@@ -34,14 +33,8 @@ class LoadAnimateViewController: UIViewController {
         User.shared.loadMetadata { [weak self] success  in
             
             if success { /// Если данные загрузились успешно то пытаемся загрузить квитанцию
-                User.shared.getReceipt { needToUpdateReceipt in
-                    if needToUpdateReceipt { /// Если чека нет то обновляем его
-                        self?.refrreshReceipt()
-                        return
-                    }
-                    DispatchQueue.main.async {
-                        self?.performSegue(withIdentifier: "animateToHomeController", sender: self)
-                    }
+                User.shared.getReceipt {
+                    self?.performSegue(withIdentifier: "animateToHomeController", sender: self)
                 }
             }else { /// Если нет пишем о том что должно быть подключение к интернету и повторяем действие
                 
@@ -84,30 +77,3 @@ extension LoadAnimateViewController {
     }
 }
 
-//MARK: - Обновление чека
-
-extension LoadAnimateViewController: SKRequestDelegate{
-    
-    private func refrreshReceipt(){ /// Функция которая обновляет чек, вызываем когда чека нету
-        let request = SKReceiptRefreshRequest(receiptProperties: nil)
-        request.delegate = self
-        request.start() /// Отправляет запрос в Apple App Store. Результаты запроса отправляются делегату запроса.
-    }
-    
-    func request(_ request: SKRequest, didFailWithError error: Error) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) { [weak self] in
-            self?.refrreshReceipt()
-        }
-    }
-    
-    private func requestDidFinish(_ request: SKRequest) async { /// Сообщает делегату, что запрос выполнен.
-        print("Oh")
-        if request is SKReceiptRefreshRequest { /// Если чек есть вызваем еще раз функцию проверки чека
-            User.shared.getReceipt { [weak self] needToUpdateReceipt in
-                DispatchQueue.main.async {
-                    self?.performSegue(withIdentifier: "animateToHomeController", sender: self)
-                }
-            }
-        }
-    }
-}

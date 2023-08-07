@@ -75,15 +75,16 @@ class User {
 
 extension User {
     
-    func getReceipt(completion: @escaping (_ needToUpdateReceipt: Bool) -> ()) { /// Функция для получения даты окончания подписки
+    func getReceipt(completion: @escaping () -> ()) { /// Функция для получения даты окончания подписки
         
-        let urlString = "https://sandbox.itunes.apple.com/verifyReceipt" /// Указываем что берем даныне с песочницы
+        let urlString = "https://buy.itunes.apple.com/verifyReceipt" /// Указываем что берем даныне с Itunes
         
-        guard let receiptURL = Bundle.main.appStoreReceiptURL,let receiptString =   try? Data(contentsOf: receiptURL).base64EncodedString()  else { /// 1 Путь к файлу квитанции  2  Пытаемся преобразовать файл   Если вдруг нет пути или нет файла то мы вызываем обновление чека
-            completion(true)
+//        let urlString = "https://sandbox.itunes.apple.com/verifyReceipt" /// Указываем что берем даныне с песочницы
+        
+        guard let receiptURL = Bundle.main.appStoreReceiptURL,let receiptString =   try? Data(contentsOf: receiptURL).base64EncodedString()  else { /// 1 Путь к файлу квитанции  2  Пытаемся преобразовать файл   Если вдруг нет пути или нет файла то значит нет чека. Либо пользователь не покупал ни разу подписку, либо у него новое устройство тогда он должен нажать восстановить покупки
+            completion()
             return
         }
-        
         
         let url = URL(string: urlString)!
         let requestData : [String : Any] = ["receipt-data" : receiptString, /// Создаем словарь
@@ -91,7 +92,6 @@ extension User {
                                             "exclude-old-transactions" : false] /// Исключать старые транзакции нет
         
         let httpBody =  try? JSONSerialization.data(withJSONObject: requestData, options: []) /// Объект, который выполняет преобразование между JSON и эквивалентными объектами Foundation.
-        
         
         var request = URLRequest(url: url) /// Запрос загрузки URL, который не зависит от протокола или схемы URL.
         request.httpMethod = "POST" /// POST — означает что некоторые данные должны быть помещены на сервер.
@@ -132,7 +132,6 @@ extension User {
                     print("Квитанция о подписке пользователя отсутствует")
                 }
             }
-            completion(false)
         }
         task.resume() ///  Недавно инициализированные задачи начинаются в приостановленном состоянии, поэтому вам нужно вызвать этот метод, чтобы запустить задачу.
     }

@@ -18,7 +18,7 @@ protocol MenuControllerDelegate {
 class MenuViewController: UIViewController {
     
     
-    
+    @IBOutlet weak var lowerStackView: UIStackView!
     @IBOutlet weak var logOutButton: UIButton!
     @IBOutlet weak var premiumButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
@@ -68,7 +68,7 @@ class MenuViewController: UIViewController {
     @IBAction func buyPremiumPressed(_ sender: UIButton) {
         buyPremium()
         
-        logOutButton.isHidden = true
+        lowerStackView.isHidden = true
         loadStackView.isHidden = false
         loadIndicator.startAnimating()
         statusLoad.createTextAnimate(textToAdd: "Идет подготовка к покупке")
@@ -128,6 +128,7 @@ extension MenuViewController: UITableViewDataSource,UITableViewDelegate {
     
 }
 
+//MARK: -  Cтартовые настройки
 
 extension MenuViewController {
     func startSetup(){
@@ -136,6 +137,9 @@ extension MenuViewController {
         menuCategories.append(MenuCategory(name: "Ответы на вопросы",description: "Все вопросы вы можете задать на нашу почту topvpn@inbox.ru"))
         menuCategories.append(MenuCategory(name: "Пользовательское соглашение",description: ""))
         menuCategories.append(MenuCategory(name: "Политика конфиденциальности",description: ""))
+        if let phoneNumber = Auth.auth().currentUser?.phoneNumber {
+            menuCategories.append(MenuCategory(name: "Информация об аккаунте",description: "Ваш номер телефона привязанный к аккаунту \(phoneNumber)"))
+        }
         
         SKPaymentQueue.default().add(self)
         
@@ -194,7 +198,7 @@ extension MenuViewController: SKPaymentTransactionObserver {
                 if statusLoad.timer?.isValid == false {
                     statusLoad.createTextAnimate(textToAdd: "Идет настройка аккаунта")
                 }
-                User.shared.getReceipt { [weak self] needToUpdateReceipt in
+                User.shared.getReceipt { [weak self] in
                     DispatchQueue.main.async {
                         self?.restoreVCForDefault()
                         self?.delegate?.userBuyPremium()
@@ -233,7 +237,7 @@ extension MenuViewController {
         isModalInPresentation = false
         loadIndicator.stopAnimating()
         loadStackView.isHidden = true
-        logOutButton.isHidden = false
+        lowerStackView.isHidden = false
     }
     
 }

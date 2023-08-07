@@ -361,32 +361,60 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dfb-JT-2w1" userLabel="LogOutButton">
-                                <rect key="frame" x="0.0" y="709" width="393" height="40"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="1bw-7e-y95" userLabel="LowerStackView">
+                                <rect key="frame" x="0.0" y="723" width="393" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dfb-JT-2w1" userLabel="LogOutButton">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="ZZv-Tv-Wks"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Выйти из аккаунта">
+                                            <color key="baseBackgroundColor" name="ColorBackgound"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="logOutPressed:" destination="e91-Sj-btM" eventType="touchUpInside" id="HhS-al-mhu"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zJc-Bc-wfB">
+                                        <rect key="frame" x="0.0" y="40" width="393" height="20"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Button">
+                                            <attributedString key="attributedTitle">
+                                                <fragment content="Восстановить покупки">
+                                                    <attributes>
+                                                        <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <font key="NSFont" size="12" name="Helvetica"/>
+                                                        <font key="NSOriginalFont" size="12" name="Helvetica"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                        </state>
+                                    </button>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="ZZv-Tv-Wks"/>
+                                    <constraint firstAttribute="height" constant="60" id="Yfp-gs-OPD"/>
                                 </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Выйти из аккаунта">
-                                    <color key="baseBackgroundColor" name="ColorBackgound"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <action selector="logOutPressed:" destination="e91-Sj-btM" eventType="touchUpInside" id="HhS-al-mhu"/>
-                                </connections>
-                            </button>
+                            </stackView>
                             <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="e0z-yk-BYb" userLabel="LoadStackView">
-                                <rect key="frame" x="10" y="647.66666666666663" width="373" height="61.333333333333371"/>
+                                <rect key="frame" x="10" y="643" width="373" height="70"/>
                                 <subviews>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="EJe-WX-DJH">
                                         <rect key="frame" x="0.0" y="0.0" width="373" height="37"/>
                                     </activityIndicatorView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Идет подготовка к покупке" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XAQ-2r-4uf" customClass="LoadLabel" customModule="Vpn" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="47" width="373" height="14.333333333333336"/>
+                                        <rect key="frame" x="0.0" y="47" width="373" height="23"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="kEc-0W-PGI"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="CbB-V3-D1h"/>
@@ -394,16 +422,16 @@
                         <constraints>
                             <constraint firstItem="CbB-V3-D1h" firstAttribute="trailing" secondItem="e0z-yk-BYb" secondAttribute="trailing" constant="10" id="3gH-DX-sYm"/>
                             <constraint firstItem="CbB-V3-D1h" firstAttribute="trailing" secondItem="FKz-G1-BFO" secondAttribute="trailing" constant="16" id="Ceo-4z-ydB"/>
+                            <constraint firstItem="CbB-V3-D1h" firstAttribute="bottom" secondItem="1bw-7e-y95" secondAttribute="bottom" id="Dou-10-bBw"/>
                             <constraint firstItem="FKz-G1-BFO" firstAttribute="top" secondItem="CbB-V3-D1h" secondAttribute="top" constant="50" id="LKy-Q0-2lX"/>
+                            <constraint firstItem="1bw-7e-y95" firstAttribute="leading" secondItem="CbB-V3-D1h" secondAttribute="leading" id="Ssa-eK-9Rq"/>
                             <constraint firstItem="uJa-i6-np4" firstAttribute="leading" secondItem="CbB-V3-D1h" secondAttribute="leading" constant="16" id="THR-Kb-HOw"/>
                             <constraint firstItem="uJa-i6-np4" firstAttribute="top" secondItem="FKz-G1-BFO" secondAttribute="bottom" constant="50" id="W4R-0m-18P"/>
                             <constraint firstItem="FKz-G1-BFO" firstAttribute="leading" secondItem="CbB-V3-D1h" secondAttribute="leading" constant="16" id="WfZ-zr-2Hk"/>
                             <constraint firstItem="e0z-yk-BYb" firstAttribute="leading" secondItem="CbB-V3-D1h" secondAttribute="leading" constant="10" id="bSf-hz-jle"/>
-                            <constraint firstItem="CbB-V3-D1h" firstAttribute="trailing" secondItem="Dfb-JT-2w1" secondAttribute="trailing" id="bqi-br-zcg"/>
                             <constraint firstItem="CbB-V3-D1h" firstAttribute="trailing" secondItem="uJa-i6-np4" secondAttribute="trailing" constant="16" id="fFl-31-SYV"/>
-                            <constraint firstItem="CbB-V3-D1h" firstAttribute="bottom" secondItem="Dfb-JT-2w1" secondAttribute="bottom" constant="34" id="mEj-eA-OE4"/>
-                            <constraint firstItem="Dfb-JT-2w1" firstAttribute="leading" secondItem="CbB-V3-D1h" secondAttribute="leading" id="oPJ-4y-9NK"/>
-                            <constraint firstItem="Dfb-JT-2w1" firstAttribute="top" secondItem="e0z-yk-BYb" secondAttribute="bottom" id="uCH-sV-A7o"/>
+                            <constraint firstItem="1bw-7e-y95" firstAttribute="top" secondItem="e0z-yk-BYb" secondAttribute="bottom" constant="10" id="v5v-cI-MWf"/>
+                            <constraint firstItem="CbB-V3-D1h" firstAttribute="trailing" secondItem="1bw-7e-y95" secondAttribute="trailing" id="yh7-Ut-p3v"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="MUX-CA-8Ga"/>
@@ -412,6 +440,7 @@
                         <outlet property="loadIndicator" destination="EJe-WX-DJH" id="sKp-s5-zZH"/>
                         <outlet property="loadStackView" destination="e0z-yk-BYb" id="ehf-kN-SpK"/>
                         <outlet property="logOutButton" destination="Dfb-JT-2w1" id="QTW-9d-KnI"/>
+                        <outlet property="lowerStackView" destination="1bw-7e-y95" id="Lcq-ZK-0T4"/>
                         <outlet property="premiumButton" destination="auz-Bx-zeH" id="VTq-4U-yuf"/>
                         <outlet property="statusLoad" destination="XAQ-2r-4uf" id="fdl-V5-eWe"/>
                         <outlet property="tableView" destination="uJa-i6-np4" id="qcu-Pu-LYu"/>

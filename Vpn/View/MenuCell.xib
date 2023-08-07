@@ -19,10 +19,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="WZH-Zi-vi5">
-                        <rect key="frame" x="15" y="0.0" width="305" height="185"/>
+                        <rect key="frame" x="15" y="0.0" width="290" height="185"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B1E-nv-M6e">
-                                <rect key="frame" x="0.0" y="0.0" width="305" height="50"/>
+                                <rect key="frame" x="0.0" y="0.0" width="290" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="bty-Od-ldF"/>
                                 </constraints>
@@ -31,10 +31,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V4d-xO-4nX" userLabel="DropMenu">
-                                <rect key="frame" x="0.0" y="50" width="305" height="135"/>
+                                <rect key="frame" x="0.0" y="50" width="290" height="135"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i0I-UU-9Hk" userLabel="Description">
-                                        <rect key="frame" x="0.0" y="0.0" width="305" height="18"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="290" height="18"/>
                                         <color key="backgroundColor" name="PlacheolderColor"/>
                                         <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -54,7 +54,7 @@
                 <constraints>
                     <constraint firstItem="WZH-Zi-vi5" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="CJA-W4-Opr"/>
                     <constraint firstAttribute="bottom" secondItem="WZH-Zi-vi5" secondAttribute="bottom" id="DMX-cz-jhX"/>
-                    <constraint firstAttribute="trailing" secondItem="WZH-Zi-vi5" secondAttribute="trailing" id="O6h-do-yvC"/>
+                    <constraint firstAttribute="trailing" secondItem="WZH-Zi-vi5" secondAttribute="trailing" constant="15" id="O6h-do-yvC"/>
                     <constraint firstItem="WZH-Zi-vi5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="mEc-TN-JvN"/>
                 </constraints>
             </tableViewCellContentView>
