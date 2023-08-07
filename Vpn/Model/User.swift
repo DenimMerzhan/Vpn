@@ -77,9 +77,9 @@ extension User {
     
     func getReceipt(completion: @escaping () -> ()) { /// Функция для получения даты окончания подписки
         
-        let urlString = "https://buy.itunes.apple.com/verifyReceipt" /// Указываем что берем даныне с Itunes
+//        let urlString = "https://buy.itunes.apple.com/verifyReceipt" /// Указываем что берем даныне с Itunes
         
-//        let urlString = "https://sandbox.itunes.apple.com/verifyReceipt" /// Указываем что берем даныне с песочницы
+        let urlString = "https://sandbox.itunes.apple.com/verifyReceipt" /// Указываем что берем даныне с песочницы
         
         guard let receiptURL = Bundle.main.appStoreReceiptURL,let receiptString =   try? Data(contentsOf: receiptURL).base64EncodedString()  else { /// 1 Путь к файлу квитанции  2  Пытаемся преобразовать файл   Если вдруг нет пути или нет файла то значит нет чека. Либо пользователь не покупал ни разу подписку, либо у него новое устройство тогда он должен нажать восстановить покупки
             completion()
@@ -123,7 +123,6 @@ extension User {
                             print("Now \(dateEndSubscription)")
                         }
                         else {
-                            
                             User.shared.subscriptionStatus = .valid(expirationDate: dateEndSubscription)
                             print("Yeah \(dateEndSubscription)")
                         }
@@ -132,6 +131,7 @@ extension User {
                     print("Квитанция о подписке пользователя отсутствует")
                 }
             }
+            completion()
         }
         task.resume() ///  Недавно инициализированные задачи начинаются в приостановленном состоянии, поэтому вам нужно вызвать этот метод, чтобы запустить задачу.
     }

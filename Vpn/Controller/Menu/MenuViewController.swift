@@ -45,29 +45,38 @@ class MenuViewController: UIViewController {
         heightTableViewConstrains.constant = tableView.contentSize.height
     }
     
+    
+    @IBAction func restorePressedPurchases(_ sender: UIButton) {
+        refreshReceipt()
+        lowerStackView.isHidden = true
+        loadStackView.isHidden = false
+        loadIndicator.startAnimating()
+        statusLoad.createTextAnimate(textToAdd: "Идет подготовка к восстановлению")
+    }
+    
+    
     //MARK: -  Выход из аккаунта
     
     @IBAction func logOutPressed(_ sender: UIButton) {
-            if Auth.auth().currentUser?.uid != nil {
-                do {
-                    try Auth.auth().signOut()
-                    AVVPNService.shared.disconnect()
-                    
-                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    guard let dvc = storyboard.instantiateViewController(withIdentifier: "presentVC") as?  PresentViewController else {return}
-                    self.present(dvc, animated: true)
-                    
-                }catch {
-                    print("Ошибка выхода из учетной записи - \(error)")
-                }
+        if Auth.auth().currentUser?.uid != nil {
+            do {
+                try Auth.auth().signOut()
+                AVVPNService.shared.disconnect()
+                
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                guard let dvc = storyboard.instantiateViewController(withIdentifier: "presentVC") as?  PresentViewController else {return}
+                self.present(dvc, animated: true)
+                
+            }catch {
+                print("Ошибка выхода из учетной записи - \(error)")
             }
+        }
     }
     
     //MARK: - кнопка покупки нажата
     
     @IBAction func buyPremiumPressed(_ sender: UIButton) {
         buyPremium()
-        
         lowerStackView.isHidden = true
         loadStackView.isHidden = false
         loadIndicator.startAnimating()
@@ -158,6 +167,13 @@ extension MenuViewController {
         }
         premiumButton.sizeToFit()
     }
+    
+    func restoreVCForDefault(){
+        isModalInPresentation = false
+        loadIndicator.stopAnimating()
+        loadStackView.isHidden = true
+        lowerStackView.isHidden = false
+    }
 }
 
 
@@ -218,9 +234,7 @@ extension MenuViewController: SKPaymentTransactionObserver {
                 print("Restored")
                 premiumButton.isUserInteractionEnabled = true
                 SKPaymentQueue.default().finishTransaction(transaction)
-                
             }
-            
             else if transaction.transactionState == .purchasing {
                 print("Обработка платежа")
                 
@@ -230,18 +244,46 @@ extension MenuViewController: SKPaymentTransactionObserver {
 }
 
 
+//MARK:  - Запрос чека от Apple при восстановление покупок
 
-extension MenuViewController {
+extension MenuViewController: SKRequestDelegate {
     
-    func restoreVCForDefault(){
-        isModalInPresentation = false
-        loadIndicator.stopAnimating()
-        loadStackView.isHidden = true
-        lowerStackView.isHidden = false
+    func refreshReceipt(){
+        /// Функция которая обновляет чек, вызываем когда чека нету
+        let request = SKReceiptRefreshRequest(receiptProperties: nil)
+        request.delegate = self
+        request.start() /// Отправляет запрос в Apple App Store. Результаты запроса отправляются делегату запроса.
+        
+    }
+    
+    
+    func request(_ request: SKRequest, didFailWithError error: Error) {
+        print(error.localizedDescription)
+        premiumButton.isUserInteractionEnabled = true
+        restoreVCForDefault()
+    }
+    
+    func requestDidFinish(_ request: SKRequest) {
+        if request is SKReceiptRefreshRequest {
+            
+            if statusLoad.timer?.isValid == false {
+                statusLoad.createTextAnimate(textToAdd: "Идет настройка аккаунта")
+            }
+            User.shared.getReceipt { [weak self] in
+                DispatchQueue.main.async {
+                    switch User.shared.subscriptionStatus {
+                    case .valid(expirationDate: _):
+                        self?.premiumButton.setTitle("Подписка активирована", for: .normal)
+                    case .ended: self?.premiumButton.setTitle("Продлить подписку", for: .normal)
+                    default: break
+                    }
+                    self?.premiumButton.sizeToFit()
+                    self?.restoreVCForDefault()
+                    self?.delegate?.userBuyPremium()
+                }
+            }
+            AVVPNService.shared.disconnect()
+        }
     }
     
 }
-
-
-
-

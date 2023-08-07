@@ -34,7 +34,9 @@ class LoadAnimateViewController: UIViewController {
             
             if success { /// Если данные загрузились успешно то пытаемся загрузить квитанцию
                 User.shared.getReceipt {
-                    self?.performSegue(withIdentifier: "animateToHomeController", sender: self)
+                    DispatchQueue.main.async {
+                        self?.performSegue(withIdentifier: "animateToHomeController", sender: self)
+                    }
                 }
             }else { /// Если нет пишем о том что должно быть подключение к интернету и повторяем действие
                 
