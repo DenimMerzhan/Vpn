@@ -8,11 +8,22 @@
 import Foundation
 
 
+
+enum NameMenuCategory {
+    
+    case support(name:String)
+    case askQuestion(name:String)
+    case termsOfUse(name:String)
+    case privacyPolicy(name:String)
+    case accountInfo(name:String)
+    
+}
+
 struct MenuCategory {
     
-    var name: String
-    var isSelected =  false
+    var name: NameMenuCategory
     var description: String
+    var isSelected =  false
     
 }
 

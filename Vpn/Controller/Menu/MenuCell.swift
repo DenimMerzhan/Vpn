@@ -14,6 +14,7 @@ class MenuCell: UITableViewCell {
     @IBOutlet weak var dropMenu: UIView!
     @IBOutlet weak var descriptionCell: UILabel!
     
+    var tapGesture = UITapGestureRecognizer()
     var arrow = UIImageView()
     
     override func awakeFromNib() {
@@ -27,6 +28,9 @@ class MenuCell: UITableViewCell {
         arrow.center.y = frame.height / 2
         arrow.contentMode = .scaleAspectFit
         arrow.clipsToBounds = true
+        
+        dropMenu.addGestureRecognizer(tapGesture)
+        
         self.addSubview(arrow)
     }
 

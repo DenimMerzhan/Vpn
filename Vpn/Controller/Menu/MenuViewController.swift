@@ -31,14 +31,11 @@ class MenuViewController: UIViewController {
     let productID  = "com.TopVpnDenimMerzhan.Vpn"
     var menuCategories = [MenuCategory]()
     var delegate: MenuControllerDelegate?
+    let menuModel = MenuModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         startSetup()
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        SKPaymentQueue.default().remove(self)
     }
     
     override func viewWillLayoutSubviews() {
@@ -73,7 +70,6 @@ class MenuViewController: UIViewController {
         }
     }
     
-    //MARK: - кнопка покупки нажата
     
     @IBAction func buyPremiumPressed(_ sender: UIButton) {
         buyPremium()
@@ -87,68 +83,10 @@ class MenuViewController: UIViewController {
 
 
 
-//MARK: - TableView
-
-extension MenuViewController: UITableViewDataSource,UITableViewDelegate {
-    
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return menuCategories.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCell", for: indexPath) as! MenuCell
-        
-        let isSelected = menuCategories[indexPath.row].isSelected
-        
-        if isSelected {
-            cell.arrow.image = UIImage(named: "ArrowUp")?.withTintColor(.white, renderingMode: .alwaysOriginal)
-            cell.dropMenu.isHidden = false
-        }else {
-            cell.arrow.image = UIImage(named: "ArrowDown")?.withTintColor(.white, renderingMode: .alwaysOriginal)
-            cell.dropMenu.isHidden = true
-        }
-        
-        cell.descriptionCell.text = menuCategories[indexPath.row].description
-        cell.nameCategory.text = menuCategories[indexPath.row].name
-        cell.descriptionCell.sizeToFit()
-        return cell
-    }
-    
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        menuCategories[indexPath.row].isSelected = !menuCategories[indexPath.row].isSelected
-        
-        for i in 0...menuCategories.count - 1 {
-            if i == indexPath.row {continue}
-            menuCategories[i].isSelected = false
-        }
-        tableView.reloadData()
-        tableView.layoutIfNeeded()
-        self.heightTableViewConstrains.constant = self.tableView.contentSize.height
-        
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if menuCategories[indexPath.row].isSelected {return 150}
-        return 50
-    }
-    
-}
-
-//MARK: -  Cтартовые настройки
-
 extension MenuViewController {
     func startSetup(){
         
-        menuCategories.append(MenuCategory(name: "Поддержка",description: "Для поддержки пишите к нам на почту topvpn@inbox.ru"))
-        menuCategories.append(MenuCategory(name: "Ответы на вопросы",description: "Все вопросы вы можете задать на нашу почту topvpn@inbox.ru"))
-        menuCategories.append(MenuCategory(name: "Пользовательское соглашение",description: ""))
-        menuCategories.append(MenuCategory(name: "Политика конфиденциальности",description: ""))
-        if let phoneNumber = Auth.auth().currentUser?.phoneNumber {
-            menuCategories.append(MenuCategory(name: "Информация об аккаунте",description: "Ваш номер телефона привязанный к аккаунту \(phoneNumber)"))
-        }
+        menuCategories =  menuModel.fillMenuCategory(menuCategory: menuCategories, phoneNumber: Auth.auth().currentUser?.phoneNumber)
         
         SKPaymentQueue.default().add(self)
         
@@ -177,6 +115,76 @@ extension MenuViewController {
 }
 
 
+
+//MARK: - TableView
+
+extension MenuViewController: UITableViewDataSource,UITableViewDelegate {
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return menuCategories.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCell", for: indexPath) as! MenuCell
+        
+        let isSelected = menuCategories[indexPath.row].isSelected
+        
+        if isSelected {
+            cell.arrow.image = UIImage(named: "ArrowUp")?.withTintColor(.white, renderingMode: .alwaysOriginal)
+            cell.dropMenu.isHidden = false
+        }else {
+            cell.arrow.image = UIImage(named: "ArrowDown")?.withTintColor(.white, renderingMode: .alwaysOriginal)
+            cell.dropMenu.isHidden = true
+        }
+        
+        
+        switch menuCategories[indexPath.row].name {
+        case .support(name: let name), .askQuestion(name: let name),.termsOfUse(name: let name), .accountInfo(name: let name):
+            cell.nameCategory.text = name
+        case .privacyPolicy(name: let name):
+            cell.nameCategory.text = name
+            cell.tapGesture.addTarget(self, action: #selector(privacyPolicyPressed))
+        }
+        
+        cell.descriptionCell.text = menuCategories[indexPath.row].description
+        cell.descriptionCell.sizeToFit()
+        return cell
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        menuCategories[indexPath.row].isSelected = !menuCategories[indexPath.row].isSelected
+        
+        for i in 0...menuCategories.count - 1 {
+            if i == indexPath.row {continue}
+            menuCategories[i].isSelected = false
+        }
+        tableView.reloadData()
+        tableView.layoutIfNeeded()
+        self.heightTableViewConstrains.constant = self.tableView.contentSize.height
+        
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch menuCategories[indexPath.row].name {
+        case .termsOfUse(name: _): if menuCategories[indexPath.row].isSelected {return 200}
+        default: if menuCategories[indexPath.row].isSelected {return 150}
+        }
+        return 50
+    }
+    
+    @objc func privacyPolicyPressed(){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "PrivacyPolicyVC")
+        self.present(vc, animated: true)
+    }
+    
+}
+
+
+
 //MARK: - Покупка премиум
 
 
@@ -195,8 +203,6 @@ extension MenuViewController: SKPaymentTransactionObserver {
         }
         
     }
-    
-    //MARK: -  Отслеживание транзакции
     
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         

@@ -19,7 +19,7 @@ class CodeReviewController: UIViewController {
     @IBOutlet weak var timerToResend: UILabel!
     @IBOutlet weak var loadStackView: UIStackView!
     
-    var verifictaionID = String()
+    var verifictaionID: String!
     var phoneNumber: String!
     
     private let db = Firestore.firestore()
@@ -134,7 +134,6 @@ extension CodeReviewController: UITextViewDelegate {
         let newLenght = currentCharacterCount + text.count  - range.length
         return newLenght <= 6
     }
-    
     
     
     func textViewDidChange(_ textView: UITextView) { /// Когда текст был изменен

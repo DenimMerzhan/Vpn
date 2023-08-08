@@ -59,11 +59,14 @@ class RegisterViewController: UIViewController {
         PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber!, uiDelegate: nil) { [weak self] verivicationId, error in
             if let err = error {
                 print("Ошибка авторизации - \(err.localizedDescription.description)")
-                let ac = UIAlertController(title: "Произошла ошибка", message: nil, preferredStyle: .alert)
-                let cancel = UIAlertAction(title: "Отмена", style: .cancel)
+                let ac = UIAlertController(title: "Произошла ошибка - \(err.localizedDescription.description)", message: nil, preferredStyle: .alert)
+                let cancel = UIAlertAction(title: "Отмена", style: .cancel) { action in
+                    DispatchQueue.main.async { [weak self] in
+                        self?.dismiss(animated: true)
+                    }
+                }
                 ac.addAction(cancel)
                 self?.present(ac, animated: true)
-                self?.dismiss(animated: true)
             }
             else {
                 guard verivicationId != nil else {return}
@@ -80,8 +83,6 @@ class RegisterViewController: UIViewController {
         
         guard let dvc = segue.destination as? CodeReviewController else {return}
         guard phoneNumber != nil else {return}
-        phoneNumber?.removeAll(where: {$0 == " "})
-        phoneNumber?.removeAll(where: {$0 == "-"})
         dvc.phoneNumber = phoneNumber!
         dvc.verifictaionID = verfictationID
     }
@@ -101,11 +102,12 @@ extension RegisterViewController: FPNTextFieldDelegate {
         if isValid {
             fetchCode.alpha = 1
             fetchCode.isEnabled = true
-            phoneNumber = textField.getFormattedPhoneNumber(format: .International)
+            phoneNumber = textField.getFormattedPhoneNumber(format: .E164)
         }else {
             fetchCode.alpha = 0.2
             fetchCode.isEnabled = false
         }
+        
     }
     
     func fpnDisplayCountryList() {

@@ -13,7 +13,7 @@
         <!--Privacy Policy View Controller-->
         <scene sceneID="72E-rM-L8W">
             <objects>
-                <viewController storyboardIdentifier="PrivacyPolicy" id="VVg-N1-8dd" customClass="PrivacyPolicyViewController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PrivacyPolicyVC" modalPresentationStyle="pageSheet" useStoryboardIdentifierAsRestorationIdentifier="YES" id="VVg-N1-8dd" customClass="PrivacyPolicyViewController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hC2-NR-12g">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -38,15 +38,27 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="topvpn@inbox.ru" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i0b-Wb-C55">
+                                <rect key="frame" x="0.0" y="743" width="393" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="QBX-Mg-dgT"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="xQp-T9-hiz"/>
                         <color key="backgroundColor" name="BackgroundColor"/>
                         <constraints>
                             <constraint firstItem="lSO-nk-FLK" firstAttribute="top" secondItem="3jO-22-g7C" secondAttribute="bottom" constant="50" id="GOf-ca-mQz"/>
                             <constraint firstItem="lSO-nk-FLK" firstAttribute="leading" secondItem="xQp-T9-hiz" secondAttribute="leading" constant="15" id="I2z-PW-1mV"/>
+                            <constraint firstItem="xQp-T9-hiz" firstAttribute="trailing" secondItem="i0b-Wb-C55" secondAttribute="trailing" id="W73-OV-Zmr"/>
                             <constraint firstItem="xQp-T9-hiz" firstAttribute="trailing" secondItem="3jO-22-g7C" secondAttribute="trailing" constant="16" id="cOj-P1-Qa3"/>
                             <constraint firstItem="3jO-22-g7C" firstAttribute="top" secondItem="hC2-NR-12g" secondAttribute="topMargin" constant="100" id="hmP-97-QFy"/>
+                            <constraint firstItem="i0b-Wb-C55" firstAttribute="leading" secondItem="xQp-T9-hiz" secondAttribute="leading" id="j2B-UX-ZGd"/>
                             <constraint firstItem="xQp-T9-hiz" firstAttribute="bottom" secondItem="lSO-nk-FLK" secondAttribute="bottom" constant="50" id="nJq-5U-uIS"/>
+                            <constraint firstItem="xQp-T9-hiz" firstAttribute="bottom" secondItem="i0b-Wb-C55" secondAttribute="bottom" constant="10" id="rmI-uB-1F8"/>
                             <constraint firstItem="xQp-T9-hiz" firstAttribute="trailing" secondItem="lSO-nk-FLK" secondAttribute="trailing" constant="16" id="wPX-qR-Bi3"/>
                             <constraint firstItem="3jO-22-g7C" firstAttribute="leading" secondItem="xQp-T9-hiz" secondAttribute="leading" constant="16" id="x3k-iw-YPm"/>
                         </constraints>
@@ -176,7 +188,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="AEU-re-xvW" userLabel="CentralStackView">
-                                <rect key="frame" x="0.0" y="222.33333333333337" width="393" height="200"/>
+                                <rect key="frame" x="0.0" y="207" width="393" height="200"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bMp-cl-aqJ">
                                         <rect key="frame" x="130" y="0.0" width="133" height="134"/>
@@ -193,13 +205,13 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z3t-7P-vuX">
-                                        <rect key="frame" x="196.66666666666666" y="141.99999999999997" width="0.0" height="35"/>
+                                        <rect key="frame" x="196.66666666666666" y="142" width="0.0" height="35"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eim-Ff-q91">
-                                        <rect key="frame" x="196.66666666666666" y="184.99999999999997" width="0.0" height="15"/>
+                                        <rect key="frame" x="196.66666666666666" y="185" width="0.0" height="15"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="15" id="VHa-Qy-eNc"/>
                                         </constraints>
@@ -402,8 +414,8 @@
                                             <attributedString key="attributedTitle">
                                                 <fragment content="Восстановить покупки">
                                                     <attributes>
-                                                        <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        <font key="NSFont" size="12" name="Helvetica"/>
+                                                        <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <font key="NSFont" size="11" name="Helvetica"/>
                                                         <font key="NSOriginalFont" size="12" name="Helvetica"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
@@ -458,7 +470,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="changeCountry" id="SHi-gu-MMT" customClass="ChangeCountryController" customModule="Vpn" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="singleLineEtched" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" id="96J-y9-0re">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="BackgroundColor"/>
                         <color key="separatorColor" systemColor="labelColor"/>
@@ -728,7 +740,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="flg-K0-jdk"/>
-        <segue reference="fwG-eg-h5Y"/>
+        <segue reference="h9G-fd-isS"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="VpnDIsconnected" width="108.66666412353516" height="120"/>
