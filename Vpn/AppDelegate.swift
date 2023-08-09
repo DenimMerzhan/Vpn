@@ -19,10 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         _ = Firestore.firestore()
         
-        UIApplication.shared.windows.forEach { window in
-            window.overrideUserInterfaceStyle = .light
-        }
-        
         return true
     }
 

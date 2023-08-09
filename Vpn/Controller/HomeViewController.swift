@@ -38,6 +38,11 @@ class HomeViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeStatus), name: NSNotification.Name.NEVPNStatusDidChange, object: nil) /// Добавляем наблюдателя за впн соединением, в данном случае наш класс VC
         
         currentStatusVpn.text = "VPN отключен"
+        
+        buttonVPN.contentHorizontalAlignment = .fill
+        buttonVPN.contentVerticalAlignment = .fill
+        buttonVPN.imageView?.contentMode = .scaleAspectFit
+        
         checkUserStatus()
     }
     

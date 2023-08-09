@@ -50,6 +50,7 @@ class CodeReviewController: UIViewController {
             if let err = error {
                 
                 self?.loadIndicator.stopAnimating()
+                self?.loadIndicator.isHidden = true
                 self?.checkCodeButton.isEnabled = true
                 
                 let ac = UIAlertController(title: err.localizedDescription, message: nil, preferredStyle: .alert)
