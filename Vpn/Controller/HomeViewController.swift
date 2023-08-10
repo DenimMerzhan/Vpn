@@ -14,27 +14,17 @@ import StoreKit
 
 class HomeViewController: UIViewController {
     
-    private let defaults = UserDefaults.standard
-    private var accessUser = false
-    private let db = Firestore.firestore()
-    
-    var phoneNumber = String()
-    
     private var pressedVPNButton: Bool = false
-    private var amountOfDay: String = ""
-    private var additionalText = ""
     
     @IBOutlet weak var currentCountryVpn: UILabel!
     @IBOutlet weak var currentStatusVpn: UILabel!
     @IBOutlet weak var buttonVpn: UIImageView!
     @IBOutlet weak var numberOfDayFreeVersion: UILabel!
     @IBOutlet weak var additionallabel: UILabel!
-        
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(didChangeStatus), name: NSNotification.Name.NEVPNStatusDidChange, object: nil) /// Добавляем наблюдателя за впн соединением, в данном случае наш класс VC
+        NotificationCenter.default.addObserver(self, selector: #selector(didChangeStatus), name: NSNotification.Name.NEVPNStatusDidChange, object: nil) /// Добавляем наблюдателя за впн соединением
         
         currentStatusVpn.text = "VPN отключен"
         buttonVpn.isUserInteractionEnabled = true
