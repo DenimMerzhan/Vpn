@@ -24,10 +24,9 @@ class HomeViewController: UIViewController {
     private var amountOfDay: String = ""
     private var additionalText = ""
     
-    
     @IBOutlet weak var currentCountryVpn: UILabel!
     @IBOutlet weak var currentStatusVpn: UILabel!
-    @IBOutlet weak var buttonVPN: UIButton!
+    @IBOutlet weak var buttonVpn: UIImageView!
     @IBOutlet weak var numberOfDayFreeVersion: UILabel!
     @IBOutlet weak var additionallabel: UILabel!
         
@@ -38,11 +37,7 @@ class HomeViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeStatus), name: NSNotification.Name.NEVPNStatusDidChange, object: nil) /// Добавляем наблюдателя за впн соединением, в данном случае наш класс VC
         
         currentStatusVpn.text = "VPN отключен"
-        
-        buttonVPN.contentHorizontalAlignment = .fill
-        buttonVPN.contentVerticalAlignment = .fill
-        buttonVPN.imageView?.contentMode = .scaleAspectFit
-        
+        buttonVpn.isUserInteractionEnabled = true
         checkUserStatus()
     }
     
@@ -62,8 +57,8 @@ class HomeViewController: UIViewController {
     }
     //MARK: - Кнопка подключения нажата
     
-    
-    @IBAction func vpnConnectPressed(_ sender: UIButton) {
+    @IBAction func vpnButtonPressed(_ sender: UITapGestureRecognizer) {
+        
         pressedVPNButton = !pressedVPNButton
         
         if User.shared.acesstToVpn { /// Если доступ есть то разрешаем подключение
@@ -101,7 +96,6 @@ class HomeViewController: UIViewController {
             }
         }
     }
-    
 }
 
 //MARK: -  Проверка статуса пользователя
@@ -155,7 +149,7 @@ extension HomeViewController {
                 if let nameCountry = User.shared.selectedCountry?.name {
                     currentStatusVpn.text = "Текущая страна: \(nameCountry)"
                 }
-                buttonVPN.setImage(UIImage(named: "VPNConnected"), for: [])
+                buttonVpn.image = UIImage(named: "VPNConnected")
                 
             }
             
@@ -163,7 +157,7 @@ extension HomeViewController {
                 
                 currentStatusVpn.text = "VPN отключен"
                 currentCountryVpn.text = ""
-                buttonVPN.setImage(UIImage(named: "VpnDIsconnected"), for: [])
+                buttonVpn.image = UIImage(named: "VpnDIsconnected")
             }
             
             else if connection.status == .connecting {

@@ -26,6 +26,7 @@ class User {
     }
     var freeUserStatus = FreeUserStatus.blocked
     var selectedCountry: Country?
+    private let sevenDaySecond: Double = 604800
     
     var acesstToVpn: Bool {
         get {
@@ -159,7 +160,7 @@ extension User {
                 if let dateFirstLaunch = documentData["dateActivationTrial"] as? TimeInterval {
                     
                     let differenceBetwenToday = Date().timeIntervalSince1970 - dateFirstLaunch
-                    if differenceBetwenToday > 86400 {self.freeUserStatus = .endend}
+                    if differenceBetwenToday > self.sevenDaySecond {self.freeUserStatus = .endend}
                     else {
                         let expirationDate = Date(timeIntervalSince1970: dateFirstLaunch + 604800)
                         self.freeUserStatus = .valid(expirationDate: expirationDate)
