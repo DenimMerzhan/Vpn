@@ -15,6 +15,7 @@ import StoreKit
 class HomeViewController: UIViewController {
     
     private var pressedVPNButton: Bool = false
+    private let homeModel = HomeModel()
     
     @IBOutlet weak var currentCountryVpn: UILabel!
     @IBOutlet weak var currentStatusVpn: UILabel!
@@ -51,10 +52,10 @@ class HomeViewController: UIViewController {
         
         pressedVPNButton = !pressedVPNButton
         
-        if User.shared.acesstToVpn { /// Если доступ есть то разрешаем подключение
+        if CurrentUser.shared.acesstToVpn { /// Если доступ есть то разрешаем подключение
             
             if pressedVPNButton {
-                let country = User.shared.selectedCountry
+                let country = CurrentUser.shared.selectedCountry
                 if let serverIP = country?.serverIP, let password = country?.password, let userName = country?.userName  {
                     
                     let credentials = AVVPNCredentials.IKEv2(server: serverIP, username: userName, password: password, remoteId:serverIP, localId: serverIP)
@@ -75,12 +76,12 @@ class HomeViewController: UIViewController {
             
         }else { /// Если нету доступа уведомляем пользователя
             
-            switch User.shared.subscriptionStatus {
+            switch CurrentUser.shared.subscriptionStatus {
             case .ended: createAlert(text: "Ваш срок подписки истек. Вы можете его продлить в разделе настроек")
             default:break
             }
             
-            switch User.shared.freeUserStatus {
+            switch CurrentUser.shared.freeUserStatus {
             case.endend:createAlert(text: "Ваш срок бесплатного пользования истек. Вы можете активировать платную подписку для доступа к услугам")
             default:break
             }
@@ -98,7 +99,7 @@ extension HomeViewController: MenuControllerDelegate {
     
     func checkUserStatus(){
         
-        switch User.shared.subscriptionStatus {
+        switch CurrentUser.shared.subscriptionStatus {
         case .valid(expirationDate: let expirationDate):
             let rusDate = Formatter.formatToRusDate.string(from: expirationDate)
             additionallabel.text  = "Подписка активна до \(rusDate)"
@@ -110,9 +111,9 @@ extension HomeViewController: MenuControllerDelegate {
             break
         }
         
-        switch User.shared.freeUserStatus {
-        case .valid(expirationDate: _):
-            numberOfDayFreeVersion.text = User.shared.amountOfDayEndTrialPeriod()
+        switch CurrentUser.shared.freeUserStatus {
+        case .valid(expirationDate: let expirationDate):
+            numberOfDayFreeVersion.text = homeModel.amountOfDayEndTrialPeriod(expirationDate: expirationDate)
             additionallabel.text = "До истечения бесплатного пользования"
         case .endend:
             numberOfDayFreeVersion.text = ""
@@ -136,7 +137,7 @@ extension HomeViewController {
             if connection.status == .connected {
                 currentStatusVpn.text = "Подключение выполнено!"
                 
-                if let nameCountry = User.shared.selectedCountry?.name {
+                if let nameCountry = CurrentUser.shared.selectedCountry?.name {
                     currentStatusVpn.text = "Текущая страна: \(nameCountry)"
                 }
                 buttonVpn.image = UIImage(named: "VPNConnected")

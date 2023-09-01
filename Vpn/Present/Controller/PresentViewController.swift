@@ -30,7 +30,7 @@ class PresentViewController: UIViewController {
         
         if Auth.auth().currentUser?.uid != nil { /// Проверяем авторизован наш пользователь в приложении
             guard let phoneNumber = Auth.auth().currentUser!.phoneNumber else {return}
-            User.shared.ID =  phoneNumber
+            CurrentUser.shared.ID =  phoneNumber
             performSegue(withIdentifier: "goToAnimate", sender: self)
         }
     }

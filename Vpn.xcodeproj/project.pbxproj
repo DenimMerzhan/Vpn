@@ -23,13 +23,20 @@
 		CF81B9A02A7BA3E200C10B66 /* MenuCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF81B99F2A7BA3E200C10B66 /* MenuCategory.swift */; };
 		CF81B9A32A7BA40F00C10B66 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF81B9A12A7BA40F00C10B66 /* MenuCell.swift */; };
 		CF81B9A42A7BA40F00C10B66 /* MenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF81B9A22A7BA40F00C10B66 /* MenuCell.xib */; };
+		CF8D76322AA1C5CB0013E9FA /* RegisterNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8D76312AA1C5CB0013E9FA /* RegisterNetworkService.swift */; };
+		CF8D76362AA1C8470013E9FA /* ChangeCountryNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8D76352AA1C8470013E9FA /* ChangeCountryNetworkService.swift */; };
+		CF8D76382AA1CE6C0013E9FA /* LoadAnimateNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8D76372AA1CE6C0013E9FA /* LoadAnimateNetworkService.swift */; };
+		CF8D763D2AA1CF890013E9FA /* LoadAnimateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8D763C2AA1CF890013E9FA /* LoadAnimateModel.swift */; };
 		CF8FB08229D6BCC600993513 /* ChangeCountryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8FB08129D6BCC600993513 /* ChangeCountryController.swift */; };
 		CF8FB08429D6BEF300993513 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8FB08329D6BEF300993513 /* Constants.swift */; };
 		CF8FB08A29D708FF00993513 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8FB08929D708FF00993513 /* Country.swift */; };
 		CF91768B2A716BC400C00358 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF91768A2A716BC400C00358 /* Extension.swift */; };
 		CF91768D2A716EA100C00358 /* SubscriptionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF91768C2A716EA100C00358 /* SubscriptionStatus.swift */; };
-		CF91AF0C29DD4F8300EAAC01 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF91AF0B29DD4F8300EAAC01 /* User.swift */; };
+		CF91AF0C29DD4F8300EAAC01 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF91AF0B29DD4F8300EAAC01 /* CurrentUser.swift */; };
 		CF91AF1629DDBAAD00EAAC01 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF91AF1529DDBAAD00EAAC01 /* MenuViewController.swift */; };
+		CF969D832AA0CFC300CD75F9 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF969D822AA0CFC300CD75F9 /* NetworkService.swift */; };
+		CF969D852AA0D72F00CD75F9 /* MenuNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF969D842AA0D72F00CD75F9 /* MenuNetworkService.swift */; };
+		CF969D872AA0D87C00CD75F9 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF969D862AA0D87C00CD75F9 /* HomeModel.swift */; };
 		CFA56F892A764EA1000B55B7 /* animation_lkp59xl7.json in Resources */ = {isa = PBXBuildFile; fileRef = CFA56F882A764EA1000B55B7 /* animation_lkp59xl7.json */; };
 		CFA56F8B2A764FAA000B55B7 /* LoadAnimateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA56F8A2A764FAA000B55B7 /* LoadAnimateViewController.swift */; };
 		CFAA9DDE29E44776000B3438 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CFAA9DDD29E44776000B3438 /* GoogleService-Info.plist */; };
@@ -58,13 +65,20 @@
 		CF81B99F2A7BA3E200C10B66 /* MenuCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCategory.swift; sourceTree = "<group>"; };
 		CF81B9A12A7BA40F00C10B66 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		CF81B9A22A7BA40F00C10B66 /* MenuCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuCell.xib; sourceTree = "<group>"; };
+		CF8D76312AA1C5CB0013E9FA /* RegisterNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNetworkService.swift; sourceTree = "<group>"; };
+		CF8D76352AA1C8470013E9FA /* ChangeCountryNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeCountryNetworkService.swift; sourceTree = "<group>"; };
+		CF8D76372AA1CE6C0013E9FA /* LoadAnimateNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadAnimateNetworkService.swift; sourceTree = "<group>"; };
+		CF8D763C2AA1CF890013E9FA /* LoadAnimateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadAnimateModel.swift; sourceTree = "<group>"; };
 		CF8FB08129D6BCC600993513 /* ChangeCountryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeCountryController.swift; sourceTree = "<group>"; };
 		CF8FB08329D6BEF300993513 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = Vpn/Application/Model/Constants.swift; sourceTree = SOURCE_ROOT; };
-		CF8FB08929D708FF00993513 /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Country.swift; path = Vpn/Home/Model/Country.swift; sourceTree = SOURCE_ROOT; };
+		CF8FB08929D708FF00993513 /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Country.swift; path = Vpn/ChangeCountry/Model/Country.swift; sourceTree = SOURCE_ROOT; };
 		CF91768A2A716BC400C00358 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		CF91768C2A716EA100C00358 /* SubscriptionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionStatus.swift; sourceTree = "<group>"; };
-		CF91AF0B29DD4F8300EAAC01 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		CF91AF0B29DD4F8300EAAC01 /* CurrentUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 		CF91AF1529DDBAAD00EAAC01 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		CF969D822AA0CFC300CD75F9 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		CF969D842AA0D72F00CD75F9 /* MenuNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuNetworkService.swift; sourceTree = "<group>"; };
+		CF969D862AA0D87C00CD75F9 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
 		CFA56F882A764EA1000B55B7 /* animation_lkp59xl7.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = animation_lkp59xl7.json; sourceTree = "<group>"; };
 		CFA56F8A2A764FAA000B55B7 /* LoadAnimateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadAnimateViewController.swift; sourceTree = "<group>"; };
 		CFAA9DDD29E44776000B3438 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -105,8 +119,10 @@
 		CF09F2902A9F2CC100D21D7D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CF91AF0B29DD4F8300EAAC01 /* CurrentUser.swift */,
 				CF8FB08329D6BEF300993513 /* Constants.swift */,
 				CF91768A2A716BC400C00358 /* Extension.swift */,
+				CFFAE9C22A77A89100E2CBCA /* LoadLabel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -140,7 +156,9 @@
 		CF09F2942A9F2DAD00D21D7D /* LoadAnimate */ = {
 			isa = PBXGroup;
 			children = (
-				CFA56F8A2A764FAA000B55B7 /* LoadAnimateViewController.swift */,
+				CF8D763A2AA1CF740013E9FA /* Model */,
+				CF8D763F2AA1D2B00013E9FA /* Controller */,
+				CF8D76392AA1CE700013E9FA /* LoadAnimateNetworkService */,
 			);
 			path = LoadAnimate;
 			sourceTree = "<group>";
@@ -148,9 +166,9 @@
 		CF09F2952A9F2DBD00D21D7D /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				CF09F2992A9F2DFF00D21D7D /* Controller */,
-				CF09F2982A9F2DF900D21D7D /* View */,
 				CF09F2972A9F2DF400D21D7D /* Model */,
+				CF09F2982A9F2DF900D21D7D /* View */,
+				CF09F2992A9F2DFF00D21D7D /* Controller */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -158,7 +176,9 @@
 		CF09F2962A9F2DC500D21D7D /* ChangeCountry */ = {
 			isa = PBXGroup;
 			children = (
-				CF8FB08129D6BCC600993513 /* ChangeCountryController.swift */,
+				CF8D76332AA1C8100013E9FA /* Model */,
+				CF8D76402AA1D4390013E9FA /* Controller */,
+				CF8D76342AA1C8310013E9FA /* ChangeCountryNetworkService */,
 			);
 			path = ChangeCountry;
 			sourceTree = "<group>";
@@ -167,7 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				CF91768C2A716EA100C00358 /* SubscriptionStatus.swift */,
-				CF8FB08929D708FF00993513 /* Country.swift */,
+				CF969D862AA0D87C00CD75F9 /* HomeModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -222,17 +242,9 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		CF09F29F2A9F2EA400D21D7D /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		CF4828912A7D1DFD00A7BF4F /* Present */ = {
 			isa = PBXGroup;
 			children = (
-				CF09F29F2A9F2EA400D21D7D /* Model */,
 				CF09F29D2A9F2E9700D21D7D /* Controller */,
 			);
 			path = Present;
@@ -262,7 +274,6 @@
 				CFA56F882A764EA1000B55B7 /* animation_lkp59xl7.json */,
 				CF3C1A6F29D5A10F007BD706 /* Vpn.entitlements */,
 				CFD3EEA42A9F2C7F00B69E39 /* Application */,
-				CF5A97D329D3518A00D4F2F5 /* Model */,
 				CF4828912A7D1DFD00A7BF4F /* Present */,
 				CF9176882A7168A400C00358 /* Register */,
 				CF81B99E2A7BA3CD00C10B66 /* Menu */,
@@ -276,37 +287,103 @@
 			path = Vpn;
 			sourceTree = "<group>";
 		};
-		CF5A97D329D3518A00D4F2F5 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				CF91AF0B29DD4F8300EAAC01 /* User.swift */,
-				CFFAE9C22A77A89100E2CBCA /* LoadLabel.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		CF81B99E2A7BA3CD00C10B66 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
 				CF09F29B2A9F2E4700D21D7D /* Model */,
 				CF09F29C2A9F2E4B00D21D7D /* View */,
 				CF09F29A2A9F2E3D00D21D7D /* Controller */,
+				CF8D763E2AA1D29D0013E9FA /* MenuNetworkService */,
 			);
 			path = Menu;
+			sourceTree = "<group>";
+		};
+		CF8D76302AA1C5B80013E9FA /* RegisterNetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				CF8D76312AA1C5CB0013E9FA /* RegisterNetworkService.swift */,
+			);
+			path = RegisterNetworkService;
+			sourceTree = "<group>";
+		};
+		CF8D76332AA1C8100013E9FA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CF8FB08929D708FF00993513 /* Country.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CF8D76342AA1C8310013E9FA /* ChangeCountryNetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				CF8D76352AA1C8470013E9FA /* ChangeCountryNetworkService.swift */,
+			);
+			path = ChangeCountryNetworkService;
+			sourceTree = "<group>";
+		};
+		CF8D76392AA1CE700013E9FA /* LoadAnimateNetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				CF8D76372AA1CE6C0013E9FA /* LoadAnimateNetworkService.swift */,
+			);
+			path = LoadAnimateNetworkService;
+			sourceTree = "<group>";
+		};
+		CF8D763A2AA1CF740013E9FA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CF8D763C2AA1CF890013E9FA /* LoadAnimateModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CF8D763E2AA1D29D0013E9FA /* MenuNetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				CF969D842AA0D72F00CD75F9 /* MenuNetworkService.swift */,
+			);
+			path = MenuNetworkService;
+			sourceTree = "<group>";
+		};
+		CF8D763F2AA1D2B00013E9FA /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CFA56F8A2A764FAA000B55B7 /* LoadAnimateViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		CF8D76402AA1D4390013E9FA /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CF8FB08129D6BCC600993513 /* ChangeCountryController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		CF9176882A7168A400C00358 /* Register */ = {
 			isa = PBXGroup;
 			children = (
+				CF8D76302AA1C5B80013E9FA /* RegisterNetworkService */,
 				CF48831C29E2B0E600702FA0 /* RegisterViewController.swift */,
 				CF09F2A02A9F2EDC00D21D7D /* CodeReviewController.swift */,
 			);
 			path = Register;
 			sourceTree = "<group>";
 		};
+		CF969D802AA0CF6C00CD75F9 /* NetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				CF969D822AA0CFC300CD75F9 /* NetworkService.swift */,
+			);
+			path = NetworkService;
+			sourceTree = "<group>";
+		};
 		CFD3EEA42A9F2C7F00B69E39 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				CF969D802AA0CF6C00CD75F9 /* NetworkService */,
 				CF09F2902A9F2CC100D21D7D /* Model */,
 				CF09F2912A9F2CC900D21D7D /* View */,
 				CF09F2922A9F2CCD00D21D7D /* Controller */,
@@ -434,20 +511,27 @@
 			files = (
 				CF81B9A02A7BA3E200C10B66 /* MenuCategory.swift in Sources */,
 				CF91768B2A716BC400C00358 /* Extension.swift in Sources */,
+				CF969D872AA0D87C00CD75F9 /* HomeModel.swift in Sources */,
 				CF5A97BE29D3164D00D4F2F5 /* HomeViewController.swift in Sources */,
 				CFA56F8B2A764FAA000B55B7 /* LoadAnimateViewController.swift in Sources */,
-				CF91AF0C29DD4F8300EAAC01 /* User.swift in Sources */,
+				CF91AF0C29DD4F8300EAAC01 /* CurrentUser.swift in Sources */,
 				CF5A97BA29D3164D00D4F2F5 /* AppDelegate.swift in Sources */,
 				CF48831D29E2B0E600702FA0 /* RegisterViewController.swift in Sources */,
 				CF5A97D029D31FD300D4F2F5 /* PresentViewController.swift in Sources */,
 				CF6FA3CB2A8212240017DDC4 /* MenuModel.swift in Sources */,
 				CFFAE9C32A77A89100E2CBCA /* LoadLabel.swift in Sources */,
+				CF8D763D2AA1CF890013E9FA /* LoadAnimateModel.swift in Sources */,
+				CF8D76362AA1C8470013E9FA /* ChangeCountryNetworkService.swift in Sources */,
+				CF969D832AA0CFC300CD75F9 /* NetworkService.swift in Sources */,
 				CF5A97BC29D3164D00D4F2F5 /* SceneDelegate.swift in Sources */,
 				CF8FB08A29D708FF00993513 /* Country.swift in Sources */,
 				CF91768D2A716EA100C00358 /* SubscriptionStatus.swift in Sources */,
 				CF09F2A12A9F2EDC00D21D7D /* CodeReviewController.swift in Sources */,
 				CF91AF1629DDBAAD00EAAC01 /* MenuViewController.swift in Sources */,
+				CF8D76322AA1C5CB0013E9FA /* RegisterNetworkService.swift in Sources */,
 				CF8FB08229D6BCC600993513 /* ChangeCountryController.swift in Sources */,
+				CF969D852AA0D72F00CD75F9 /* MenuNetworkService.swift in Sources */,
+				CF8D76382AA1CE6C0013E9FA /* LoadAnimateNetworkService.swift in Sources */,
 				CF4828952A7D1E7D00A7BF4F /* PrivacyPolicyViewController.swift in Sources */,
 				CF81B9A32A7BA40F00C10B66 /* MenuCell.swift in Sources */,
 				CF8FB08429D6BEF300993513 /* Constants.swift in Sources */,

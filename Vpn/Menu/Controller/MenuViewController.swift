@@ -28,10 +28,9 @@ class MenuViewController: UIViewController {
     @IBOutlet weak var loadIndicator: UIActivityIndicatorView!
     @IBOutlet weak var statusLoad: LoadLabel!
     
-    let productID  = "com.TopVpnDenimMerzhan.Vpn"
+    let productID  = "com.TopVpnDenimMerzhan.Vpn1"
     var menuCategories = [MenuCategory]()
     var delegate: MenuControllerDelegate?
-    let menuModel = MenuModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,7 +85,7 @@ class MenuViewController: UIViewController {
 extension MenuViewController {
     func startSetup(){
         
-        menuCategories =  menuModel.fillMenuCategory(menuCategory: menuCategories, phoneNumber: Auth.auth().currentUser?.phoneNumber)
+        menuCategories =  MenuModel.fillMenuCategory(menuCategory: menuCategories, phoneNumber: Auth.auth().currentUser?.phoneNumber)
         
         SKPaymentQueue.default().add(self)
         
@@ -97,7 +96,7 @@ extension MenuViewController {
         tableView.clipsToBounds = true
         tableView.register(UINib(nibName: "MenuCell", bundle: nil), forCellReuseIdentifier: "MenuCell")
         
-        switch User.shared.subscriptionStatus {
+        switch CurrentUser.shared.subscriptionStatus {
         case.valid(expirationDate: _): premiumButton.setTitle("Подписка активирована", for: .normal)
             premiumButton.isUserInteractionEnabled = false
         case .ended: premiumButton.setTitle("Продлить подписку", for: .normal)
@@ -220,11 +219,17 @@ extension MenuViewController: SKPaymentTransactionObserver {
                 if statusLoad.timer?.isValid == false {
                     statusLoad.createTextAnimate(textToAdd: "Идет настройка аккаунта")
                 }
-                User.shared.getReceipt { [weak self] in
-                    DispatchQueue.main.async {
-                        self?.restoreVCForDefault()
-                        self?.delegate?.userBuyPremium()
+                
+                MenuNetworkService.getReceipt { [weak self] dateEndSubscription in
+                    
+                    if Date() > dateEndSubscription {
+                        CurrentUser.shared.subscriptionStatus = .ended
+                    }else {
+                        CurrentUser.shared.subscriptionStatus = .valid(expirationDate: dateEndSubscription)
                     }
+                    
+                    self?.restoreVCForDefault()
+                    self?.delegate?.userBuyPremium()
                 }
                 AVVPNService.shared.disconnect()
             }
@@ -275,20 +280,22 @@ extension MenuViewController: SKRequestDelegate {
             if statusLoad.timer?.isValid == false {
                 statusLoad.createTextAnimate(textToAdd: "Идет настройка аккаунта")
             }
-            User.shared.getReceipt { [weak self] in
-                DispatchQueue.main.async {
-                    switch User.shared.subscriptionStatus {
-                    case .valid(expirationDate: _):
-                        self?.premiumButton.setTitle("Подписка активирована", for: .normal)
-                    case .ended: self?.premiumButton.setTitle("Продлить подписку", for: .normal)
-                    default: break
-                    }
-                    self?.premiumButton.sizeToFit()
-                    self?.restoreVCForDefault()
-                    self?.delegate?.userBuyPremium()
+            
+            MenuNetworkService.getReceipt { [weak self] dateEndSubscription in
+                
+                if dateEndSubscription < Date(){
+                    CurrentUser.shared.subscriptionStatus = .ended
+                    self?.premiumButton.setTitle("Продлить подписку", for: .normal)
+                }else {
+                    CurrentUser.shared.subscriptionStatus = .valid(expirationDate: dateEndSubscription)
+                    self?.premiumButton.setTitle("Подписка активирована", for: .normal)
                 }
+                
+                self?.premiumButton.sizeToFit()
+                self?.restoreVCForDefault()
+                self?.delegate?.userBuyPremium()
+                AVVPNService.shared.disconnect()
             }
-            AVVPNService.shared.disconnect()
         }
     }
     

@@ -22,7 +22,7 @@ class CodeReviewController: UIViewController {
     var verifictaionID: String!
     var phoneNumber: String!
     
-    private let db = Firestore.firestore()
+    private let registerNetworService = RegisterNetworkService()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,12 +62,15 @@ class CodeReviewController: UIViewController {
             }else {
                 
                 guard let phoneNumber = self?.phoneNumber else {return}
-                User.shared.ID = phoneNumber
-                User.shared.checkIsExistUser { [weak self] isExistUser in
+                CurrentUser.shared.ID = phoneNumber
+                
+                self?.registerNetworService.checkIsExistUser(userID: CurrentUser.shared.ID) { [weak self] isExistUser in
                     if isExistUser {
                         self?.performSegue(withIdentifier: "authToAnimate", sender: self)
                     }else {
-                        self?.createNewUser()
+                        self?.registerNetworService.createNewUser(phoneNumber: phoneNumber, completion: {
+                            
+                        })
                     }
                 }
             }
@@ -145,21 +148,6 @@ extension CodeReviewController: UITextViewDelegate {
             checkCodeButton.alpha = 0.2
             checkCodeButton.isEnabled = false
         }
-    }
-    
-}
-
-//MARK: -  Создание нового пользователя
-
-extension CodeReviewController {
-    
-    func createNewUser(){
-        db.collection("Users").document(phoneNumber).setData(["dateActivationTrial" : Date().timeIntervalSince1970,
-            "ID": phoneNumber!],completion: { err in
-            if let error = err {
-                print("Ошибка создания нового пользователя - \(error)")
-            }else {self.performSegue(withIdentifier: "authToAnimate", sender: self)}
-        })
     }
     
 }

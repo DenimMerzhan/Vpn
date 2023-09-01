@@ -23,8 +23,7 @@ class ChangeCountryController: UITableViewController {
         return indicator
     }()
     
-    var countryNames = [String]()
-    let db = Firestore.firestore()
+    var countryArr = [Country]()
     
     override func viewWillAppear(_ animated: Bool) {
         
@@ -41,7 +40,13 @@ class ChangeCountryController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadCountry()
+        
+        ChangeCountryNetworkService.loadAllCountry { [weak self] countryArr in
+            
+            self?.countryArr = countryArr
+            self?.loadIndicator.stopAnimating()
+            self?.tableView.reloadData()
+        }
         
         searchBar.searchTextField.backgroundColor = UIColor(named: K.color.placeholder) /// Настраиваем строку поиска
         searchBar.placeholder = "Поиск"
@@ -57,18 +62,18 @@ class ChangeCountryController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return countryNames.count
+        return countryArr.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "countryCell", for: indexPath)
-        cell.textLabel?.text = countryNames[indexPath.row]
+        cell.textLabel?.text = countryArr[indexPath.row].name
         cell.backgroundColor = .clear
         cell.textLabel?.textColor = .white
         tableView.rowHeight = 60
         
-        if countryNames[indexPath.row] == User.shared.selectedCountry?.name {
+        if countryArr[indexPath.row].name == CurrentUser.shared.selectedCountry?.name {
             cell.accessoryType = .checkmark
         }else {cell.accessoryType = .none}
                 
@@ -79,40 +84,12 @@ class ChangeCountryController: UITableViewController {
 
     //MARK: - Пользователь выбрал ячейку
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) { /// Выбрав ячейку мы сохраняем данные для входа на сервер в UserDefaults
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let selectedCountryName = countryNames[indexPath.row]
-        User.shared.selectedCountry = Country(name: selectedCountryName)
+        let country = countryArr[indexPath.row]
+        CurrentUser.shared.selectedCountry = country
+        ChangeCountryNetworkService.writeLastSelectedCountry(nameCountry: country.name, userID: CurrentUser.shared.ID)
         tableView.reloadData()
         tableView.deselectRow(at: indexPath, animated: true)
     }
-}
-
-
-//MARK: - Загрузка названий стран
-
-extension ChangeCountryController { /// Загружаем данные для подключения к впн с сервера и записывем в массив стран
-    
-    func loadCountry() {
-        
-        db.collection("Country").getDocuments { querySnapshot, err in
-            
-            if let error = err {print("Ошибка загрузки названия стран - \(error)")}
-            guard querySnapshot != nil else {return}
-            
-            for document in querySnapshot!.documents {
-                let data = document.data()
-                if let nameCountry = data["name"] as? String {
-                    self.countryNames.append(nameCountry)
-                }
-            }
-            
-            DispatchQueue.main.async { [weak self] in
-                self?.loadIndicator.stopAnimating()
-                self?.tableView.reloadData()
-            }
-        }
-        
-    }
-    
 }

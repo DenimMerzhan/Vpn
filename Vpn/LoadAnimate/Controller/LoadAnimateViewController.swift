@@ -11,15 +11,18 @@ import StoreKit
 
 class LoadAnimateViewController: UIViewController {
     
-    var animation = LottieAnimationView(name: "animation_lkp59xl7")
-    var statusLoad = LoadLabel()
-    var reauthorizationTimer: Timer?
+    private var animation = LottieAnimationView(name: "animation_lkp59xl7")
+    private var statusLoad = LoadLabel()
+    private var reauthorizationTimer: Timer?
+    private let loadAnimateNetworkService = LoadAnimateNetworkService()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         navigationController?.navigationBar.isHidden = true
+        
         setupAnimation()
         statusLoad.createTextAnimate(textToAdd: "Идет загрузка информации о пользователе...")
         loadUserData()
@@ -30,25 +33,27 @@ class LoadAnimateViewController: UIViewController {
     
     func loadUserData(){
         
-        User.shared.loadMetadata { [weak self] success  in
+        loadAnimateNetworkService.loadMetadata { [weak self] isConntectToInternet in
             
-            if success { /// Если данные загрузились успешно то пытаемся загрузить квитанцию
-                User.shared.getReceipt {
-                    DispatchQueue.main.async {
-                        self?.performSegue(withIdentifier: "animateToHomeController", sender: self)
-                    }
-                }
-            }else { /// Если нет пишем о том что должно быть подключение к интернету и повторяем действие
-                
-                if self?.statusLoad.timer?.isValid == false {
-                    self?.statusLoad.createTextAnimate(textToAdd: "Требуется подключение к интернету")
-                }
+            if isConntectToInternet == false {
+                self?.statusLoad.createTextAnimate(textToAdd: "Требуется подключение к интернету")
                 self?.loadUserData()
+                return
+            }
+            
+            MenuNetworkService.getReceipt { dateEndSubscription in
+                
+                if dateEndSubscription < Date(){
+                    CurrentUser.shared.subscriptionStatus = .ended
+                }else {
+                    CurrentUser.shared.subscriptionStatus = .valid(expirationDate: dateEndSubscription)
+                }
+                self?.performSegue(withIdentifier: "animateToHomeController", sender: self)
             }
         }
     }
-    
 }
+
 
 
 //MARK: - Анимация загрузки
