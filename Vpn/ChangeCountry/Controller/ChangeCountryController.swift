@@ -88,7 +88,13 @@ class ChangeCountryController: UITableViewController {
         
         let country = countryArr[indexPath.row]
         CurrentUser.shared.selectedCountry = country
-        ChangeCountryNetworkService.writeLastSelectedCountry(nameCountry: country.name, userID: CurrentUser.shared.ID)
+        
+        if CurrentUser.shared.ID == "test" {
+            ChangeCountryNetworkService.writeLastSelectedCountryOnUserDefault(nameCountry: country.name)
+        }else {
+            ChangeCountryNetworkService.writeLastSelectedCountryOnServer(nameCountry: country.name, userID: CurrentUser.shared.ID)
+        }
+        
         tableView.reloadData()
         tableView.deselectRow(at: indexPath, animated: true)
     }
