@@ -16,6 +16,5 @@ VPN Manager
 ![IMG_1680](https://github.com/DenimMerzhan/Vpn/assets/127289949/46d24251-e607-45bd-b12c-411a0d2ee158)
 ![IMG_1679](https://github.com/DenimMerzhan/Vpn/assets/127289949/4bd7acbf-9722-42f8-85e9-a1cc7d066510)
 ![IMG_1674](https://github.com/DenimMerzhan/Vpn/assets/127289949/7bd85bf9-c04c-4776-b0e1-c68139fdcc92)
-![IMG_1681 (1)](https://github.com/DenimMerzhan/Vpn/assets/127289949/6daa5858-115b-4eba-b6dc-ee936efda294)
 
 
