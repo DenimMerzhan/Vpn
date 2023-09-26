@@ -10,11 +10,11 @@ VPN Manager
 6) Выбор страны подключения
 7) Отслеживание статуса ВПН
 
-<img src="Screenshot/1.PNG" width = "300">
-<img src="Screenshot/2.PNG" width = "300">
-<img src="Screenshot/3.PNG" width = "300">
-<img src="Screenshot/4.PNG" width = "300">
-<img src="Screenshot/5.PNG" width = "300">
-<img src="Screenshot/6.PNG" width = "300">
+<img align="left" width = "300" src="Screenshot/1.PNG">
+<img align="left" width = "300" src="Screenshot/2.PNG">
+<img align="left" width = "300" src="Screenshot/3.PNG">
+<img align="left" width = "300" src="Screenshot/4.PNG">
+<img align="left" width = "300" src="Screenshot/5.PNG">
+<img align="left" width = "300" src="Screenshot/6.PNG">
 
 
