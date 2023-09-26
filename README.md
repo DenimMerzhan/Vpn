@@ -10,9 +10,10 @@
 5) Подключение впн по протоколу IKEv2
 6) Выбор страны подключения
 7) Отслеживание статуса ВПН
-![IMG_1683](https://github.com/DenimMerzhan/Vpn/assets/127289949/921066ed-dcc9-40bc-8a28-d57fee40bf36)
-![IMG_1682](https://github.com/DenimMerzhan/Vpn/assets/127289949/e5bf4eb7-1cd6-4e81-a433-b1379d181ae2)
-![IMG_1681](https://github.com/DenimMerzhan/Vpn/assets/127289949/ddea8477-ba5f-4006-b23c-85f69ea1d4d5)
-![IMG_1680](https://github.com/DenimMerzhan/Vpn/assets/127289949/824b0c17-b637-4cce-a72e-c05d8b9f0792)
-![IMG_1679](https://github.com/DenimMerzhan/Vpn/assets/127289949/9267f3d8-3820-45b6-892e-2ee5bb474884)
-![IMG_1674](https://github.com/DenimMerzhan/Vpn/assets/127289949/372a6c58-5cba-45c6-b272-6261f0742791)
+![IMG_1683](https://github.com/DenimMerzhan/Vpn/assets/127289949/6a0bcdda-0577-40eb-b006-19267a48ce3a)
+![IMG_1682](https://github.com/DenimMerzhan/Vpn/assets/127289949/564e9e13-4f35-4bc4-81ff-21a3e8c7f7f3)
+![IMG_1681](https://github.com/DenimMerzhan/Vpn/assets/127289949/055366a5-41ff-4fcb-a5c2-e46022612f7e)
+![IMG_1680](https://github.com/DenimMerzhan/Vpn/assets/127289949/5978eb2c-9090-4f3e-a0e4-80a802684d21)
+![IMG_1679](https://github.com/DenimMerzhan/Vpn/assets/127289949/63a9ae8e-3085-4075-b632-8d538b08d26e)
+![IMG_1674](https://github.com/DenimMerzhan/Vpn/assets/127289949/ad88c23a-5816-47b4-ad0a-96a66210bbc4)
+
