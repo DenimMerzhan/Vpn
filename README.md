@@ -1,5 +1,4 @@
-![Simulator Screen Shot - iPad Pro (12 9-inch) (6th generation) - 2023-08-10 at 12 26 15](https://github.com/DenimMerzhan/Vpn/assets/127289949/677f5965-2aed-425d-96ba-67a56ed34e5e)# Vpn
-Стандартный VPN Manager
+VPN Manager
 
 Функции 
 
@@ -10,10 +9,11 @@
 5) Подключение впн по протоколу IKEv2
 6) Выбор страны подключения
 7) Отслеживание статуса ВПН
-![IMG_1683](https://github.com/DenimMerzhan/Vpn/assets/127289949/6a0bcdda-0577-40eb-b006-19267a48ce3a)
-![IMG_1682](https://github.com/DenimMerzhan/Vpn/assets/127289949/564e9e13-4f35-4bc4-81ff-21a3e8c7f7f3)
-![IMG_1681](https://github.com/DenimMerzhan/Vpn/assets/127289949/055366a5-41ff-4fcb-a5c2-e46022612f7e)
-![IMG_1680](https://github.com/DenimMerzhan/Vpn/assets/127289949/5978eb2c-9090-4f3e-a0e4-80a802684d21)
-![IMG_1679](https://github.com/DenimMerzhan/Vpn/assets/127289949/63a9ae8e-3085-4075-b632-8d538b08d26e)
-![IMG_1674](https://github.com/DenimMerzhan/Vpn/assets/127289949/ad88c23a-5816-47b4-ad0a-96a66210bbc4)
 
+
+![IMG_1683](https://github.com/DenimMerzhan/Vpn/assets/127289949/01dc1585-8dfb-4573-a0d9-d19469cf4730)
+![IMG_1682](https://github.com/DenimMerzhan/Vpn/assets/127289949/2430a41c-a3cc-4258-b9cb-96c299c06e11)
+![IMG_1681](https://github.com/DenimMerzhan/Vpn/assets/127289949/c7dcee9d-1763-4f54-9e43-19dfd663c9eb)
+![IMG_1680](https://github.com/DenimMerzhan/Vpn/assets/127289949/bcc01b1d-0777-42f5-bc88-0e95eea96099)
+![IMG_1679](https://github.com/DenimMerzhan/Vpn/assets/127289949/73e1924e-e9a8-41da-b746-747cb590811b)
+![IMG_1674](https://github.com/DenimMerzhan/Vpn/assets/127289949/4a6dd38e-aecc-4d25-bda8-54e42d767d9c)
