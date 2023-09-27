@@ -43,13 +43,12 @@ class PresentViewController: UIViewController {
         
         if let name = userDefaults.value(forKey: "LastSelectedCountry") as? String {
             let loadNetworkService =  LoadAnimateNetworkService()
-            loadNetworkService.loadCountry(name: name) { [weak self] country in
+            loadNetworkService.loadCountry(name: name) { country in
                 CurrentUser.shared.selectedCountry = country
-                self?.navigationController?.pushViewController(homeController, animated: true)
             }
-        }else {
-            navigationController?.pushViewController(homeController, animated: true)
         }
+        
+        navigationController?.pushViewController(homeController, animated: true)
     }
 }
 
