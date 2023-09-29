@@ -19,6 +19,7 @@
 		CF5A97C329D3164E00D4F2F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF5A97C229D3164E00D4F2F5 /* Assets.xcassets */; };
 		CF5A97C629D3164E00D4F2F5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF5A97C429D3164E00D4F2F5 /* LaunchScreen.storyboard */; };
 		CF5A97D029D31FD300D4F2F5 /* PresentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5A97CF29D31FD300D4F2F5 /* PresentViewController.swift */; };
+		CF65B53F2AC5C89E00EA31ED /* HomeNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF65B53E2AC5C89E00EA31ED /* HomeNetworkService.swift */; };
 		CF6FA3CB2A8212240017DDC4 /* MenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6FA3CA2A8212240017DDC4 /* MenuModel.swift */; };
 		CF81B9A02A7BA3E200C10B66 /* MenuCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF81B99F2A7BA3E200C10B66 /* MenuCategory.swift */; };
 		CF81B9A32A7BA40F00C10B66 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF81B9A12A7BA40F00C10B66 /* MenuCell.swift */; };
@@ -61,6 +62,7 @@
 		CF5A97C529D3164E00D4F2F5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CF5A97C729D3164E00D4F2F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CF5A97CF29D31FD300D4F2F5 /* PresentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentViewController.swift; sourceTree = "<group>"; };
+		CF65B53E2AC5C89E00EA31ED /* HomeNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNetworkService.swift; sourceTree = "<group>"; };
 		CF6FA3CA2A8212240017DDC4 /* MenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuModel.swift; sourceTree = "<group>"; };
 		CF81B99F2A7BA3E200C10B66 /* MenuCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCategory.swift; sourceTree = "<group>"; };
 		CF81B9A12A7BA40F00C10B66 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 				CF09F2972A9F2DF400D21D7D /* Model */,
 				CF09F2982A9F2DF900D21D7D /* View */,
 				CF09F2992A9F2DFF00D21D7D /* Controller */,
+				CF65B5402AC5C8A100EA31ED /* HomeNetworkService */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -285,6 +288,14 @@
 				CFAA9DDD29E44776000B3438 /* GoogleService-Info.plist */,
 			);
 			path = Vpn;
+			sourceTree = "<group>";
+		};
+		CF65B5402AC5C8A100EA31ED /* HomeNetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				CF65B53E2AC5C89E00EA31ED /* HomeNetworkService.swift */,
+			);
+			path = HomeNetworkService;
 			sourceTree = "<group>";
 		};
 		CF81B99E2A7BA3CD00C10B66 /* Menu */ = {
@@ -527,6 +538,7 @@
 				CF8FB08A29D708FF00993513 /* Country.swift in Sources */,
 				CF91768D2A716EA100C00358 /* SubscriptionStatus.swift in Sources */,
 				CF09F2A12A9F2EDC00D21D7D /* CodeReviewController.swift in Sources */,
+				CF65B53F2AC5C89E00EA31ED /* HomeNetworkService.swift in Sources */,
 				CF91AF1629DDBAAD00EAAC01 /* MenuViewController.swift in Sources */,
 				CF8D76322AA1C5CB0013E9FA /* RegisterNetworkService.swift in Sources */,
 				CF8FB08229D6BCC600993513 /* ChangeCountryController.swift in Sources */,

@@ -51,7 +51,7 @@ class NetworkService {
     
     
     
-    func getMetadataAboutUser(completion: @escaping (_ dateFirstLaunch: Double?,_ lastSelectedCountry: String?,_ isConntectToInternet: Bool?) -> ()) { /// Загрузка или добавление  бесплатных пользователей
+    func getDateFirstLaunch(completion: @escaping (_ dateFirstLaunch: Double?,_ isConntectToInternet: Bool?) -> ()) { /// Загрузка или добавление  бесплатных пользователей
         
         db.collection("Users").whereField("ID", isEqualTo: CurrentUser.shared.ID).getDocuments(completion: { querySnapshot, err in
             
@@ -59,7 +59,7 @@ class NetworkService {
             guard querySnapshot != nil else {return}
             
             if querySnapshot!.metadata.isFromCache { /// Если данные из кэша значит пользователь не подключен к интернету
-                completion(nil,nil,false)
+                completion(nil,false)
                 return
             }
             
@@ -68,16 +68,16 @@ class NetworkService {
                 if let dateFirstLaunch = documentData["dateActivationTrial"] as? TimeInterval {
                     
                     if let lastSelectedCountry = documentData["lastSelectedCountry"] as? String {
-                        completion(dateFirstLaunch,lastSelectedCountry,true)
+                        completion(dateFirstLaunch,true)
                         return
                     }
-                    completion(dateFirstLaunch,nil,true)
+                    completion(dateFirstLaunch,true)
                     return
                 }
             }
             if let error = err {
                 print("Ошибка получения дата окончания пробного периода - \(error)")
-                completion(nil,nil,true)
+                completion(nil,true)
             }
         })
     }

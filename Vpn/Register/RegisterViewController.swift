@@ -59,14 +59,9 @@ class RegisterViewController: UIViewController {
         PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber!, uiDelegate: nil) { [weak self] verivicationId, error in
             if let err = error {
                 print("Ошибка авторизации - \(err.localizedDescription.description)")
-                let ac = UIAlertController(title: "Произошла ошибка - \(err.localizedDescription.description)", message: nil, preferredStyle: .alert)
-                let cancel = UIAlertAction(title: "Отмена", style: .cancel) { action in
-                    DispatchQueue.main.async { [weak self] in
-                        self?.dismiss(animated: true)
-                    }
+                if let alert = self?.createAlert(errorText: err.localizedDescription.description) {
+                    self?.present(alert, animated: true)
                 }
-                ac.addAction(cancel)
-                self?.present(ac, animated: true)
             }
             else {
                 guard verivicationId != nil else {return}
@@ -117,6 +112,21 @@ extension RegisterViewController: FPNTextFieldDelegate {
         self.present(navigationController, animated: true)
     }
     
+}
+
+//MARK: - CreateAlert
+
+extension RegisterViewController {
+    func createAlert(errorText: String) -> UIAlertController {
+        let ac = UIAlertController(title: "Произошла ошибка - \(errorText)", message: nil, preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "Отмена", style: .cancel) { action in
+            DispatchQueue.main.async { [weak self] in
+                self?.dismiss(animated: true)
+            }
+        }
+        ac.addAction(cancel)
+        return ac
+    }
 }
 
 

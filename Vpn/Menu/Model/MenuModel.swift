@@ -11,7 +11,6 @@ struct MenuModel {
     
     private init(){}
     
-    
     static func fillMenuCategory(menuCategory: [MenuCategory],phoneNumber:String? ) -> [MenuCategory] {
         
         var menuCategories = menuCategory

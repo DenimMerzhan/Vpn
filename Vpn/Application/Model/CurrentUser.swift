@@ -27,7 +27,6 @@ class CurrentUser {
     }
     
     var freeUserStatus = FreeUserStatus.blocked
-    var selectedCountry: Country?
     
     var acesstToVpn: Bool {
         get {
@@ -47,10 +46,6 @@ class CurrentUser {
     private let db = Firestore.firestore()
     
     private init() {}
-    
-    //MARK: - Подсчет даты окончания бесплатного пользования
-    
 
-    
 }
 

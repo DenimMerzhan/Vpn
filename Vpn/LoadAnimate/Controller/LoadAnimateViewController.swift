@@ -15,7 +15,9 @@ class LoadAnimateViewController: UIViewController {
     private var statusLoad = LoadLabel()
     private var reauthorizationTimer: Timer?
     private let loadAnimateNetworkService = LoadAnimateNetworkService()
-    
+    private let loadAnimateModel = LoadAnimateModel()
+    private let userDefault = UserDefaults.standard
+    private var lastSelectedCountry: Country?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,13 +29,18 @@ class LoadAnimateViewController: UIViewController {
         statusLoad.createTextAnimate(textToAdd: "Идет загрузка информации о пользователе...")
         loadUserData()
         
-        
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let homeVC = segue.destination as? HomeViewController else {return}
+        homeVC.country = lastSelectedCountry
+    }
+    
     //MARK: -  Загрузка данных о пользователе
     
     func loadUserData(){
         
-        loadAnimateNetworkService.loadMetadata { [weak self] isConntectToInternet in
+        loadAnimateNetworkService.loadDateFirstLaunch { [weak self] isConntectToInternet, dateFirstLaunch in
             
             if isConntectToInternet == false {
                 self?.statusLoad.createTextAnimate(textToAdd: "Требуется подключение к интернету")
@@ -41,15 +48,38 @@ class LoadAnimateViewController: UIViewController {
                 return
             }
             
-            MenuNetworkService.getReceipt { dateEndSubscription in
-                
-                if dateEndSubscription < Date(){
-                    CurrentUser.shared.subscriptionStatus = .ended
-                }else {
-                    CurrentUser.shared.subscriptionStatus = .valid(expirationDate: dateEndSubscription)
-                }
-                self?.performSegue(withIdentifier: "animateToHomeController", sender: self)
+            if let dateFirstLaunch = dateFirstLaunch {
+                self?.loadAnimateModel.updateUserTrialStatus(dateFirstLaunch: dateFirstLaunch)
             }
+            
+            if let lastSelectedCountryName = self?.userDefault.value(forKey: "LastSelectedCountry") as? String {
+                self?.loadAnimateNetworkService.loadCountry(name: lastSelectedCountryName) { country in
+                    self?.lastSelectedCountry = country
+                    self?.getReceipt()
+                }
+            }else {
+                self?.getReceipt()
+            }
+        }
+    }
+    
+    func getReceipt(){
+        
+        MenuNetworkService.getReceipt { [weak self] isMissingReceipt,dateEndSubscription  in
+            
+            if isMissingReceipt {
+                self?.performSegue(withIdentifier: "animateToHomeController", sender: self)
+                return
+            }
+            
+            guard let dateEndSubscription = dateEndSubscription else {return}
+            if dateEndSubscription < Date(){
+                CurrentUser.shared.subscriptionStatus = .ended
+            }else {
+                CurrentUser.shared.subscriptionStatus = .valid(expirationDate: dateEndSubscription)
+            }
+            
+            self?.performSegue(withIdentifier: "animateToHomeController", sender: self)
         }
     }
 }

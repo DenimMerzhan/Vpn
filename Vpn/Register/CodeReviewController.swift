@@ -38,14 +38,14 @@ class CodeReviewController: UIViewController {
         
         guard let code = codeTextView.text else {return} /// Если не можем получить то выходим из метода
         
-        let credentional = PhoneAuthProvider.provider().credential(withVerificationID: verifictaionID, verificationCode: code)
+        let credential = PhoneAuthProvider.provider().credential(withVerificationID: verifictaionID, verificationCode: code)
         
         loadIndicator.isHidden = false
         loadIndicator.startAnimating()
         codeTextView.endEditing(true)
         checkCodeButton.isEnabled = false
         
-        Auth.auth().signIn(with: credentional) { [weak self] dataResult, error in
+        Auth.auth().signIn(with: credential) { [weak self] dataResult, error in
             
             if let err = error {
                 
@@ -53,10 +53,9 @@ class CodeReviewController: UIViewController {
                 self?.loadIndicator.isHidden = true
                 self?.checkCodeButton.isEnabled = true
                 
-                let ac = UIAlertController(title: err.localizedDescription, message: nil, preferredStyle: .alert)
-                let cancel = UIAlertAction(title: "Отмена", style: .cancel)
-                ac.addAction(cancel)
-                self?.present(ac, animated: true)
+                if let ac = self?.createAlert(text: err.localizedDescription) {
+                    self?.present(ac, animated: true)
+                }
                 print("Ошибка авторизации - \(err.localizedDescription)")
                 
             }else {
@@ -64,12 +63,26 @@ class CodeReviewController: UIViewController {
                 guard let phoneNumber = self?.phoneNumber else {return}
                 CurrentUser.shared.ID = phoneNumber
                 
-                self?.registerNetworService.checkIsExistUser(userID: CurrentUser.shared.ID) { [weak self] isExistUser in
+                self?.registerNetworService.checkIsExistUser(userID: CurrentUser.shared.ID) { [weak self] isExistUser, isSuccess in
+                    
+                    if isSuccess == false {
+                        if let alert = self?.createDismissAlert(text: "Не удалось проверить пользователя") {
+                            self?.present(alert, animated: true)
+                        }
+                    }
+                    guard let isExistUser = isExistUser else {return}
+                    
                     if isExistUser {
                         self?.performSegue(withIdentifier: "authToAnimate", sender: self)
                     }else {
-                        self?.registerNetworService.createNewUser(phoneNumber: phoneNumber, completion: {
-                            
+                        self?.registerNetworService.createNewUser(phoneNumber: phoneNumber, completion: { isSuccess in
+                            if isSuccess {
+                                self?.performSegue(withIdentifier: "authToAnimate", sender: self)
+                            }else {
+                                if let alert = self?.createDismissAlert(text: "Не удалось создать нового пользователя") {
+                                    self?.present(alert,animated: true)
+                                }
+                            }
                         })
                     }
                 }
@@ -149,5 +162,24 @@ extension CodeReviewController: UITextViewDelegate {
             checkCodeButton.isEnabled = false
         }
     }
+}
+
+
+extension CodeReviewController {
     
+    func createDismissAlert(text: String) -> UIAlertController {
+        let ac = UIAlertController(title: text, message: nil, preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "Отмена", style: .cancel) { [weak self] action in
+            self?.dismiss(animated: true)
+        }
+        ac.addAction(cancel)
+        return ac
+    }
+    
+    func createAlert(text: String) -> UIAlertController {
+        let ac = UIAlertController(title: text, message: nil, preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "Отмена", style: .cancel)
+        ac.addAction(cancel)
+        return ac
+    }
 }

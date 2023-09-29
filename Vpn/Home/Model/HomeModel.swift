@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 
 struct HomeModel {
@@ -27,6 +28,13 @@ struct HomeModel {
         
         return amountOfDay
         
+    }
+    
+    func createAlert(text:String) -> UIAlertController { /// Функция для создания уведомлений
+        
+        let alert = UIAlertController(title: "Предупреждение!", message:text, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "ок", style: .default))
+        return alert
     }
     
 }

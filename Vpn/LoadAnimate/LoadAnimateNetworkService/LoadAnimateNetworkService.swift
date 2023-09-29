@@ -12,50 +12,41 @@ import FirebaseFirestore
 class LoadAnimateNetworkService {
     
     private let db = Firestore.firestore()
-    private let loadAnimateModel = LoadAnimateModel()
     
-    
-    func loadMetadata(completion: @escaping(_ isConntectToInternet: Bool) -> ()){
+    func loadDateFirstLaunch(completion: @escaping(_ isConntectToInternet: Bool,_ dateFirstLaunch: Double?) -> ()){
         
-        NetworkService.shared.getMetadataAboutUser { [weak self] dateFirstLaunch, lastSelectedCountry, isConntectToInternet in
+        NetworkService.shared.getDateFirstLaunch { dateFirstLaunch, isConntectToInternet in
             
             if isConntectToInternet == false {
-                completion(false)
+                completion(false,nil)
                 return
             }
-            
-            if let dateFirstLaunch = dateFirstLaunch {
-                self?.loadAnimateModel.updateUserTrialStatus(dateFirstLaunch: dateFirstLaunch)
-            }
-            
-            if let lastSelectedCountry = lastSelectedCountry {
-                self?.loadCountry(name: lastSelectedCountry) { country in
-                    CurrentUser.shared.selectedCountry = country
-                }
-            }
-            completion(true)
+            completion(true,dateFirstLaunch)
             
         }
         
     }
     
-    func loadCountry(name: String, completion: @escaping(_ country: Country) -> ()){
+    func loadCountry(name: String, completion: @escaping(_ country: Country?) -> ()){
         
         db.collection("Country").whereField("name", isEqualTo: name).getDocuments { QuerySnapshot, error in
             if let error = error {print("Ошибка загрузки страны - \(error)")}
             
-            guard let QuerySnapshot = QuerySnapshot else {return}
+            guard let querySnapshot = QuerySnapshot else {
+                completion(nil)
+                return}
             
-            for document in QuerySnapshot.documents {
+            for document in querySnapshot.documents {
                 let data = document.data()
                 
                 if let countryName = data["name"] as? String,let serverIP = data["serverIP"] as? String, let password = data["password"] as? String, let userName = data["userName"] as? String {
                     let country = Country(name: countryName, serverIP: serverIP, userName: userName, password: password)
                     completion(country)
+                    return
                 }
                 
             }
-            
+            completion(nil)
         }
         
     }

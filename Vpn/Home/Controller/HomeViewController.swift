@@ -16,6 +16,7 @@ class HomeViewController: UIViewController {
     
     private var pressedVPNButton: Bool = false
     private let homeModel = HomeModel()
+    var country: Country?
     
     @IBOutlet weak var currentCountryVpn: UILabel!
     @IBOutlet weak var currentStatusVpn: UILabel!
@@ -43,8 +44,12 @@ class HomeViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let menuVC = segue.destination as? MenuViewController else {return}
-        menuVC.delegate = self
+        if let menuVC = segue.destination as? MenuViewController {
+            menuVC.delegate = self
+        }else if let changeCountryVC = segue.destination as? ChangeCountryController {
+            changeCountryVC.delegate = self
+        }
+        
     }
     //MARK: - Кнопка подключения нажата
     
@@ -55,10 +60,10 @@ class HomeViewController: UIViewController {
         if CurrentUser.shared.acesstToVpn { /// Если доступ есть то разрешаем подключение
             
             if pressedVPNButton {
-                let country = CurrentUser.shared.selectedCountry
-                if let serverIP = country?.serverIP, let password = country?.password, let userName = country?.userName  {
+                
+                if let country = self.country  {
                     
-                    let credentials = AVVPNCredentials.IKEv2(server: serverIP, username: userName, password: password, remoteId:serverIP, localId: serverIP)
+                    let credentials = AVVPNCredentials.IKEv2(server: country.serverIP, username: country.userName, password: country.password, remoteId:country.serverIP, localId: country.serverIP)
                     
                     AVVPNService.shared.connect(credentials: credentials) { error in /// Производим подключение к выбранной стране
                         if error != nil {
@@ -67,7 +72,8 @@ class HomeViewController: UIViewController {
                         }
                     }
                 }else {
-                        createAlert(text: "Выберете страну подключения")
+                    let alert = homeModel.createAlert(text: "Выберете страну подключения")
+                    self.present(alert, animated: true)
                     }
             
             }else { /// Если кнопка была нажатва второй раз то отключаемся от ВПН
@@ -77,12 +83,16 @@ class HomeViewController: UIViewController {
         }else { /// Если нету доступа уведомляем пользователя
             
             switch CurrentUser.shared.subscriptionStatus {
-            case .ended: createAlert(text: "Ваш срок подписки истек. Вы можете его продлить в разделе настроек")
+            case .ended:
+                let alert = homeModel.createAlert(text: "Ваш срок подписки истек. Вы можете его продлить в разделе настроек")
+                self.present(alert, animated: true)
             default:break
             }
             
             switch CurrentUser.shared.freeUserStatus {
-            case.endend:createAlert(text: "Ваш срок бесплатного пользования истек. Вы можете активировать платную подписку для доступа к услугам")
+            case.endend:
+                let alert = homeModel.createAlert(text: "Ваш срок бесплатного пользования истек. Вы можете активировать платную подписку для доступа к услугам")
+                self.present(alert, animated: true)
             default:break
             }
         }
@@ -137,7 +147,7 @@ extension HomeViewController {
             if connection.status == .connected {
                 currentStatusVpn.text = "Подключение выполнено!"
                 
-                if let nameCountry = CurrentUser.shared.selectedCountry?.name {
+                if let nameCountry = country?.name {
                     currentStatusVpn.text = "Текущая страна: \(nameCountry)"
                 }
                 buttonVpn.image = UIImage(named: "VPNConnected")
@@ -145,7 +155,6 @@ extension HomeViewController {
             }
             
             else if connection.status == .disconnected {
-                
                 currentStatusVpn.text = "VPN отключен"
                 currentCountryVpn.text = ""
                 buttonVpn.image = UIImage(named: "VpnDIsconnected")
@@ -161,16 +170,12 @@ extension HomeViewController {
     }
 }
 
-//MARK: -  Создание оповещений
+//MARK: - ChangeCountryDelegate
 
-extension HomeViewController {
+extension HomeViewController: ChangeCountryDelegate {
     
-    func createAlert(text:String){ /// Функция для создания уведомлений
-        
-        let alert = UIAlertController(title: "Предупреждение!", message:text, preferredStyle: .alert)
-        present(alert, animated: true)
-        alert.addAction(UIAlertAction(title: "ок", style: .default))
-        
+    func countryHasBeenChanged(country: Country) {
+        self.country = country
     }
 }
 

@@ -9,10 +9,17 @@ import UIKit
 import FirebaseCore
 import FirebaseFirestore
 
+protocol ChangeCountryDelegate: AnyObject {
+    func countryHasBeenChanged(country: Country)
+}
+
 class ChangeCountryController: UITableViewController {
     
-    
     @IBOutlet weak var searchBar: UISearchBar!
+    
+    private var userDefault = UserDefaults.standard
+    private var countryArr = [Country]()
+    weak var delegate: ChangeCountryDelegate?
     
     lazy var loadIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .large)
@@ -23,7 +30,7 @@ class ChangeCountryController: UITableViewController {
         return indicator
     }()
     
-    var countryArr = [Country]()
+
     
     override func viewWillAppear(_ animated: Bool) {
         
@@ -72,10 +79,13 @@ class ChangeCountryController: UITableViewController {
         cell.backgroundColor = .clear
         cell.textLabel?.textColor = .white
         tableView.rowHeight = 60
+        cell.accessoryType = .none
         
-        if countryArr[indexPath.row].name == CurrentUser.shared.selectedCountry?.name {
-            cell.accessoryType = .checkmark
-        }else {cell.accessoryType = .none}
+        if let lastSelectedCountryName = userDefault.value(forKey: "LastSelectedCountry") as? String {
+            if countryArr[indexPath.row].name == lastSelectedCountryName {
+                cell.accessoryType = .checkmark
+            }
+        }
                 
         return cell
     }
@@ -87,8 +97,9 @@ class ChangeCountryController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let country = countryArr[indexPath.row]
-        CurrentUser.shared.selectedCountry = country
-        ChangeCountryNetworkService.writeLastSelectedCountry(nameCountry: country.name, userID: CurrentUser.shared.ID)
+        userDefault.set(country.name, forKey: "LastSelectedCountry")
+        delegate?.countryHasBeenChanged(country: country)
+        
         tableView.reloadData()
         tableView.deselectRow(at: indexPath, animated: true)
     }

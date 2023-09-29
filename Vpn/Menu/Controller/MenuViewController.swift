@@ -220,8 +220,9 @@ extension MenuViewController: SKPaymentTransactionObserver {
                     statusLoad.createTextAnimate(textToAdd: "Идет настройка аккаунта")
                 }
                 
-                MenuNetworkService.getReceipt { [weak self] dateEndSubscription in
+                MenuNetworkService.getReceipt { [weak self] isMissingReceipt ,dateEndSubscription in
                     
+                    guard let dateEndSubscription = dateEndSubscription else {return}
                     if Date() > dateEndSubscription {
                         CurrentUser.shared.subscriptionStatus = .ended
                     }else {
@@ -281,8 +282,9 @@ extension MenuViewController: SKRequestDelegate {
                 statusLoad.createTextAnimate(textToAdd: "Идет настройка аккаунта")
             }
             
-            MenuNetworkService.getReceipt { [weak self] dateEndSubscription in
+            MenuNetworkService.getReceipt { [weak self] isMissingReceipt,dateEndSubscription in
                 
+                guard let dateEndSubscription = dateEndSubscription else {return}
                 if dateEndSubscription < Date(){
                     CurrentUser.shared.subscriptionStatus = .ended
                     self?.premiumButton.setTitle("Продлить подписку", for: .normal)

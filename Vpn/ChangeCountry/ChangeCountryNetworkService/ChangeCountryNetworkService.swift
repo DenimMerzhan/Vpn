@@ -38,14 +38,4 @@ class ChangeCountryNetworkService {
             }
         }
     }
-    
-    static func writeLastSelectedCountry(nameCountry: String,userID: String){
-        
-        let db = Firestore.firestore()
-        db.collection("Users").document(userID).setData(["lastSelectedCountry" : nameCountry],merge: true) { error in
-            if let error = error {print("Ошибка записи последней страны - \(error)")}
-        }
-        
-    }
-    
 }
