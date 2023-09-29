@@ -131,10 +131,8 @@ extension MenuViewController: UITableViewDataSource,UITableViewDelegate {
         cell.isSelected = isSelected
         cell.menuCategory = menuCategories[indexPath.row]
         
-        switch menuCategories[indexPath.row].name {
-        case .privacyPolicy(name:_):
+        if case .privacyPolicy = menuCategories[indexPath.row].name {
             cell.tapGesture.addTarget(self, action: #selector(privacyPolicyPressed))
-        default: break
         }
         
         cell.dropMenuText.text = menuCategories[indexPath.row].description

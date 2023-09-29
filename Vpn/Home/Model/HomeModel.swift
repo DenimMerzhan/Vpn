@@ -17,13 +17,16 @@ struct HomeModel {
         
         let expirationDateSecond = expirationDate.timeIntervalSince1970
         let diff = Int((expirationDateSecond - Date().timeIntervalSince1970) / 86400) /// 86400 - Количество секунд в дне
-        
-        if diff > 4 || diff == 0 {
+        let remainder = diff % 10
+
+        if (10...20).contains(diff) || remainder == 0 {
             amountOfDay = String(diff) + " дней"
-        }else if diff > 1 {
+        }else if (5...9).contains(remainder) {
+            amountOfDay = String(diff) + " дней"
+        }else if (2...4).contains(remainder) {
             amountOfDay = String(diff) + " дня"
-        }else {
-            amountOfDay = String(diff) +  " день"
+        }else if remainder == 1 {
+            amountOfDay = String(diff) + " день"
         }
         
         return amountOfDay

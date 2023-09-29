@@ -9,14 +9,14 @@ import Foundation
 
 struct LoadAnimateModel {
     
-    private let sevenDaySecond: Double = 604800
+    private let thirtyDaySecond: Double = 2592000
     
     func updateUserTrialStatus(dateFirstLaunch: Double){
         
         let differenceBetwenToday = Date().timeIntervalSince1970 - dateFirstLaunch
-        if differenceBetwenToday > sevenDaySecond {CurrentUser.shared.freeUserStatus = .endend}
+        if differenceBetwenToday > thirtyDaySecond {CurrentUser.shared.freeUserStatus = .endend}
         else {
-            let expirationDate = Date(timeIntervalSince1970: dateFirstLaunch + 604800)
+            let expirationDate = Date(timeIntervalSince1970: dateFirstLaunch + thirtyDaySecond)
             CurrentUser.shared.freeUserStatus = .valid(expirationDate: expirationDate)
         }
     }
