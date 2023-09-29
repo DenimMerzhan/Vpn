@@ -49,8 +49,8 @@ class HomeViewController: UIViewController {
         }else if let changeCountryVC = segue.destination as? ChangeCountryController {
             changeCountryVC.delegate = self
         }
-        
     }
+    
     //MARK: - Кнопка подключения нажата
     
     @IBAction func vpnButtonPressed(_ sender: UITapGestureRecognizer) {

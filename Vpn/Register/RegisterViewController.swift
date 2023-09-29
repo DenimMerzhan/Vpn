@@ -16,9 +16,9 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var phoneNumberTextField: FPNTextField!
     @IBOutlet weak var loadIndicator: UIActivityIndicatorView!
     
-    var phoneNumber: String?
-    var verfictationID: String!
-    var listController = FPNCountryListViewController(style: .grouped)
+    private var phoneNumber: String?
+    private var verfictationID: String!
+    private var listController = FPNCountryListViewController(style: .grouped)
     
     
     override func viewDidLoad() {

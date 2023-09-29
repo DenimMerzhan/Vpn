@@ -7,15 +7,43 @@
 
 import UIKit
 
+//protocol MenuCellDelegate: AnyObject {
+//    func privacyPolicyPressed()
+//}
+
 class MenuCell: UITableViewCell {
 
     
     @IBOutlet weak var nameCategory: UILabel!
     @IBOutlet weak var dropMenu: UIView!
-    @IBOutlet weak var descriptionCell: UILabel!
+    @IBOutlet weak var dropMenuText: UILabel!
     
     var tapGesture = UITapGestureRecognizer()
     var arrow = UIImageView()
+    
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {
+                arrow.image = UIImage(named: "ArrowUp")?.withTintColor(.white, renderingMode: .alwaysOriginal)
+                dropMenu.isHidden = false
+            }else {
+                arrow.image = UIImage(named: "ArrowDown")?.withTintColor(.white, renderingMode: .alwaysOriginal)
+                dropMenu.isHidden = true
+            }
+        }
+    }
+    
+    var menuCategory: MenuCategory? {
+        didSet {
+            guard menuCategory != nil else {return}
+            switch menuCategory!.name {
+            case .support(name: let name), .askQuestion(name: let name),.termsOfUse(name: let name), .accountInfo(name: let name):
+                nameCategory.text = name
+            case .privacyPolicy(name: let name):
+                nameCategory.text = name
+            }
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

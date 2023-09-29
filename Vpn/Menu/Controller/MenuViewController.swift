@@ -28,8 +28,8 @@ class MenuViewController: UIViewController {
     @IBOutlet weak var loadIndicator: UIActivityIndicatorView!
     @IBOutlet weak var statusLoad: LoadLabel!
     
-    let productID  = "com.TopVpnDenimMerzhan.Vpn1"
-    var menuCategories = [MenuCategory]()
+    private let productID  = "com.TopVpnDenimMerzhan.Vpn1"
+    private var menuCategories = [MenuCategory]()
     var delegate: MenuControllerDelegate?
     
     override func viewDidLoad() {
@@ -128,26 +128,17 @@ extension MenuViewController: UITableViewDataSource,UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCell", for: indexPath) as! MenuCell
         
         let isSelected = menuCategories[indexPath.row].isSelected
-        
-        if isSelected {
-            cell.arrow.image = UIImage(named: "ArrowUp")?.withTintColor(.white, renderingMode: .alwaysOriginal)
-            cell.dropMenu.isHidden = false
-        }else {
-            cell.arrow.image = UIImage(named: "ArrowDown")?.withTintColor(.white, renderingMode: .alwaysOriginal)
-            cell.dropMenu.isHidden = true
-        }
-        
+        cell.isSelected = isSelected
+        cell.menuCategory = menuCategories[indexPath.row]
         
         switch menuCategories[indexPath.row].name {
-        case .support(name: let name), .askQuestion(name: let name),.termsOfUse(name: let name), .accountInfo(name: let name):
-            cell.nameCategory.text = name
-        case .privacyPolicy(name: let name):
-            cell.nameCategory.text = name
+        case .privacyPolicy(name:_):
             cell.tapGesture.addTarget(self, action: #selector(privacyPolicyPressed))
+        default: break
         }
         
-        cell.descriptionCell.text = menuCategories[indexPath.row].description
-        cell.descriptionCell.sizeToFit()
+        cell.dropMenuText.text = menuCategories[indexPath.row].description
+        cell.dropMenuText.sizeToFit()
         return cell
     }
     

@@ -12,10 +12,8 @@ import FirebaseFirestore
 class CurrentUser {
     
     static var shared = CurrentUser()
-    
+
     var ID = String()
-    var dataFirstLaunch: TimeInterval?
-    var dateEndSubscription: Date?
     
     var subscriptionStatus =  SubscriptionStatus.notBuy {
         didSet {
@@ -43,7 +41,7 @@ class CurrentUser {
         }
     }
     
-    private let db = Firestore.firestore()
+ 
     
     private init() {}
 
