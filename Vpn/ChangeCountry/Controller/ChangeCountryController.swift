@@ -10,7 +10,7 @@ import FirebaseCore
 import FirebaseFirestore
 
 protocol ChangeCountryDelegate: AnyObject {
-    func countryHasBeenChanged(country: Country)
+    func countryHasBeenChanged(country: Server)
 }
 
 class ChangeCountryController: UITableViewController {
@@ -18,7 +18,7 @@ class ChangeCountryController: UITableViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     
     private var userDefault = UserDefaults.standard
-    private var countryArr = [Country]()
+    private var countryArr = [Server]()
     weak var delegate: ChangeCountryDelegate?
     
     lazy var loadIndicator: UIActivityIndicatorView = {

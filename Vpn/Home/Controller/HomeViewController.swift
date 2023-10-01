@@ -16,7 +16,9 @@ class HomeViewController: UIViewController {
     
     private var pressedVPNButton: Bool = false
     private let homeModel = HomeModel()
-    var country: Country?
+    private let homeNetworkService = HomeNetworkService()
+    
+    var country: Server?
     
     @IBOutlet weak var currentCountryVpn: UILabel!
     @IBOutlet weak var currentStatusVpn: UILabel!
@@ -28,6 +30,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeStatus), name: NSNotification.Name.NEVPNStatusDidChange, object: nil) /// Добавляем наблюдателя за впн соединением
         
+        homeNetworkService.getFreeServerAcount(serverName: "Амстердам")
         currentStatusVpn.text = "VPN отключен"
         buttonVpn.isUserInteractionEnabled = true
         checkUserStatus()
@@ -174,7 +177,7 @@ extension HomeViewController {
 
 extension HomeViewController: ChangeCountryDelegate {
     
-    func countryHasBeenChanged(country: Country) {
+    func countryHasBeenChanged(country: Server) {
         self.country = country
     }
 }

@@ -11,10 +11,10 @@ import FirebaseFirestore
 
 class ChangeCountryNetworkService {
     
-    static func loadAllCountry(completion: @escaping ([Country]) -> ())  {
+    static func loadAllCountry(completion: @escaping ([Server]) -> ())  {
         
         let db = Firestore.firestore()
-        var countryArr = [Country]()
+        var countryArr = [Server]()
         
         db.collection("Country").getDocuments { QuerySnapshot, err in
             
@@ -28,7 +28,7 @@ class ChangeCountryNetworkService {
                 let data = document.data()
                 
                 if let countryName = data["name"] as? String,let serverIP = data["serverIP"] as? String, let password = data["password"] as? String, let userName = data["userName"] as? String {
-                    let country = Country(name: countryName, serverIP: serverIP, userName: userName, password: password)
+                    let country = Server(name: countryName, serverIP: serverIP, userName: userName, password: password)
                     countryArr.append(country)
                 }
                 

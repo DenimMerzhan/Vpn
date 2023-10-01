@@ -17,7 +17,7 @@ class LoadAnimateViewController: UIViewController {
     private let loadAnimateNetworkService = LoadAnimateNetworkService()
     private let loadAnimateModel = LoadAnimateModel()
     private let userDefault = UserDefaults.standard
-    private var lastSelectedCountry: Country?
+    private var lastSelectedCountry: Server?
     
     override func viewDidLoad() {
         super.viewDidLoad()

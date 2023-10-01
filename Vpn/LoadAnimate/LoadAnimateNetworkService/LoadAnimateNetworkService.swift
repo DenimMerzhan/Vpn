@@ -27,7 +27,7 @@ class LoadAnimateNetworkService {
         
     }
     
-    func loadCountry(name: String, completion: @escaping(_ country: Country?) -> ()){
+    func loadCountry(name: String, completion: @escaping(_ country: Server?) -> ()){
         
         db.collection("Country").whereField("name", isEqualTo: name).getDocuments { QuerySnapshot, error in
             if let error = error {print("Ошибка загрузки страны - \(error)")}
@@ -40,7 +40,7 @@ class LoadAnimateNetworkService {
                 let data = document.data()
                 
                 if let countryName = data["name"] as? String,let serverIP = data["serverIP"] as? String, let password = data["password"] as? String, let userName = data["userName"] as? String {
-                    let country = Country(name: countryName, serverIP: serverIP, userName: userName, password: password)
+                    let country = Server(name: countryName, serverIP: serverIP, userName: userName, password: password)
                     completion(country)
                     return
                 }

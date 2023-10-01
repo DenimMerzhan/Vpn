@@ -30,7 +30,7 @@
 		CF8D763D2AA1CF890013E9FA /* LoadAnimateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8D763C2AA1CF890013E9FA /* LoadAnimateModel.swift */; };
 		CF8FB08229D6BCC600993513 /* ChangeCountryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8FB08129D6BCC600993513 /* ChangeCountryController.swift */; };
 		CF8FB08429D6BEF300993513 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8FB08329D6BEF300993513 /* Constants.swift */; };
-		CF8FB08A29D708FF00993513 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8FB08929D708FF00993513 /* Country.swift */; };
+		CF8FB08A29D708FF00993513 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8FB08929D708FF00993513 /* Server.swift */; };
 		CF91768B2A716BC400C00358 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF91768A2A716BC400C00358 /* Extension.swift */; };
 		CF91768D2A716EA100C00358 /* SubscriptionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF91768C2A716EA100C00358 /* SubscriptionStatus.swift */; };
 		CF91AF0C29DD4F8300EAAC01 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF91AF0B29DD4F8300EAAC01 /* CurrentUser.swift */; };
@@ -73,7 +73,7 @@
 		CF8D763C2AA1CF890013E9FA /* LoadAnimateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadAnimateModel.swift; sourceTree = "<group>"; };
 		CF8FB08129D6BCC600993513 /* ChangeCountryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeCountryController.swift; sourceTree = "<group>"; };
 		CF8FB08329D6BEF300993513 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = Vpn/Application/Model/Constants.swift; sourceTree = SOURCE_ROOT; };
-		CF8FB08929D708FF00993513 /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Country.swift; path = Vpn/ChangeCountry/Model/Country.swift; sourceTree = SOURCE_ROOT; };
+		CF8FB08929D708FF00993513 /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Server.swift; path = Vpn/ChangeCountry/Model/Server.swift; sourceTree = SOURCE_ROOT; };
 		CF91768A2A716BC400C00358 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		CF91768C2A716EA100C00358 /* SubscriptionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionStatus.swift; sourceTree = "<group>"; };
 		CF91AF0B29DD4F8300EAAC01 /* CurrentUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
@@ -320,7 +320,7 @@
 		CF8D76332AA1C8100013E9FA /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				CF8FB08929D708FF00993513 /* Country.swift */,
+				CF8FB08929D708FF00993513 /* Server.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -535,7 +535,7 @@
 				CF8D76362AA1C8470013E9FA /* ChangeCountryNetworkService.swift in Sources */,
 				CF969D832AA0CFC300CD75F9 /* NetworkService.swift in Sources */,
 				CF5A97BC29D3164D00D4F2F5 /* SceneDelegate.swift in Sources */,
-				CF8FB08A29D708FF00993513 /* Country.swift in Sources */,
+				CF8FB08A29D708FF00993513 /* Server.swift in Sources */,
 				CF91768D2A716EA100C00358 /* SubscriptionStatus.swift in Sources */,
 				CF09F2A12A9F2EDC00D21D7D /* CodeReviewController.swift in Sources */,
 				CF65B53F2AC5C89E00EA31ED /* HomeNetworkService.swift in Sources */,

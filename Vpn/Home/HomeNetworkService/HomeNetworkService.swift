@@ -6,11 +6,24 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 class HomeNetworkService {
     
-    static func loadCountry(name: String, completion: @escaping(Country) -> ()){
+    private let db = Firestore.firestore()
+    
+    func getFreeServerAcount(serverName: String){
         
+        let ref = db.collection("Country").document(serverName)
+        
+        ref.getDocument { documentSnap, err in
+            guard let documentSnapData = documentSnap?.data() else {return}
+            
+            for document in documentSnapData {
+                print(document)
+            }
+
+        }
     }
     
     
