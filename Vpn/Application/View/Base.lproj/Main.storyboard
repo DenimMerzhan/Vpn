@@ -247,7 +247,7 @@
                                 </constraints>
                                 <color key="tintColor" name="ColorBackgound"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" image="link" catalog="system" title="Выбрать страну">
+                                <buttonConfiguration key="configuration" style="filled" image="link" catalog="system" title="Выбрать сервер">
                                     <fontDescription key="titleFontDescription" type="system" pointSize="0.0"/>
                                     <color key="baseBackgroundColor" name="ColorBackgound"/>
                                 </buttonConfiguration>

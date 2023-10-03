@@ -9,17 +9,12 @@ import UIKit
 import FirebaseCore
 import FirebaseFirestore
 
-protocol ChangeCountryDelegate: AnyObject {
-    func serverHasBeenChanged(serverName: String)
-}
-
 class ChangeCountryController: UITableViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
     private var userDefault = UserDefaults.standard
     private var serversNameArr = [String]()
-    weak var delegate: ChangeCountryDelegate?
     
     lazy var loadIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .large)
@@ -98,7 +93,6 @@ class ChangeCountryController: UITableViewController {
         let serverName = serversNameArr[indexPath.row]
         userDefault.set(serverName, forKey: "LastSelectedServer")
         CurrentUser.shared.selectedServerName = serverName
-//        delegate?.serverHasBeenChanged(serverName: serverName)
         
         tableView.reloadData()
         tableView.deselectRow(at: indexPath, animated: true)

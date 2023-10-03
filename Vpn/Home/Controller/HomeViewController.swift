@@ -113,7 +113,7 @@ extension HomeViewController: HomeNetworkServiceProtocol {
                 }
             }
         }else {
-            let alert = homeModel.createAlert(text: "Выберете страну подключения")
+            let alert = homeModel.createAlert(text: "Выберете сервер для подключения")
             self.present(alert, animated: true)
         }
         
@@ -177,7 +177,7 @@ extension HomeViewController {
                 currentStatusVpn.text = "Подключение выполнено!"
                 
                 if let nameCountry = CurrentUser.shared.selectedServerName {
-                    currentStatusVpn.text = "Текущая страна: \(nameCountry)"
+                    currentStatusVpn.text = "Текущий сервер: \(nameCountry)"
                 }
                 buttonVpn.image = UIImage(named: "VPNConnected")
                 

@@ -66,11 +66,6 @@ class NetworkService {
             if let documentData = querySnapshot!.documents.first?.data() {
                 
                 if let dateFirstLaunch = documentData["dateActivationTrial"] as? TimeInterval {
-                    
-                    if let lastSelectedCountry = documentData["lastSelectedCountry"] as? String {
-                        completion(dateFirstLaunch,true)
-                        return
-                    }
                     completion(dateFirstLaunch,true)
                     return
                 }
