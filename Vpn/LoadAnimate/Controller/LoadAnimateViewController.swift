@@ -33,7 +33,9 @@ class LoadAnimateViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let homeVC = segue.destination as? HomeViewController else {return}
-        homeVC.country = lastSelectedCountry
+        if let lastSelectedServer = userDefault.value(forKey: "LastSelectedServer") as? String {
+            homeVC.serverName = lastSelectedServer
+        }
     }
     
     //MARK: -  Загрузка данных о пользователе
@@ -52,14 +54,7 @@ class LoadAnimateViewController: UIViewController {
                 self?.loadAnimateModel.updateUserTrialStatus(dateFirstLaunch: dateFirstLaunch)
             }
             
-            if let lastSelectedCountryName = self?.userDefault.value(forKey: "LastSelectedCountry") as? String {
-                self?.loadAnimateNetworkService.loadCountry(name: lastSelectedCountryName) { country in
-                    self?.lastSelectedCountry = country
-                    self?.getReceipt()
-                }
-            }else {
-                self?.getReceipt()
-            }
+            self?.getReceipt()
         }
     }
     

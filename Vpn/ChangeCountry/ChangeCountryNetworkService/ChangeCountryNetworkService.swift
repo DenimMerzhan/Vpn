@@ -11,12 +11,12 @@ import FirebaseFirestore
 
 class ChangeCountryNetworkService {
     
-    static func loadAllCountry(completion: @escaping ([Server]) -> ())  {
+    static func loadServersName(completion: @escaping ([String]) -> ())  {
         
         let db = Firestore.firestore()
-        var countryArr = [Server]()
+        var serverNameArr = [String]()
         
-        db.collection("Country").getDocuments { QuerySnapshot, err in
+        db.collection("Servers").getDocuments { QuerySnapshot, err in
             
             if let error = err {
                 print("Ошибка загрузки стран - \(error)")
@@ -27,14 +27,13 @@ class ChangeCountryNetworkService {
             for document in querySnapshot.documents {
                 let data = document.data()
                 
-                if let countryName = data["name"] as? String,let serverIP = data["serverIP"] as? String, let password = data["password"] as? String, let userName = data["userName"] as? String {
-                    let country = Server(name: countryName, serverIP: serverIP, userName: userName, password: password)
-                    countryArr.append(country)
+                if let serverName = data["Name"] as? String {
+                    serverNameArr.append(serverName)
                 }
                 
             }
             DispatchQueue.main.async {
-                completion(countryArr)
+                completion(serverNameArr)
             }
         }
     }

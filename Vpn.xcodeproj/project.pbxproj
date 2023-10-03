@@ -41,6 +41,7 @@
 		CFA56F892A764EA1000B55B7 /* animation_lkp59xl7.json in Resources */ = {isa = PBXBuildFile; fileRef = CFA56F882A764EA1000B55B7 /* animation_lkp59xl7.json */; };
 		CFA56F8B2A764FAA000B55B7 /* LoadAnimateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA56F8A2A764FAA000B55B7 /* LoadAnimateViewController.swift */; };
 		CFAA9DDE29E44776000B3438 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CFAA9DDD29E44776000B3438 /* GoogleService-Info.plist */; };
+		CFE6DA582ACB16FF00513A40 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE6DA572ACB16FF00513A40 /* Error.swift */; };
 		CFFAE9C32A77A89100E2CBCA /* LoadLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFAE9C22A77A89100E2CBCA /* LoadLabel.swift */; };
 /* End PBXBuildFile section */
 
@@ -84,6 +85,7 @@
 		CFA56F882A764EA1000B55B7 /* animation_lkp59xl7.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = animation_lkp59xl7.json; sourceTree = "<group>"; };
 		CFA56F8A2A764FAA000B55B7 /* LoadAnimateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadAnimateViewController.swift; sourceTree = "<group>"; };
 		CFAA9DDD29E44776000B3438 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CFE6DA572ACB16FF00513A40 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		CFFAE9C22A77A89100E2CBCA /* LoadLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -191,6 +193,7 @@
 			children = (
 				CF91768C2A716EA100C00358 /* SubscriptionStatus.swift */,
 				CF969D862AA0D87C00CD75F9 /* HomeModel.swift */,
+				CFE6DA572ACB16FF00513A40 /* Error.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -532,6 +535,7 @@
 				CF6FA3CB2A8212240017DDC4 /* MenuModel.swift in Sources */,
 				CFFAE9C32A77A89100E2CBCA /* LoadLabel.swift in Sources */,
 				CF8D763D2AA1CF890013E9FA /* LoadAnimateModel.swift in Sources */,
+				CFE6DA582ACB16FF00513A40 /* Error.swift in Sources */,
 				CF8D76362AA1C8470013E9FA /* ChangeCountryNetworkService.swift in Sources */,
 				CF969D832AA0CFC300CD75F9 /* NetworkService.swift in Sources */,
 				CF5A97BC29D3164D00D4F2F5 /* SceneDelegate.swift in Sources */,

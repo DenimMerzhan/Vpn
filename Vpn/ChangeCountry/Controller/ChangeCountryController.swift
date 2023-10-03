@@ -10,7 +10,7 @@ import FirebaseCore
 import FirebaseFirestore
 
 protocol ChangeCountryDelegate: AnyObject {
-    func countryHasBeenChanged(country: Server)
+    func serverHasBeenChanged(serverName: String)
 }
 
 class ChangeCountryController: UITableViewController {
@@ -18,7 +18,7 @@ class ChangeCountryController: UITableViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     
     private var userDefault = UserDefaults.standard
-    private var countryArr = [Server]()
+    private var serversNameArr = [String]()
     weak var delegate: ChangeCountryDelegate?
     
     lazy var loadIndicator: UIActivityIndicatorView = {
@@ -48,9 +48,8 @@ class ChangeCountryController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        ChangeCountryNetworkService.loadAllCountry { [weak self] countryArr in
-            
-            self?.countryArr = countryArr
+        ChangeCountryNetworkService.loadServersName { [weak self] serversArr in
+            self?.serversNameArr = serversArr
             self?.loadIndicator.stopAnimating()
             self?.tableView.reloadData()
         }
@@ -69,20 +68,20 @@ class ChangeCountryController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return countryArr.count
+        return serversNameArr.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "countryCell", for: indexPath)
-        cell.textLabel?.text = countryArr[indexPath.row].name
+        cell.textLabel?.text = serversNameArr[indexPath.row]
         cell.backgroundColor = .clear
         cell.textLabel?.textColor = .white
         tableView.rowHeight = 60
         cell.accessoryType = .none
         
-        if let lastSelectedCountryName = userDefault.value(forKey: "LastSelectedCountry") as? String {
-            if countryArr[indexPath.row].name == lastSelectedCountryName {
+        if let lastSelectedServerName = userDefault.value(forKey: "LastSelectedServer") as? String {
+            if serversNameArr[indexPath.row] == lastSelectedServerName {
                 cell.accessoryType = .checkmark
             }
         }
@@ -96,9 +95,9 @@ class ChangeCountryController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let country = countryArr[indexPath.row]
-        userDefault.set(country.name, forKey: "LastSelectedCountry")
-        delegate?.countryHasBeenChanged(country: country)
+        let serverName = serversNameArr[indexPath.row]
+        userDefault.set(serverName, forKey: "LastSelectedServer")
+        delegate?.serverHasBeenChanged(serverName: serverName)
         
         tableView.reloadData()
         tableView.deselectRow(at: indexPath, animated: true)

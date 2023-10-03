@@ -13,12 +13,12 @@ import FirebaseFirestore
 import StoreKit
 
 class HomeViewController: UIViewController {
-    
-    private var pressedVPNButton: Bool = false
+
+    private var isVpnButtonPressed: Bool = false
     private let homeModel = HomeModel()
     private let homeNetworkService = HomeNetworkService()
     
-    var country: Server?
+    var serverName: String?
     
     @IBOutlet weak var currentCountryVpn: UILabel!
     @IBOutlet weak var currentStatusVpn: UILabel!
@@ -30,7 +30,8 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeStatus), name: NSNotification.Name.NEVPNStatusDidChange, object: nil) /// Добавляем наблюдателя за впн соединением
         
-        homeNetworkService.getFreeServerAcount(serverName: "Амстердам")
+        
+        homeNetworkService.delegate = self
         currentStatusVpn.text = "VPN отключен"
         buttonVpn.isUserInteractionEnabled = true
         checkUserStatus()
@@ -58,27 +59,12 @@ class HomeViewController: UIViewController {
     
     @IBAction func vpnButtonPressed(_ sender: UITapGestureRecognizer) {
         
-        pressedVPNButton = !pressedVPNButton
+        isVpnButtonPressed = !isVpnButtonPressed
         
         if CurrentUser.shared.acesstToVpn { /// Если доступ есть то разрешаем подключение
             
-            if pressedVPNButton {
-                
-                if let country = self.country  {
-                    
-                    let credentials = AVVPNCredentials.IKEv2(server: country.serverIP, username: country.userName, password: country.password, remoteId:country.serverIP, localId: country.serverIP)
-                    
-                    AVVPNService.shared.connect(credentials: credentials) { error in /// Производим подключение к выбранной стране
-                        if error != nil {
-                            self.currentStatusVpn.text = "Подключение не удалось \(error!)"
-                            print("Ошибка подключения: \(error!)")
-                        }
-                    }
-                }else {
-                    let alert = homeModel.createAlert(text: "Выберете страну подключения")
-                    self.present(alert, animated: true)
-                    }
-            
+            if isVpnButtonPressed {
+                connectToVpn()
             }else { /// Если кнопка была нажатва второй раз то отключаемся от ВПН
                 AVVPNService.shared.disconnect()
             }
@@ -100,6 +86,44 @@ class HomeViewController: UIViewController {
             }
         }
     }
+}
+
+//MARK: - ConnectToVpn
+
+extension HomeViewController: HomeNetworkServiceProtocol {
+    
+    func connectToVpn(){
+        
+        if let serverName = self.serverName  {
+            
+            currentStatusVpn.text = "Идет получение данных о сервере..."
+            
+            homeNetworkService.getServerData(serverName: serverName) { server in
+                
+                let credentials = AVVPNCredentials.IKEv2(server: server.serverIP, username: server.userName, password: server.password, remoteId:server.remoteID, localId: server.loaclID)
+                
+                AVVPNService.shared.connect(credentials: credentials) { error in /// Производим подключение к выбранной стране
+                    
+                    if error != nil {
+                        self.currentStatusVpn.text = "Подключение не удалось \(error!)"
+                        print("Ошибка подключения: \(error!)")
+                    }
+                }
+            }
+        }else {
+            let alert = homeModel.createAlert(text: "Выберете страну подключения")
+            self.present(alert, animated: true)
+        }
+        
+    }
+    
+    func loadServerWithError(error: String) {
+        let alert = homeModel.createAlert(text: error)
+        self.present(alert, animated: true)
+        isVpnButtonPressed = !isVpnButtonPressed
+        currentStatusVpn.text = "VPN отключен"
+    }
+    
 }
 
 //MARK: -  Проверка статуса пользователя
@@ -150,7 +174,7 @@ extension HomeViewController {
             if connection.status == .connected {
                 currentStatusVpn.text = "Подключение выполнено!"
                 
-                if let nameCountry = country?.name {
+                if let nameCountry = serverName {
                     currentStatusVpn.text = "Текущая страна: \(nameCountry)"
                 }
                 buttonVpn.image = UIImage(named: "VPNConnected")
@@ -177,13 +201,13 @@ extension HomeViewController {
 
 extension HomeViewController: ChangeCountryDelegate {
     
-    func countryHasBeenChanged(country: Server) {
-        self.country = country
+    func serverHasBeenChanged(serverName: String) {
+        self.serverName = serverName
     }
 }
 
 
 
 
-    
-    
+
+
