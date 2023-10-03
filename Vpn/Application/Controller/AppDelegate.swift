@@ -16,8 +16,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        let settings = FirestoreSettings()
+        settings.isPersistenceEnabled = false
+        
         FirebaseApp.configure()
-        _ = Firestore.firestore()
+        Firestore.firestore().settings = settings
+//        let db = Firestore.firestore()
+//        db.settings = settings
         
         return true
     }

@@ -97,7 +97,8 @@ class ChangeCountryController: UITableViewController {
         
         let serverName = serversNameArr[indexPath.row]
         userDefault.set(serverName, forKey: "LastSelectedServer")
-        delegate?.serverHasBeenChanged(serverName: serverName)
+        CurrentUser.shared.selectedServerName = serverName
+//        delegate?.serverHasBeenChanged(serverName: serverName)
         
         tableView.reloadData()
         tableView.deselectRow(at: indexPath, animated: true)

@@ -17,7 +17,6 @@ class LoadAnimateViewController: UIViewController {
     private let loadAnimateNetworkService = LoadAnimateNetworkService()
     private let loadAnimateModel = LoadAnimateModel()
     private let userDefault = UserDefaults.standard
-    private var lastSelectedCountry: Server?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,9 +31,9 @@ class LoadAnimateViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let homeVC = segue.destination as? HomeViewController else {return}
         if let lastSelectedServer = userDefault.value(forKey: "LastSelectedServer") as? String {
-            homeVC.serverName = lastSelectedServer
+            HomeNetworkService().deleteConnectionStatus(serverName: lastSelectedServer,userID: CurrentUser.shared.ID)
+            CurrentUser.shared.selectedServerName = lastSelectedServer
         }
     }
     

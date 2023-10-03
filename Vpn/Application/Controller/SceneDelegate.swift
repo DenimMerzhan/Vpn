@@ -37,6 +37,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 print("Ошибка подключения: \(error!)")
             }
         }
+        
         print("sceneDidDisconnect")
     }
         

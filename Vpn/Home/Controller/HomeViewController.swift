@@ -18,7 +18,7 @@ class HomeViewController: UIViewController {
     private let homeModel = HomeModel()
     private let homeNetworkService = HomeNetworkService()
     
-    var serverName: String?
+    var server: Server?
     
     @IBOutlet weak var currentCountryVpn: UILabel!
     @IBOutlet weak var currentStatusVpn: UILabel!
@@ -29,7 +29,6 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeStatus), name: NSNotification.Name.NEVPNStatusDidChange, object: nil) /// Добавляем наблюдателя за впн соединением
-        
         
         homeNetworkService.delegate = self
         currentStatusVpn.text = "VPN отключен"
@@ -50,8 +49,6 @@ class HomeViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let menuVC = segue.destination as? MenuViewController {
             menuVC.delegate = self
-        }else if let changeCountryVC = segue.destination as? ChangeCountryController {
-            changeCountryVC.delegate = self
         }
     }
     
@@ -67,6 +64,9 @@ class HomeViewController: UIViewController {
                 connectToVpn()
             }else { /// Если кнопка была нажатва второй раз то отключаемся от ВПН
                 AVVPNService.shared.disconnect()
+                if let server = CurrentUser.shared.selectedServerName {
+                    homeNetworkService.deleteConnectionStatus(serverName: server,userID: CurrentUser.shared.ID)
+                }
             }
             
         }else { /// Если нету доступа уведомляем пользователя
@@ -94,18 +94,20 @@ extension HomeViewController: HomeNetworkServiceProtocol {
     
     func connectToVpn(){
         
-        if let serverName = self.serverName  {
+        if let serverName = CurrentUser.shared.selectedServerName  {
             
             currentStatusVpn.text = "Идет получение данных о сервере..."
             
-            homeNetworkService.getServerData(serverName: serverName) { server in
+            homeNetworkService.getServerData(serverName: serverName) { [weak self] server in
+                
+                self?.server = server
                 
                 let credentials = AVVPNCredentials.IKEv2(server: server.serverIP, username: server.userName, password: server.password, remoteId:server.remoteID, localId: server.loaclID)
                 
                 AVVPNService.shared.connect(credentials: credentials) { error in /// Производим подключение к выбранной стране
                     
                     if error != nil {
-                        self.currentStatusVpn.text = "Подключение не удалось \(error!)"
+                        self?.currentStatusVpn.text = "Подключение не удалось \(error!)"
                         print("Ошибка подключения: \(error!)")
                     }
                 }
@@ -174,11 +176,14 @@ extension HomeViewController {
             if connection.status == .connected {
                 currentStatusVpn.text = "Подключение выполнено!"
                 
-                if let nameCountry = serverName {
+                if let nameCountry = CurrentUser.shared.selectedServerName {
                     currentStatusVpn.text = "Текущая страна: \(nameCountry)"
                 }
                 buttonVpn.image = UIImage(named: "VPNConnected")
                 
+                if let server = server {
+                    homeNetworkService.writeConnectionStatus(server: server)
+                }
             }
             
             else if connection.status == .disconnected {
@@ -197,14 +202,6 @@ extension HomeViewController {
     }
 }
 
-//MARK: - ChangeCountryDelegate
-
-extension HomeViewController: ChangeCountryDelegate {
-    
-    func serverHasBeenChanged(serverName: String) {
-        self.serverName = serverName
-    }
-}
 
 
 

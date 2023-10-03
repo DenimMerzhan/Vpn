@@ -14,6 +14,7 @@ class CurrentUser {
     static var shared = CurrentUser()
 
     var ID = String()
+    var selectedServerName: String?
     
     var subscriptionStatus =  SubscriptionStatus.notBuy {
         didSet {
