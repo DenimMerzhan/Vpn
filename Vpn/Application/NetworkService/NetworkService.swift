@@ -9,6 +9,17 @@ import Foundation
 import FirebaseFirestore
 
 
+enum NetworkServiceError: Error {
+    case isMissingReceipt
+    case appleError(String)
+    case isMissingData
+    
+    case noInternetConnection
+    case dateFirstLaunchMissing
+    case firebaseError
+    
+}
+
 class NetworkService {
     
     static let shared = NetworkService()
@@ -17,10 +28,10 @@ class NetworkService {
     private init(){}
     
     
-    func getReceipt(url : URL,completion: @escaping (_ data: Data?,_ isMissingReceipt: Bool) -> ()) { /// Функция для получения даты окончания подписки
+    func getReceipt(url : URL,completion: @escaping (Result<Data, NetworkServiceError>) -> ()) { /// Функция для получения даты окончания подписки
         
         guard let receiptURL = Bundle.main.appStoreReceiptURL,let receiptString =   try? Data(contentsOf: receiptURL).base64EncodedString()  else { /// 1 Путь к файлу квитанции  2  Пытаемся преобразовать файл   Если вдруг нет пути или нет файла то значит нет чека. Либо пользователь не покупал ни разу подписку, либо у него новое устройство тогда он должен нажать восстановить покупки
-            completion(nil,true)
+            sendFailure(error: .isMissingReceipt)
             return
         }
         
@@ -40,18 +51,28 @@ class NetworkService {
         let task = URLSession.shared.dataTask(with: request) { data, urlResponse, err in
             
             if let error = err {
-                print("Ошибка получения квитанции - \(error)")
+                print("Ошибка получения квитанции - \(error.localizedDescription)")
+                sendFailure(error: .appleError(error.localizedDescription))
+            }
+            if let data = data {
+                completion(.success(data))
+            }else {
+                completion(.failure(.isMissingData))
             }
             
-            completion(data,false)
-
         }
         task.resume() ///  Недавно инициализированные задачи начинаются в приостановленном состоянии, поэтому вам нужно вызвать этот метод, чтобы запустить задачу.
+        
+        func sendFailure(error: NetworkServiceError){
+            DispatchQueue.main.async {
+                completion(.failure(error))
+            }
+        }
     }
     
     
     
-    func getDateFirstLaunch(completion: @escaping (_ dateFirstLaunch: Double?,_ isConntectToInternet: Bool?) -> ()) { /// Загрузка или добавление  бесплатных пользователей
+    func getDateFirstLaunch(completion: @escaping (Result<Double, NetworkServiceError>) -> ()) { /// Загрузка или добавление  бесплатных пользователей
         
         db.collection("Users").whereField("ID", isEqualTo: CurrentUser.shared.ID).getDocuments(completion: { querySnapshot, err in
             
@@ -59,22 +80,33 @@ class NetworkService {
             guard querySnapshot != nil else {return}
             
             if querySnapshot!.metadata.isFromCache { /// Если данные из кэша значит пользователь не подключен к интернету
-                completion(nil,false)
+                sendFailure(error: .noInternetConnection)
                 return
             }
             
             if let documentData = querySnapshot!.documents.first?.data() {
                 
                 if let dateFirstLaunch = documentData["dateActivationTrial"] as? TimeInterval {
-                    completion(dateFirstLaunch,true)
+                    DispatchQueue.main.async {
+                        completion(.success(dateFirstLaunch))
+                    }
                     return
+                }else {
+                    sendFailure(error: .dateFirstLaunchMissing)
                 }
             }
             if let error = err {
                 print("Ошибка получения дата окончания пробного периода - \(error)")
-                completion(nil,true)
+                sendFailure(error: .firebaseError)
             }
         })
+        
+        func sendFailure(error: NetworkServiceError) {
+            DispatchQueue.main.async {
+                completion(.failure(error))
+            }
+        }
     }
     
 }
+

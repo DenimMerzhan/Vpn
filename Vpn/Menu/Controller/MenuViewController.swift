@@ -187,7 +187,7 @@ extension MenuViewController: SKPaymentTransactionObserver {
             SKPaymentQueue.default().add(paymentRequest)
             premiumButton.isUserInteractionEnabled = false
             self.isModalInPresentation = true /// не даем пользователю закрыть контроллер
-    
+            
         }
         
     }
@@ -209,13 +209,16 @@ extension MenuViewController: SKPaymentTransactionObserver {
                     statusLoad.createTextAnimate(textToAdd: "Идет настройка аккаунта")
                 }
                 
-                MenuNetworkService.getReceipt { [weak self] isMissingReceipt ,dateEndSubscription in
+                MenuNetworkService.getReceipt { [weak self] result in
                     
-                    guard let dateEndSubscription = dateEndSubscription else {return}
-                    if Date() > dateEndSubscription {
-                        CurrentUser.shared.subscriptionStatus = .ended
-                    }else {
-                        CurrentUser.shared.subscriptionStatus = .valid(expirationDate: dateEndSubscription)
+                    switch result {
+                    case .success(let dateEndSubscription):
+                        if Date() > dateEndSubscription {
+                            CurrentUser.shared.subscriptionStatus = .ended
+                        }else {
+                            CurrentUser.shared.subscriptionStatus = .valid(expirationDate: dateEndSubscription)
+                        }
+                    default: break
                     }
                     
                     self?.restoreVCForDefault()
@@ -271,15 +274,18 @@ extension MenuViewController: SKRequestDelegate {
                 statusLoad.createTextAnimate(textToAdd: "Идет настройка аккаунта")
             }
             
-            MenuNetworkService.getReceipt { [weak self] isMissingReceipt,dateEndSubscription in
+            MenuNetworkService.getReceipt { [weak self] result in
                 
-                guard let dateEndSubscription = dateEndSubscription else {return}
-                if dateEndSubscription < Date(){
-                    CurrentUser.shared.subscriptionStatus = .ended
-                    self?.premiumButton.setTitle("Продлить подписку", for: .normal)
-                }else {
-                    CurrentUser.shared.subscriptionStatus = .valid(expirationDate: dateEndSubscription)
-                    self?.premiumButton.setTitle("Подписка активирована", for: .normal)
+                switch result {
+                case .success(let dateEndSubscription):
+                    if dateEndSubscription < Date(){
+                        CurrentUser.shared.subscriptionStatus = .ended
+                        self?.premiumButton.setTitle("Продлить подписку", for: .normal)
+                    }else {
+                        CurrentUser.shared.subscriptionStatus = .valid(expirationDate: dateEndSubscription)
+                        self?.premiumButton.setTitle("Подписка активирована", for: .normal)
+                    }
+                default: break
                 }
                 
                 self?.premiumButton.sizeToFit()

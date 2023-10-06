@@ -41,36 +41,36 @@ class LoadAnimateViewController: UIViewController {
     
     func loadUserData(){
         
-        loadAnimateNetworkService.loadDateFirstLaunch { [weak self] isConntectToInternet, dateFirstLaunch in
+        loadAnimateNetworkService.loadDateFirstLaunch { [weak self] result in
             
-            if isConntectToInternet == false {
-                self?.statusLoad.createTextAnimate(textToAdd: "Требуется подключение к интернету")
-                self?.loadUserData()
-                return
-            }
-            
-            if let dateFirstLaunch = dateFirstLaunch {
+            switch result {
+            case .success(let dateFirstLaunch):
                 self?.loadAnimateModel.updateUserTrialStatus(dateFirstLaunch: dateFirstLaunch)
+                self?.getReceipt()
+            case .failure(let error):
+                switch error {
+                case .noInternetConnection:
+                    self?.statusLoad.createTextAnimate(textToAdd: "Требуется подключение к интернету")
+                    self?.loadUserData()
+                case .dateFirstLaunchMissing:
+                    self?.statusLoad.createTextAnimate(textToAdd: "Не удалось найти дату первой регистрации")
+                }
             }
-            
-            self?.getReceipt()
         }
     }
     
     func getReceipt(){
         
-        MenuNetworkService.getReceipt { [weak self] isMissingReceipt,dateEndSubscription  in
+        MenuNetworkService.getReceipt { [weak self] result  in
             
-            if isMissingReceipt {
-                self?.performSegue(withIdentifier: "animateToHomeController", sender: self)
-                return
-            }
-            
-            guard let dateEndSubscription = dateEndSubscription else {return}
-            if dateEndSubscription < Date(){
-                CurrentUser.shared.subscriptionStatus = .ended
-            }else {
-                CurrentUser.shared.subscriptionStatus = .valid(expirationDate: dateEndSubscription)
+            switch result {
+            case .success(let dateEndSubscription):
+                if dateEndSubscription < Date(){
+                    CurrentUser.shared.subscriptionStatus = .ended
+                }else {
+                    CurrentUser.shared.subscriptionStatus = .valid(expirationDate: dateEndSubscription)
+                }
+            default: break
             }
             
             self?.performSegue(withIdentifier: "animateToHomeController", sender: self)
