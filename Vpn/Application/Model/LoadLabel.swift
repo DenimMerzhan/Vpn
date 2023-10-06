@@ -7,9 +7,14 @@
 
 import UIKit
 
-class LoadLabel: UILabel {
+protocol LoadLabelDelegate: AnyObject {
+    func timerIsInvalidate()
+}
 
+class LoadLabel: UILabel {
+    
     var timer: Timer?
+    weak var delegate: LoadLabelDelegate?
     
     func createTextAnimate(textToAdd: String){
         
@@ -20,11 +25,12 @@ class LoadLabel: UILabel {
         timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { [weak self] timer in
             if i >= textArr.count {
                 timer.invalidate()
+                self?.delegate?.timerIsInvalidate()
                 return
             }
             guard let textLabel = self?.text else {return}
-           self?.text = textLabel +  textArr[i]
-           i += 1
+            self?.text = textLabel +  textArr[i]
+            i += 1
         }
     }
     

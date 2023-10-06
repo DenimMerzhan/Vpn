@@ -18,6 +18,8 @@ class LoadAnimateViewController: UIViewController {
     private let loadAnimateModel = LoadAnimateModel()
     private let userDefault = UserDefaults.standard
     
+    private var isLoadLabelInvalidate = Bool()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -27,6 +29,7 @@ class LoadAnimateViewController: UIViewController {
         setupAnimation()
         statusLoad.createTextAnimate(textToAdd: "Идет загрузка информации о пользователе...")
         loadUserData()
+        statusLoad.delegate = self
         
     }
     
@@ -50,7 +53,10 @@ class LoadAnimateViewController: UIViewController {
             case .failure(let error):
                 switch error {
                 case .noInternetConnection:
-                    self?.statusLoad.createTextAnimate(textToAdd: "Требуется подключение к интернету")
+                    if self?.isLoadLabelInvalidate == true {
+                        self?.statusLoad.createTextAnimate(textToAdd: "Требуется подключение к интернету")
+                        self?.isLoadLabelInvalidate = false
+                    }
                     self?.loadUserData()
                 case .dateFirstLaunchMissing:
                     self?.statusLoad.createTextAnimate(textToAdd: "Не удалось найти дату первой регистрации")
@@ -105,6 +111,14 @@ extension LoadAnimateViewController {
         view.addSubview(animation)
         
         
+    }
+}
+
+//MARK: - LoadLabelDelegate - Уведомление о том что текст полностью распечатлся в лейбле
+
+extension LoadAnimateViewController: LoadLabelDelegate {
+    func timerIsInvalidate() {
+        isLoadLabelInvalidate = true
     }
 }
 
