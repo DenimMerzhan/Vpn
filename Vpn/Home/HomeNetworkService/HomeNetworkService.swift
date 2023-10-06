@@ -17,12 +17,7 @@ class HomeNetworkService {
     private let db = Firestore.firestore()
     weak var delegate: HomeNetworkServiceProtocol?
     
-    init(){
-//        let settings = FirestoreSettings()
-//        settings.isPersistenceEnabled = false
-//        
-//        db.settings = settings
-    }
+    init(){}
     
     func getServerData(serverName: String,completion: @escaping(Server) -> ()){
         
