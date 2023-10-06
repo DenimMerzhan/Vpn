@@ -119,8 +119,8 @@ extension HomeViewController: HomeNetworkServiceProtocol {
         
     }
     
-    func loadServerWithError(error: String) {
-        let alert = homeModel.createAlert(text: error)
+    func loadServerWithError(error: NetworkError) {
+        let alert = homeModel.createAlert(text: error.errorDescripiton)
         self.present(alert, animated: true)
         isVpnButtonPressed = !isVpnButtonPressed
         currentStatusVpn.text = "VPN отключен"

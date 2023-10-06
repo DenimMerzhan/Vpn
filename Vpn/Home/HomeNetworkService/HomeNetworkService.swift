@@ -9,7 +9,22 @@ import Foundation
 import FirebaseFirestore
 
 protocol HomeNetworkServiceProtocol: AnyObject {
-    func loadServerWithError(error: String)
+    func loadServerWithError(error: NetworkError)
+}
+
+enum NetworkError: Error {
+    case noInternetConnection(String)
+    case serverIsOverloaded(String)
+    case errorFirebase(String)
+    case noDocumentOnServer(String)
+    case serverIpMissing(String)
+    
+    var errorDescripiton: String {
+        switch self {
+        case .errorFirebase(let description),.noInternetConnection(let description),.noDocumentOnServer(let description),.serverIpMissing(let description),.serverIsOverloaded(let description):
+            return description
+        }
+    }
 }
 
 class HomeNetworkService {
@@ -26,11 +41,11 @@ class HomeNetworkService {
         ref.getDocuments { [weak self] querySnapshot, error in
             
             if let error = error {
-                self?.delegate?.loadServerWithError(error: error.localizedDescription)
+                self?.sendFailureToMain(error: .errorFirebase(error.localizedDescription))
             }
             
             if querySnapshot?.metadata.isFromCache == true {
-                self?.delegate?.loadServerWithError(error: "Отсутсвует подключение к интернету")
+                self?.sendFailureToMain(error: .noInternetConnection("Отсутсвует подключение к интернету"))
                 return
             }
             
@@ -47,7 +62,7 @@ class HomeNetworkService {
                 }
                 
             }else {
-                self?.delegate?.loadServerWithError(error: "Cервер Перегружен")
+                self?.sendFailureToMain(error: .serverIsOverloaded("Cервер Перегружен"))
             }
             
         }
@@ -59,19 +74,25 @@ class HomeNetworkService {
         
         serverRef.getDocument { [weak self] querySnapshot, error in
             if let error = error {
-                self?.delegate?.loadServerWithError(error: error.localizedDescription)
+                self?.sendFailureToMain(error: .errorFirebase(error.localizedDescription))
             }
             
             if querySnapshot?.metadata.isFromCache == true {
-                self?.delegate?.loadServerWithError(error: "Не удалось получить документ с сервера")
+                self?.sendFailureToMain(error: .noDocumentOnServer("Не удалось получить документ с сервера"))
                 return
             }
             
             if let serverIP = querySnapshot?.data()?["ServerIP"] as? String {
                 completion(serverIP)
             }else {
-                self?.delegate?.loadServerWithError(error: "Отсутсвует IP сервера")
+                self?.sendFailureToMain(error: .serverIpMissing("Отсутсвует IP сервера"))
             }
+        }
+    }
+    
+    private func sendFailureToMain(error: NetworkError){
+        DispatchQueue.main.async { [weak self] in
+            self?.delegate?.loadServerWithError(error: error)
         }
     }
 }
