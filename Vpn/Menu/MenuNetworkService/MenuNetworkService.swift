@@ -19,10 +19,7 @@ class MenuNetworkService {
     
     static func getReceipt(completion: @escaping(Result<Date, MenuNetworkServiceError>) -> ()){
         
-        let urlStringSandBox = "https://sandbox.itunes.apple.com/verifyReceipt" /// Указываем что берем даныне с песочницы
-        let urlStringAppStore = "https://buy.itunes.apple.com/verifyReceipt" /// Указываем что берем даныне с Itunes
-        
-        guard let url = URL(string: urlStringSandBox) else {return}
+        guard let url = Link.sandBox.url else {return}
         
         NetworkService.shared.getReceipt(url: url) { result in
             
@@ -46,4 +43,19 @@ class MenuNetworkService {
     
 }
 
-
+extension MenuNetworkService {
+    
+    enum Link {
+        case sandBox
+        case appStore
+        
+        var url : URL? {
+            switch self {
+            case .sandBox:
+                return URL(string: "https://sandbox.itunes.apple.com/verifyReceipt")
+            case .appStore:
+                return URL(string: "https://buy.itunes.apple.com/verifyReceipt")
+            }
+        }
+    }
+}
