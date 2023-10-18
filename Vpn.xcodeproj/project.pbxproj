@@ -21,6 +21,7 @@
 		CF5A97D029D31FD300D4F2F5 /* PresentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5A97CF29D31FD300D4F2F5 /* PresentViewController.swift */; };
 		CF65B53F2AC5C89E00EA31ED /* HomeNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF65B53E2AC5C89E00EA31ED /* HomeNetworkService.swift */; };
 		CF6FA3CB2A8212240017DDC4 /* MenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6FA3CA2A8212240017DDC4 /* MenuModel.swift */; };
+		CF7681732ADE8CEB00BF6E43 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF7681722ADE8CEB00BF6E43 /* GoogleService-Info.plist */; };
 		CF81B9A02A7BA3E200C10B66 /* MenuCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF81B99F2A7BA3E200C10B66 /* MenuCategory.swift */; };
 		CF81B9A32A7BA40F00C10B66 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF81B9A12A7BA40F00C10B66 /* MenuCell.swift */; };
 		CF81B9A42A7BA40F00C10B66 /* MenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF81B9A22A7BA40F00C10B66 /* MenuCell.xib */; };
@@ -40,7 +41,6 @@
 		CF969D872AA0D87C00CD75F9 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF969D862AA0D87C00CD75F9 /* HomeModel.swift */; };
 		CFA56F892A764EA1000B55B7 /* animation_lkp59xl7.json in Resources */ = {isa = PBXBuildFile; fileRef = CFA56F882A764EA1000B55B7 /* animation_lkp59xl7.json */; };
 		CFA56F8B2A764FAA000B55B7 /* LoadAnimateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA56F8A2A764FAA000B55B7 /* LoadAnimateViewController.swift */; };
-		CFAA9DDE29E44776000B3438 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CFAA9DDD29E44776000B3438 /* GoogleService-Info.plist */; };
 		CFE6DA582ACB16FF00513A40 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE6DA572ACB16FF00513A40 /* Error.swift */; };
 		CFFAE9C32A77A89100E2CBCA /* LoadLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFAE9C22A77A89100E2CBCA /* LoadLabel.swift */; };
 /* End PBXBuildFile section */
@@ -65,6 +65,7 @@
 		CF5A97CF29D31FD300D4F2F5 /* PresentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentViewController.swift; sourceTree = "<group>"; };
 		CF65B53E2AC5C89E00EA31ED /* HomeNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNetworkService.swift; sourceTree = "<group>"; };
 		CF6FA3CA2A8212240017DDC4 /* MenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuModel.swift; sourceTree = "<group>"; };
+		CF7681722ADE8CEB00BF6E43 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CF81B99F2A7BA3E200C10B66 /* MenuCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCategory.swift; sourceTree = "<group>"; };
 		CF81B9A12A7BA40F00C10B66 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		CF81B9A22A7BA40F00C10B66 /* MenuCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuCell.xib; sourceTree = "<group>"; };
@@ -84,7 +85,6 @@
 		CF969D862AA0D87C00CD75F9 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
 		CFA56F882A764EA1000B55B7 /* animation_lkp59xl7.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = animation_lkp59xl7.json; sourceTree = "<group>"; };
 		CFA56F8A2A764FAA000B55B7 /* LoadAnimateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadAnimateViewController.swift; sourceTree = "<group>"; };
-		CFAA9DDD29E44776000B3438 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CFE6DA572ACB16FF00513A40 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		CFFAE9C22A77A89100E2CBCA /* LoadLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -288,7 +288,7 @@
 				CF09F2962A9F2DC500D21D7D /* ChangeCountry */,
 				CF09F2932A9F2D6500D21D7D /* SupportinFiles */,
 				CF5A97C729D3164E00D4F2F5 /* Info.plist */,
-				CFAA9DDD29E44776000B3438 /* GoogleService-Info.plist */,
+				CF7681722ADE8CEB00BF6E43 /* GoogleService-Info.plist */,
 			);
 			path = Vpn;
 			sourceTree = "<group>";
@@ -467,10 +467,10 @@
 			files = (
 				CF81B9A42A7BA40F00C10B66 /* MenuCell.xib in Resources */,
 				CF5A97C629D3164E00D4F2F5 /* LaunchScreen.storyboard in Resources */,
-				CFAA9DDE29E44776000B3438 /* GoogleService-Info.plist in Resources */,
 				CF5A97C329D3164E00D4F2F5 /* Assets.xcassets in Resources */,
 				CFA56F892A764EA1000B55B7 /* animation_lkp59xl7.json in Resources */,
 				CF5A97C129D3164D00D4F2F5 /* Main.storyboard in Resources */,
+				CF7681732ADE8CEB00BF6E43 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -626,7 +626,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -680,7 +680,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -707,7 +707,8 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -738,7 +739,8 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

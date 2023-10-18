@@ -21,9 +21,7 @@ class PresentViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
-        
         if Auth.auth().currentUser?.uid != nil { /// Проверяем авторизован наш пользователь в приложении
             guard let phoneNumber = Auth.auth().currentUser!.phoneNumber else {return}
             CurrentUser.shared.ID =  phoneNumber

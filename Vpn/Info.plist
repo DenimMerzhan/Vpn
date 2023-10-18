@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UIUserInterfaceStyle</key>
-	<string>Light</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -11,9 +9,10 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.76438952802-4tecfl13n8oc4vnqvklp77stqepf00vu</string>
+				<string>app-1-76438952802-ios-6fcfd7f1482cfddb1e6a3b</string>
 			</array>
 		</dict>
+		<dict/>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>

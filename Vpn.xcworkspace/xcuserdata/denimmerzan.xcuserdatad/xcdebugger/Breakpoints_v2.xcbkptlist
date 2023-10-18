@@ -3,4 +3,86 @@
    uuid = "8E1ADE18-0579-4208-9F42-3C2BEDAA0582"
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B5701FA3-CD75-470F-AF79-BA50FF4FF2AB"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vpn/LoadAnimate/Controller/LoadAnimateViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0F44CCC9-2EE3-4104-8097-191354B5269B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vpn/Register/CodeReviewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3AC52B8C-2607-47AA-AA34-C9374866709D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vpn/Register/RegisterViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "fetchCodeTapped(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "3AC52B8C-2607-47AA-AA34-C9374866709D - 1b4fcff7b213f954"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Vpn.RegisterViewController.fetchCodeTapped(__C.UIButton) -&gt; ()"
+                  moduleName = "Vpn"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/denimmerzan/Desktop/IOS/%D0%93%D0%BE%D1%82%D0%BE%D0%B2%D1%8B%D0%B5/%D0%A1%D0%B5%D1%80%D1%8A%D0%B5%D0%BD%D1%8B%D0%B5%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D1%8B/Vpn/Vpn/Register/RegisterViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "59"
+                  endingLineNumber = "59"
+                  offsetFromSymbolStart = "556">
+               </Location>
+               <Location
+                  uuid = "3AC52B8C-2607-47AA-AA34-C9374866709D - 6bc0a17dad95fd2d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Swift.String&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Vpn.RegisterViewController.fetchCodeTapped(__C.UIButton) -&gt; ()"
+                  moduleName = "Vpn"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/denimmerzan/Desktop/IOS/%D0%93%D0%BE%D1%82%D0%BE%D0%B2%D1%8B%D0%B5/%D0%A1%D0%B5%D1%80%D1%8A%D0%B5%D0%BD%D1%8B%D0%B5%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D1%8B/Vpn/Vpn/Register/RegisterViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "59"
+                  endingLineNumber = "59"
+                  offsetFromSymbolStart = "144">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
